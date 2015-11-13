@@ -1,0 +1,34 @@
+<?php
+
+class Model
+{
+    private $connection;
+
+    /**
+     * Constructor of Model
+     */
+    public function __construct() {
+        $this->connection = Database::getInstance();
+    }
+
+    /**
+     * Execute query with non return value
+     *
+     * @param mixed $qry
+     * @return int
+     */
+    public function execute($qry) {
+        return $this->connection->execute($qry);
+    }
+
+    /**
+     * Query function
+     *
+     * @param $qry
+     * @return mixed
+     */
+    public function query($qry) {
+        return $this->connection->query($qry);
+    }
+
+}

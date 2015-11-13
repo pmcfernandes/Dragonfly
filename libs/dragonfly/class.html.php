@@ -1,0 +1,46 @@
+<?php
+
+class HTML
+{
+
+    /**
+     * Takes an array of attributes and turns it into a string
+     *
+     * @param $attributes
+     * @return string
+     */
+    public static function attributes($attributes) {
+        if (!is_array($attributes) || count($attributes) == 0) {
+            return '';
+        }
+
+        $str = '';
+
+        foreach ($attributes as $key => $value) {
+            $str .= $key . '="' . $value . '" ';
+        }
+
+        return trim($str);
+    }
+
+    /**
+     * Creates a HTML tag
+     *
+     * @param $name
+     * @param array $attributes
+     * @param null $content
+     * @return string
+     */
+    public static function tag($name, $attributes = array(), $content = null) {
+        $str = '<' . $name;
+
+        if (is_array($attributes) && count($attributes) > 0) {
+            $str .= ' ' . HTML::attributes($attributes);
+        }
+
+        $str .= '>' . ($content == null ? '' : $content) . '</' . $name . '>';
+        return $str;
+    }
+
+
+}

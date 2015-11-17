@@ -10,20 +10,20 @@ class Database
     /**
      * Constructor of Database
      *
-     * @param mixed $type
+     * @param mixed $type Database Type can be mysql|sqlite|oracle|mssql
      * @return Database
      */
     public function __construct($type = "mysql")  {
         global $config;
 
         if ($this->isSupported($type) == true) {
-            $this->$dbType = $type;
+            $this->dbType = $type;
         } else {
             die("Database type is not supported yet.");
         }
 
         try {
-            $this->db = new PDO($this->getConnectionString($this->$dbType), $config['db_user'], $config['db_password']);
+            $this->db = new PDO($this->getConnectionString($this->dbType), $config['db_user'], $config['db_password']);
             $this->db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
         } catch (PDOException $ex) {
@@ -38,7 +38,7 @@ class Database
      */
     public function getDbType()
     {
-        return $this->$dbType;
+        return $this->dbType;
     }
 
     /**

@@ -17,6 +17,7 @@
     require (DRAGONFLY_LIB_PATH . '/class.sql.php');
     require (DRAGONFLY_LIB_PATH . '/class.database.php');
     require (DRAGONFLY_LIB_PATH . '/class.dbloop.php');
+    require (DRAGONFLY_LIB_PATH . '/class.orm.php');
     require (DRAGONFLY_LIB_PATH . '/class.cache.php');
     require (DRAGONFLY_LIB_PATH . '/class.cookie.php');
     require (DRAGONFLY_LIB_PATH . '/class.html.php');

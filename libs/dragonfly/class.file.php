@@ -28,7 +28,7 @@ class File
     /**
      * Get extension from a string
      *
-     * @param string $file
+     * @param string $file Full Path of File including name and extension
      * @return string
      */
     public static function getExtension($file) {
@@ -58,7 +58,7 @@ class File
     /**
      * Read file content
      *
-     * @param string $file
+     * @param string $file Full Path of File including name and extension
      * @return string
      */
     public static function read($file) {
@@ -72,7 +72,7 @@ class File
     /**
      * Write content to file
      *
-     * @param $file
+     * @param $file Full Path of File including name and extension
      * @param $data
      * @return bool
      */
@@ -91,7 +91,7 @@ class File
     /**
      * Get all files and directories in specified path
      *
-     * @param $path
+     * @param $path Full Path of Directory name in Disk
      * @return array
      */
     public static function getDir($path) {
@@ -109,7 +109,7 @@ class File
     /**
      * Check if parameter is a directory
      *
-     * @param $fileOrDirectory
+     * @param $fileOrDirectory Full Path of File including name and extension or Directory name only
      * @return bool
      */
     public static function isDir($fileOrDirectory) {
@@ -119,7 +119,7 @@ class File
     /**
      * Check if file exists
      *
-     * @param $file
+     * @param $file Full Path of File including name and extension
      * @return bool
      */
     public static function exists($file) {
@@ -129,7 +129,7 @@ class File
     /**
      * Gives information about a file
      *
-     * @param $file
+     * @param $file Full Path of File including name and extension
      * @return array
      */
     public static function info($file) {
@@ -148,7 +148,7 @@ class File
     /**
      * Delete a file or directory
      *
-     * @param $fileOrDirectory
+     * @param $fileOrDirectory  Full Path of File including name and extension or Directory name only
      */
     public static function delete($fileOrDirectory) {
         if (File::isDir($fileOrDirectory) == true) {

@@ -14,9 +14,9 @@
 
     // Database configuration
     $config['db_host'] = 'localhost';
-    $config['db_name'] = 'test';
+    $config['db_name'] = 'framework.data2';
     $config['db_user'] = 'root';
     $config['db_password'] = 'P@ssw0rd';
 
     // Load Functions
-    require ('/loader.php');
+    require ('../loader.php');

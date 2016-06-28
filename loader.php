@@ -13,6 +13,7 @@
     require (DRAGONFLY_LIB_PATH . '/class.view.php');
     require (DRAGONFLY_LIB_PATH . '/class.controller.php');
     require (DRAGONFLY_LIB_PATH . '/class.template.php');
+    require (DRAGONFLY_LIB_PATH . '/class.page.php');
     require (DRAGONFLY_LIB_PATH . '/class.file.php');
     require (DRAGONFLY_LIB_PATH . '/class.regex.php');
     require (DRAGONFLY_LIB_PATH . '/class.sql.php');

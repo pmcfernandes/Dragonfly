@@ -1,6 +1,6 @@
 <?php
 
-class Application {
+class Page {
 
     /**
      * Get a variable from Query String

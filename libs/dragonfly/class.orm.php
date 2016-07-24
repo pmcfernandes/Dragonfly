@@ -1,5 +1,12 @@
 <?php
-
+/**
+ * Class to implement ORM
+ *
+ * @link http://www.pfernandes.pt
+ * @since 1.0
+ * @version $Revision$
+ * @author Pedro Fernandes
+ */
 class dbORM
 {
 

@@ -1,16 +1,6 @@
 <?php
 /*
- Example 1:
- event::bind('blog.post.create', function($args = array())
- {
-    mail('myself@me.com', 'Blog Post Published', $args['name'] . ' has been published');
-});
-
- Example 2:
- event::trigger('blog.post.create', $postInfo);
-*/
-/**
- * Class Event
+ *  Class to implement Events subscribe
  *
  * <code>
  * Event::bind('blog.post.create', function($args = array()) {
@@ -20,6 +10,11 @@
  * Or:
  * Event::trigger('blog.post.create', $postInfo);
  * </code>
+ *
+ * @link http://www.pfernandes.pt
+ * @since 1.0
+ * @version $Revision$
+ * @author Pedro Fernandes
  */
 class Event
 {

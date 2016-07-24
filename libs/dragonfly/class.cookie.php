@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Class to implement easy cookie access
+ * Class to implement Cookies access
  *
  * @since 1.0
  * @version 1.0

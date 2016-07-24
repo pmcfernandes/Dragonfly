@@ -1,4 +1,12 @@
 <?php
+/**
+ * Class to implement HTML helper
+ *
+ * @link http://www.pfernandes.pt
+ * @since 1.0
+ * @version $Revision$
+ * @author Pedro Fernandes
+ */
 
 class HTML
 {

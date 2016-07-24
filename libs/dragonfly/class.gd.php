@@ -3,7 +3,7 @@
 /**
  * Class to implement easy GD library
  *
- * @link http://www.pedrofernandes.info
+ * @link http://www.pfernandes.pt
  * @since 1.0
  * @version $Revision$
  * @author Pedro Fernandes

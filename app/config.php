@@ -19,4 +19,4 @@
     $config['db_password'] = 'P@ssw0rd';
 
     // Load Functions
-    require ('../loader.php');
+    require (DRAGONFLY_LIB_PATH . '/loader.php');

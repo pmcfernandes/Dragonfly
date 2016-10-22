@@ -28,7 +28,7 @@ class dbORM
      * @param $obj
      * @return array
      */
-    private function getPK($obj) {
+    private function getKey($obj) {
         if (is_string($obj) == true) {
             $tableName = dbORM::getTablename($obj);
         } else {
@@ -218,7 +218,7 @@ class dbORM
                 continue;
             }
 
-            foreach ($this->getPK($this) as $i => $key) {
+            foreach ($this->getKey($this) as $i => $key) {
                 if ($field != $key) {
                     $insert->AddValue($field, $value, $insert->detect($value));
                 }
@@ -250,7 +250,7 @@ class dbORM
                 continue;
             }
 
-            foreach ($this->getPK($this) as $i => $key) {
+            foreach ($this->getKey($this) as $i => $key) {
                 if (!($field == $key)) {
                     $update->AddSet($field, $value, $update->detect($value));
                 } else {
@@ -271,7 +271,7 @@ class dbORM
         $reflect = new ReflectionClass($this);
         $delete = new SQLDelete(dbORM::getTablename($this));
 
-        foreach ($this->getPK($this) as $i => $field) {
+        foreach ($this->getKey($this) as $i => $field) {
             $prop = $reflect->getProperty($field);
             if ($prop) {
                 $value = $prop->getValue($this);

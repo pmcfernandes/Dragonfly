@@ -89,7 +89,7 @@ final class GD
      */
     public function saveAs($filename, $quality = 75)
     {
-        $type = String::right($filename, 4);
+        $type = Text::right($filename, 4);
 
         switch ($type) {
             case ".jpg":
@@ -112,8 +112,8 @@ final class GD
      */
     public function output($type, $quality = 75)
     {
-        if (String::isNullOrEmpty($type)) {
-            $type = String::right($this->filename, 4);
+        if (Text::isNullOrEmpty($type)) {
+            $type = Text::right($this->filename, 4);
         }
 
         switch ($type) {

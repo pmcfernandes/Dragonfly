@@ -50,7 +50,7 @@ class Controller
      *
      * @param mixed $location
      */
-    public function redirect($location)  {
+    public static function redirect($location)  {
         global $config;
         header('Location: ' . $config['base_url'] . $location);
     }

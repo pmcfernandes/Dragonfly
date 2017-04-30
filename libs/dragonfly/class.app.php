@@ -27,7 +27,7 @@ class Application {
      * @param $message
      */
     public static function debug($message) {
-        if (!canDebug()) {
+        if (!Application::canDebug()) {
             return;
         }
 

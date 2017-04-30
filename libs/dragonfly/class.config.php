@@ -159,16 +159,20 @@ final class Config
             mail($email, $emailSubject, $msg);
         }
 
-        if (Config::getInstance()->dbOnError == 'die') {
-            echo $msg;
-            echo "<pre>";
-            debug_print_backtrace();
-            echo "</pre>";
-            exit;
-        }
+        switch (Config::getInstance()->dbOnError) {
+            case "die":
+                echo $msg;
+	            echo "<pre>";
+	            debug_print_backtrace();
+	            echo "</pre>";
+                break;
 
-        if (Config::getInstance()->dbOnError == 'redirect') {
-            redirect("error.html");
+            case "redirect":
+            	Controller::redirect($config['error_controller']);
+                break;
+
+        	default:
+                break;
         }
     }
 

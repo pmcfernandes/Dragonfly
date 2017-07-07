@@ -32,7 +32,7 @@ class Template
      * @param string $path the path to the templates
      * @return void
      */
-    function Template($path = null) {
+    function __construct($path = null) {
         $this->path = $path;
         $this->vars = array();
     }
@@ -133,7 +133,7 @@ class Template_Cache extends Template
      * @param int $expire number of seconds the cache will live
      * @return void
      */
-    function Template_Cache($path, $path_cache_files = 'cache/', $cache_id = null, $expire = 900) {
+    function __construct($path, $path_cache_files = 'cache/', $cache_id = null, $expire = 900) {
         $this->Template($path);
         $this->cache_id = $cache_id ? $path_cache_files . md5($cache_id) : $cache_id;
         $this->expire = $expire;

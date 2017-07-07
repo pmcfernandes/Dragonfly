@@ -4,7 +4,7 @@ class Database
 {
     // Singleton object, leave $me alone.
     private static $me;
-    private $db;
+    private $pdo;
     private $dbType;
 
     /**
@@ -23,8 +23,8 @@ class Database
         }
 
         try {
-            $this->db = new PDO($this->getConnectionString($this->dbType), $config['db_user'], $config['db_password']);
-            $this->db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            $this->pdo = new PDO($this->getConnectionString($this->dbType), $config['db_user'], $config['db_password']);
+            $this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
         } catch (PDOException $ex) {
             Config::notify("Database error", $ex->getMessage());
@@ -83,42 +83,39 @@ class Database
     }
 
     /**
-     * Get query statement ready for execute
-     *
-     * @param mixed $sql
-     * @param mixed $params
-     * @return mixed
+     * Begin a transaction.
      */
-    public function statement($sql, $params = null) {
-        try {
-            if (isset($sql) == false) {
-                die("SQL parameter can't be null or empty.");
-            }
+    public function beginTransaction()
+    {
+        $this->pdo->setAttribute(PDO::ATTR_AUTOCOMMIT, 0);
+        $this->pdo->beginTransaction();
+    }
 
-            // safe sql if not passed parameters
-            if (isset($params)) {
-                $sql = $this->db->quote($sql);
-            }
+    /**
+     * Commit the transaction.
+     */
+    public function commit()
+    {
+        $this->pdo->commit();
+        $this->pdo->setAttribute(PDO::ATTR_AUTOCOMMIT, 1);
+    }
 
-            // creating the statement
-            $stmt = null;
-            $stmt = $this->db->query($sql);
+    /**
+     * Rollback the transaction.
+     */
+    public function rollback()
+    {
+        $this->pdo->rollBack();
+        $this->pdo->setAttribute(PDO::ATTR_AUTOCOMMIT, 1);
+    }
 
-            //var_dump($this->db);
-
-            if (isset($params) && is_array($params)) {
-                foreach ($params as $key => $value) {
-                    $stmt->bindParam(":$key", $value);
-                }
-            }
-
-            return $stmt;
-
-        } catch (Exception $ex) {
-            Config::notify("Database error", $ex->getMessage());
-        }
-
-        return null;
+    /**
+     * Get last insert id
+     * @return int last insert id
+     */
+    public function getLastInsertId()
+    {
+        return $this->pdo->lastInsertId();
     }
 
     /**
@@ -128,16 +125,10 @@ class Database
      * @param mixed $params
      * @return mixed
      */
-    public function query($sql, $params = null) {
+    public function query($sql, $params = array()) {
         $stmt = $this->statement($sql, $params);
-
-        if ($stmt) {
-            $stmt->setFetchMode(PDO::FETCH_OBJ); // setting the fetch mode           
-            return $stmt->fetchAll();
-
-        } else {
-            die("Function parameter sql is needed for continue");
-        }
+        $obj = $stmt->fetchAll();
+        return $obj;
     }
 
     /**
@@ -147,67 +138,27 @@ class Database
      * @param mixed $params
      * @return mixed
      */
-    public function getValue($sql, $params = null) {
-        $result = $this->getValues($sql, $params);
-        return $result[0];
+    public function getScalar($sql, $params = array()) {
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute($params);
+        $stmt->setFetchMode(PDO::FETCH_COLUMN, 0);
+        $obj = $stmt->fetch();
+        return $obj;
     }
 
     /**
-     * Get values of first column
+     * Get first row values
      *
      * @param mixed $sql
      * @param mixed $params
      * @return mixed
      */
-    public function getValues($sql, $params = null) {
-        $stmt = $this->statement($sql, $params);
-
-        if ($stmt) {
-            $stmt->setFetchMode(PDO::FETCH_COLUMN); // setting the fetch mode
-            return $stmt->fetchAll();
-
-        } else {
-            die("Function parameter sql is needed for continue");
-        }
-    }
-
-    /**
-     * Get row values in array
-     *
-     * @param mixed $sql
-     * @param mixed $params
-     * @return mixed
-     */
-    public function getRow($sql, $params = null) {
-        $result = $this->query($sql, $params);
-
-        if (count($result) == 0) {
-            return null;
-        }
-
-        return $result[0];
-    }
-
-    /**
-     * Execute sql in database (no return)
-     *
-     * @param mixed $sql
-     * @param mixed $params
-     * @return int
-     */
-    public function execute($sql, $params = null) {
-        $stmt = $this->statement($sql, $params);
-
-        if ($stmt) {
-            if ($stmt->execute() == true) { // execute the statement
-                return $stmt->rowCount();
-            } else {
-                return 0;
-            }
-
-        } else {
-            die("Function parameter sql is needed for continue");
-        }
+    public function getRow($sql, $params = array()) {
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute($params);
+        $stmt->setFetchMode(PDO::FETCH_OBJ);
+        $obj = $stmt->fetch();
+        return $obj;
     }
 
     /**
@@ -217,8 +168,53 @@ class Database
      * @param mixed $params
      * @return string
      */
-    public function getJSON($sql, $params = null) {
-        return json_encode((array)$this->query($sql, $params), true);
+    public function getJSON($sql, $params = array()) {
+        $stmt = $this->statement($sql, $params);
+        $stmt->setFetchMode(PDO::FETCH_ASSOC);
+        $arr = $stmt->fetchAll();
+        return json_encode($arr);
+    }
+
+    /**
+     * Execute CRUD sql into Database
+     *
+     * @param mixed $sql
+     * @param mixed $params
+     * @return int
+     */
+    public function execute($sql, $params = array()) {
+        $stmt = $this->statement($sql, $params);
+
+        if (!$stmt) {
+            die("Function parameter sql is needed for continue");
+        } else {
+            if ($stmt->execute() == true) { // execute the statement
+                return $stmt->rowCount();
+            } else {
+                return 0;
+            }
+        }
+    }
+
+    /**
+     * Get query statement ready for execute
+     *
+     * @param mixed $sql
+     * @param mixed $params
+     * @return mixed
+     */
+    public function statement($sql, $params = array()) {
+        $stmt = $this->pdo->prepare($sql);
+
+        if (!empty($params)) {
+            foreach ($params as $key => $value) {
+                $stmt->bindParam(":$key", $value);
+            }
+        }               
+
+        $stmt->execute($params);
+        $stmt->setFetchMode(PDO::FETCH_OBJ);
+        return $stmt;
     }
 
 }

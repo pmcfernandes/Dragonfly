@@ -55,4 +55,15 @@ class Controller
         header('Location: ' . $config['base_url'] . $location);
     }
 
+    /**
+     * Return json encoded data
+     *
+     * @param mixed $data
+     * @return void
+     */
+    public static function json($data) {
+        header("content-type:application/json");
+        return json_encode($data, JSON_PARTIAL_OUTPUT_ON_ERROR);
+    }
+
 }

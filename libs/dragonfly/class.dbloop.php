@@ -21,12 +21,12 @@ final class DBLoop implements Iterator, Countable
      */
     public function __construct($result_or_sql) {
         if (!is_string($result_or_sql)) {
-            $q = $result_or_sql;
+            $query = $result_or_sql;
         } else {
-            $q = Database::getInstance()->query($result_or_sql);
+            $query = Database::getInstance()->query($result_or_sql);
         }
 
-        $this->result = $q;
+        $this->result = $query;
         $this->rewind();
     }
 

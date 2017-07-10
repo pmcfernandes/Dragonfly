@@ -4,10 +4,10 @@
  * Class to implement String helper operations
  *
  * @since 1.0
- * @version $Revision$
+ * @version 1.0.1
  * @author Pedro Fernandes
  */
-final class Text
+final class Strings
 {
 
     /**
@@ -84,7 +84,11 @@ final class Text
      */
     public static function mid($str, $startIndex, $size)
     {
-        return substr($str, $startIndex, $size);
+        if (empty($str)) {
+            return '';
+        } else {
+            return substr($str, $startIndex, $size);
+        }        
     }
 
     /**
@@ -96,7 +100,7 @@ final class Text
      */
     public static function left($str, $size)
     {
-        return String::mid($str, 0, $size);
+        return self::mid($str, 0, $size);
     }
 
     /**

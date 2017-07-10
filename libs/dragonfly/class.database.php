@@ -14,16 +14,19 @@ class Database
      * @return Database
      */
     public function __construct($type = "mysql")  {
+        define('DB_CHARACSET', 'utf8');
         global $config;
 
-        if ($this->isSupported($type) == true) {
-            $this->dbType = $type;
+        if ($this->isSupported($type) == false) {
+            die("Database type $type is not supported yet.");            
         } else {
-            die("Database type is not supported yet.");
+            $this->dbType = $type;
         }
 
         try {
             $this->pdo = new PDO($this->getConnectionString($this->dbType), $config['db_user'], $config['db_password']);
+            $this->pdo->exec("SET CHARACTER SET " . DB_CHARACSET);
+            $this->pdo->exec("SET NAMES " . DB_CHARACSET);
             $this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
         } catch (PDOException $ex) {

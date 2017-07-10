@@ -5,7 +5,7 @@
  *
  * @link http://www.pfernandes.pt
  * @since 1.0
- * @version $Revision$
+ * @version 1.0.1
  * @author Pedro Fernandes
  */
 final class GD
@@ -89,7 +89,7 @@ final class GD
      */
     public function saveAs($filename, $quality = 75)
     {
-        $type = Text::right($filename, 4);
+        $type = Strings::right($filename, 4);
 
         switch ($type) {
             case ".jpg":
@@ -112,8 +112,8 @@ final class GD
      */
     public function output($type, $quality = 75)
     {
-        if (Text::isNullOrEmpty($type)) {
-            $type = Text::right($this->filename, 4);
+        if (Strings::isNullOrEmpty($type)) {
+            $type = Strings::right($this->filename, 4);
         }
 
         switch ($type) {

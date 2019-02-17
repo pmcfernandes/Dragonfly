@@ -1,0 +1,370 @@
+<?php
+
+/**
+ * Fix input data
+ *
+ * @param string $data
+ * @return void
+ */
+function test_input($data) {
+    $data = trim($data);
+    $data = stripslashes($data);
+    $data = htmlspecialchars($data);
+    return $data;
+}
+
+/**
+ * Check if email is valid
+ *
+ * @param string $str
+ * @return boolean
+ */
+function is_email($str) {
+    $email = test_input($str);
+    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        return false;
+    } else {
+        return true;
+    }
+}
+
+/**
+ * Check if string is URL
+ *
+ * @param string $str
+ * @return boolean
+ */
+function is_url($str) {
+    $url = test_input($str);
+    if (!preg_match("/\b(?:(?:https?|ftp):\/\/|www\.)[-a-z0-9+&@#\/%?=~_|!:,.;]*[-a-z0-9+&@#\/%=~_|]/i", $url)) {
+        return false;
+    } else {
+        return true;
+    }
+}
+
+function slugify($text){
+    $text = preg_replace('~[^\pL\d]+~u', '-', $text);
+    $text = iconv('utf-8', 'us-ascii//TRANSLIT', $text);
+    $text = preg_replace('~[^-\w]+~', '', $text);
+    $text = trim($text, '-');
+    $text = preg_replace('~-+~', '-', $text);
+    $text = strtolower($text);
+    return $text;
+  }
+
+  	
+/**
+ * Get The Current Request Method
+ *
+ * @return void
+ */
+function request_method(){
+    return strtolower($_SERVER['REQUEST_METHOD']);
+}
+
+/**
+ * Get The Current Request Method
+ *
+ * @return boolean
+ */
+function is_post_request(){
+    return (request_method()=='post');
+}
+
+/**
+ * Dispatch Content in JSON Formart
+ *
+ * @param [type] $data
+ * @param string $status
+ * @return void
+ */
+function render_json( $data, $status='ok' ){
+    header('Content-type: application/json; charset=utf-8');
+    echo json_encode($data);
+    exit;
+}
+
+
+function render_error( $data = null ,$code = 501){
+    header("HTTP/1.1 $code $data", true, $code);
+    exit;
+}
+
+/**
+ * Return A clean Html entities free from xss attacks
+ *
+ * @param [type] $text
+ * @return void
+ */
+function html_xss_clean($text){
+    return htmlspecialchars($text);
+}
+
+/**
+ * Concat Array  Values With Comma if REQUEST Value is Array
+ *
+ * @param [type] $arr
+ * @return void
+ */
+function transform_request_data($arr){
+    foreach($arr as $key=>$val){
+        if(is_array($val)){
+            $arr[$key]=implode(',',$val);
+        }
+    }
+    return $arr;
+}
+
+/**
+ * Concat Array  Values With Comma if REQUEST Value is Array
+ *
+ * @param [type] $fieldname
+ * @param [type] $default
+ * @return void
+ */
+function get_value($fieldname, $default=null){
+    if(!empty($_REQUEST[$fieldname])){
+        $get = $_REQUEST[$fieldname];
+        if(is_array($get)){
+            return implode(', ',$get);
+        }
+        else{
+            return $get;
+        }
+    }
+    return $default;
+}
+
+
+/**
+ * Return current DateTime in Mysql Default Date Time Format
+ *
+ * @return void
+ */
+function datetime_now(){
+    return date("Y-m-d H:i:s");
+}
+
+/**
+ * Return current Time in Mysql Default Date Time Format
+ *
+ * @return void
+ */
+function time_now(){
+    return date("H:i:s");
+}
+
+/**
+ * Return current Date in Mysql Default Date Time Format
+ *
+ * @return void
+ */
+function date_now(){
+    return date("Y-m-d");
+}
+
+/**
+ * arse Date Or Timestamp Object into Relative Time (e.g. 2 days Ago, 2 days from now)
+ *
+ * @param [type] $date
+ * @return void
+ */
+function relative_date($date){
+    if(empty($date)) {
+        return "No date provided";
+    }
+    
+    $periods         = array("sec", "min", "hour", "day", "week", "month", "year", "decade");
+    $lengths         = array("60","60","24","7","4.35","12","10");
+    
+    $now             = time();
+    
+    //check if supplied Date is in unix date form
+    if(is_numeric($date)){
+        $unix_date        = $date;
+    }
+    else{
+        $unix_date         = strtotime($date);
+    }
+    
+    
+       // check validity of date
+    if(empty($unix_date)) {    
+        return "Bad date";
+    }
+
+    // is it future date or past date
+    if($now > $unix_date) {    
+        $difference     = $now - $unix_date;
+        $tense         = "ago";
+        
+    } else {
+        $difference     = $unix_date - $now;
+        $tense         = "from now";
+    }
+    
+    for($j = 0; $difference >= $lengths[$j] && $j < count($lengths)-1; $j++) {
+        $difference /= $lengths[$j];
+    }
+    
+    $difference = round($difference);
+    
+    if($difference != 1) {
+        $periods[$j].= "s";
+    }
+    
+    return "$difference $periods[$j] {$tense}";
+}
+
+
+
+/**
+ * Print out language translation of the default language
+ *
+ * @param [type] $name
+ * @return void
+ */
+function print_lang($name){
+    global $lang;
+    $phrase = $lang->get_phrase($name);
+    if(!empty($phrase)){
+        echo $phrase;
+    }
+    else{
+        echo $name ;
+    }
+}
+
+/**
+ * Return language translation of the default language
+ *
+ * @param [type] $name
+ * @return void
+ */
+function get_lang($name){
+    global $lang;
+    $phrase = $lang->get_phrase($name);
+    if(!empty($phrase)){
+        return $phrase;
+    }
+    return $name ;
+}
+
+/**
+ * Get The Current Url Address of The Application Server
+ *
+ * @return void
+ */
+function get_url(){
+    $url  = isset( $_SERVER['HTTPS'] ) && 'on' === $_SERVER['HTTPS'] ? 'https' : 'http';
+    $url .= '://' . $_SERVER['SERVER_NAME'];
+    $url .= in_array( $_SERVER['SERVER_PORT'], array('80', '443') ) ? '' : ':' . $_SERVER['SERVER_PORT'];
+    $url .= $_SERVER['REQUEST_URI'];
+    return $url;
+}
+
+/**
+ * Construct New Url With Current Url Or  New Query String || Path
+ *
+ * @param [type] $pagepath
+ * @param array $newqs
+ * @return void
+ */
+function set_page_link($pagepath=null, $newqs=array()){
+    $get=$_GET;
+    unset($get['request_uri']);
+    $allqet=array_merge($get,$newqs);
+    if(empty($pagepath)){
+        $qs=http_build_query($allqet);
+        return Router::$page_url . (!empty($qs) ? "?$qs" : null);
+    }
+
+    $qs=http_build_query($allqet);
+    return "$pagepath"  . (!empty($qs) ? "?$qs" : null);
+}
+
+/**
+ * Will Return a $_GET value or null if key Does not exit or is Empty
+ *
+ * @param [type] $name
+ * @return void
+ */
+function get_query_str_value($name){
+    return (array_key_exists($name, $_GET) ? $_GET[$name] : null);
+}
+
+
+function get_val($name){
+    return get_query_str_value($name);
+}
+
+/**
+ *  Will Return a $_GET Key Value or null if key Does not exit or is Empty
+ *
+ * @param [type] $key
+ * @return void
+ */
+function get_query_string($key){
+    $val=null;
+    if(!empty($_GET[$key])){
+        $val=$_GET[$key];
+    }
+    return $val;
+}
+
+/**
+ * Set Msg that Will be Display to User in a Session. 
+ *
+ * @param [type] $msg
+ * @param string $type
+ * @param boolean $dismissable
+ * @param integer $showduration
+ * @return void
+ */
+function set_flash_msg($msg,$type="success",$dismissable=true,$showduration=5000){
+    if($msg!==''){
+        $class=null;
+        $closeBtn=null;
+        if($type!='custom'){
+            $class="alert alert-$type";
+            if($dismissable==true){
+                $class.=" alert-dismissable";
+                $closeBtn='<button type="button" class="close" data-dismiss="alert">&times;</button>';
+            }
+        }
+        
+        $msg='<div data-show-duration="'.$showduration.'" id="flashmsgholder" class="'.$class.' animated bounce">
+                    '.$closeBtn.'
+                    '.$msg.'
+            </div>';
+            
+        set_session("MsgFlash",$msg);	
+    }   
+}
+
+/**
+ * Display The Message Set In MsgFlash Session On Any Page
+ *
+ * @return void
+ */
+function show_flash_msg(){
+    $f=get_session("MsgFlash");
+    if(!empty($f)){
+        echo $f;
+        clear_session("MsgFlash");
+    }
+}
+
+/**
+ * Check if current browser platform is a mobile browser
+ *
+ * @return boolean
+ */
+function is_mobile() {
+    return preg_match("/(android|avantgo|blackberry|bolt|boost|cricket|docomo|fone|hiptop|mini|mobi|palm|phone|pie|tablet|up\.browser|up\.link|webos|wos)/i", $_SERVER["HTTP_USER_AGENT"]);
+}
+
+function is_ajax() {
+    return isset($_SERVER['HTTP_X_REQUESTED_WITH']) && $_SERVER['HTTP_X_REQUESTED_WITH'] === 'XMLHttpRequest';
+}

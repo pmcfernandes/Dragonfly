@@ -2,7 +2,19 @@
     //Start the Session
     session_start();
 
-	// Load Functions
+    define('LIBS_DIR', DRAGONFLY_LIB_PATH);
+    define('LIBS_PROC_DIR', DRAGONFLY_LIB_PATH . '/proc');
+
+    // Load Functions
+    require_once (LIBS_PROC_DIR . '/files.php');
+    require_once (LIBS_PROC_DIR . '/functions.php');
+    require_once (LIBS_PROC_DIR . '/forms.php');
+    require_once (LIBS_PROC_DIR . '/passwords.php');
+    require_once (LIBS_PROC_DIR . '/remote.php');
+    require_once (LIBS_PROC_DIR . '/security.php');
+    require_once (LIBS_PROC_DIR . '/simpledb.php');
+    require_once (LIBS_PROC_DIR . '/vars.php');
+
     require_once (DRAGONFLY_LIB_PATH . '/string.php');
     require_once (DRAGONFLY_LIB_PATH . '/html_mail.php');
     require_once (DRAGONFLY_LIB_PATH . '/class.config.php');
@@ -31,3 +43,5 @@
     require_once (DRAGONFLY_LIB_PATH . '/class.event.php');
     require_once (DRAGONFLY_LIB_PATH . '/class.crypto.php');
     require_once (DRAGONFLY_LIB_PATH . '/class.gd.php');
+    require_once (DRAGONFLY_LIB_PATH . '/class.mail.php');
+    require_once (DRAGONFLY_LIB_PATH . '/class.lang.php');

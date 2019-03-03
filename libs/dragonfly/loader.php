@@ -45,3 +45,4 @@
     require_once (DRAGONFLY_LIB_PATH . '/class.gd.php');
     require_once (DRAGONFLY_LIB_PATH . '/class.mail.php');
     require_once (DRAGONFLY_LIB_PATH . '/class.lang.php');
+    require_once (DRAGONFLY_LIB_PATH . '/class.validation.php');

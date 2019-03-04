@@ -6,11 +6,9 @@ class Mailer {
     protected $smtp_host=SMTP_HOST;
     protected $smtp_port=SMTP_PORT;
     protected $smtp_secure='ssl'; 
-    
 
     protected $sender_email=DEFAULT_EMAIL;
     protected $sender_name=DEFAULT_EMAIL_ACCOUNT_NAME;
-    
     
     public function __construct(){
         if(empty($this->smtp_port)){
@@ -22,14 +20,14 @@ class Mailer {
         require_once(LIBS_DIR . 'PHPMailer/PHPMailerAutoload.php');
         $mail = new PHPMailer;
         if (USE_SMTP==true){
-            //$mail->SMTPDebug = 3;                               // Enable verbose debug output
-            $mail->isSMTP();                                      // Set mailer to use SMTP
-            $mail->Host = $this->smtp_host;  // Specify main and backup SMTP servers
-            $mail->SMTPAuth = true;                               // Enable SMTP authentication
+            //$mail->SMTPDebug = 3;                                 // Enable verbose debug output
+            $mail->isSMTP();                                        // Set mailer to use SMTP
+            $mail->Host = $this->smtp_host;                         // Specify main and backup SMTP servers
+            $mail->SMTPAuth = true;                                 // Enable SMTP authentication
             $mail->Username = $this->smtp_username;                 // SMTP username
-            $mail->Password = $this->smtp_password;                           // SMTP password
-            $mail->SMTPSecure = $this->smtp_secure;                            // Enable TLS encryption, `ssl` also accepted
-            $mail->Port = $this->smtp_port;                                    // TCP port to connect to
+            $mail->Password = $this->smtp_password;                 // SMTP password
+            $mail->SMTPSecure = $this->smtp_secure;                 // Enable TLS encryption, `ssl` also accepted
+            $mail->Port = $this->smtp_port;                         // TCP port to connect to
         }
         
         $mail->From = $this->sender_email;
@@ -39,19 +37,17 @@ class Mailer {
             foreach($receipient_emails as $email){
                 $mail->addAddress($email); // Add a recipient
             }
-        }
-        else{
+        } else{
             $mail->addAddress($receipient_emails); // Add a recipient
         }
         
-        $mail->isHTML(true);                                  // Set email format to HTML
+        $mail->isHTML(true); // Set email format to HTML
         $mail->Subject = $subject;
         $mail->Body    = $msg;
         $mail->AltBody = strip_tags($msg);
         if($mail->send()) {
             return true;
-        }
-        else {
+        } else {
             return  $mail->ErrorInfo;
         }
     }

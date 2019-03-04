@@ -14,6 +14,7 @@
     require_once (LIBS_PROC_DIR . '/security.php');
     require_once (LIBS_PROC_DIR . '/simpledb.php');
     require_once (LIBS_PROC_DIR . '/vars.php');
+    require_once (LIBS_PROC_DIR . '/console-args.php');
 
     require_once (DRAGONFLY_LIB_PATH . '/string.php');
     require_once (DRAGONFLY_LIB_PATH . '/html_mail.php');

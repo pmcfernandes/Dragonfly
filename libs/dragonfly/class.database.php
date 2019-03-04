@@ -24,7 +24,7 @@ class Database
             self::$me = new Database(array(
                 'type' => 'mysql',
                 'host' => $config['db_host'],
-                'username' =>  $config['db_user'],
+                'username' => $config['db_user'],
                 'password' => $config['db_password'],
                 'dbname' => $config['db_name'],
                 'port' => 3306,

@@ -1,5 +1,23 @@
 <?php
 
+if (!function_exists('T')) {
+    /**
+     * Translate string based in current culture
+     *
+     * @param string $str
+     * @return string
+     */
+    function T($str) {
+        require_once(LIBS_DIR . 'gettext/autoloader.php');
+        use Gettext\Translator;
+
+        $t = new Translator();
+        $t->loadTranslations('locales/' . locale_get_default() . '.po');
+        return $t->gettext($str);
+    }
+
+}
+
 if (!function_exists('startsWith')) {
 
     /**

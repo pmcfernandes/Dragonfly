@@ -16,8 +16,9 @@ class Validation
 		$valid_methods = array('required', 'min_length', 'max_length', 'exact_length', 'alpha', 'alpha_numeric', 'alpha_dash', 'numeric');
 		$requires_parameter = array('min_length', 'max_length', 'exact_length');
 		
-		if(!in_array($method, $valid_methods))
+		if(!in_array($method, $valid_methods)) {
 			return false;
+		}
 		
 		$method = "valid_{$method}";
 		
@@ -151,4 +152,6 @@ class Validation
 		
 		return false;
 	}
+
+	
 }

@@ -10,21 +10,30 @@
 
 class HTML
 {
+    /**
+     * Converts a string to a html-safe string
+     *
+     * @param string $str
+     * @return void
+     */
+    public static function htmlentities($str) {
+        return htmlentities($str, ENT_QUOTES);
+    }
 
     /**
      * Takes an array of attributes and turns it into a string
      *
-     * @param $attributes
+     * @param $attrs
      * @return string
      */
-    public static function attributes($attributes) {
-        if (!is_array($attributes) || count($attributes) == 0) {
+    public static function attributes($attrs) {
+        if (!is_array($attrs) || count($attrs) == 0) {
             return '';
         }
 
         $str = '';
 
-        foreach ($attributes as $key => $value) {
+        foreach ($attrs as $key => $value) {
             $str .= $key . '="' . $value . '" ';
         }
 
@@ -35,20 +44,53 @@ class HTML
      * Creates a HTML tag
      *
      * @param $name
-     * @param array $attributes
+     * @param array $attrs
      * @param null $content
      * @return string
      */
-    public static function tag($name, $attributes = array(), $content = null) {
+    public static function tag($name, $attrs = array(), $content = null) {
         $str = '<' . $name;
 
-        if (is_array($attributes) && count($attributes) > 0) {
-            $str .= ' ' . HTML::attributes($attributes);
+        if (is_array($attrs) && count($attrs) > 0) {
+            $str .= ' ' . HTML::attributes($attrs);
         }
 
         $str .= '>' . ($content == null ? '' : $content) . '</' . $name . '>';
         return $str;
     }
 
+    /**
+     * Generates an img tag
+     *
+     * @param string $src
+     * @param array $attrs
+     * @return void
+     */
+    public static function img($src, $attrs = array()) {
+        return '<img src="' .  $src . '"' . HTML::attributes($attrs) . ' />';
+    }
 
+    /**
+     * Generates an a tag with an absolute Url
+     *
+     * @param [type] $url
+     * @param [type] $text
+     * @param array $attrs
+     * @return void
+     */
+    public static function a($url, $text = NULL, $attrs = array()) {
+        return '<a href="' . $url . '"' . HTML::attributes($attrs) . '>' . ($text == NULL ? $url : $text) . '</a>';
+    }
+
+    /**
+     * Generates an "a mailto" tag
+     *
+     * @param string $email
+     * @param string $text
+     * @param array $attrs
+     * @return void
+     */
+    public static function email($email, $text = NULL, $attrs = array()) {
+        return HTML::a('mailto:' . $email, $text, $attrs);
+    }
 }

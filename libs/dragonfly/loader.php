@@ -19,6 +19,7 @@
     require_once (DRAGONFLY_LIB_PATH . '/string.php');
     require_once (DRAGONFLY_LIB_PATH . '/html_mail.php');
     require_once (DRAGONFLY_LIB_PATH . '/class.config.php');
+    require_once (DRAGONFLY_LIB_PATH . '/class.server.php');
 	require_once (DRAGONFLY_LIB_PATH . '/class.app.php');
     require_once (DRAGONFLY_LIB_PATH . '/class.model.php');
     require_once (DRAGONFLY_LIB_PATH . '/class.view.php');

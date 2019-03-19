@@ -19,7 +19,6 @@ if (!function_exists('T')) {
 }
 
 if (!function_exists('startsWith')) {
-
     /**
      * Compare strings for check if start with
      *

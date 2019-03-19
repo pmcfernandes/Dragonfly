@@ -9,7 +9,7 @@
  * @param string $password
  * @return void
  */
-function mysql_connect($db, $server, $username, $password) {
+function mysql_connect($db = $config['db_name'], $server = $config['db_host'], $username = $config['db_user'], $password = $config['db_password']) {
     global $connection;
     $connection = mysqli_connect($server, $username, $password, $db);
 

@@ -1,6 +1,92 @@
 <?php
 
 /**
+ * Smart version of echo with an if condition as first argument
+ *
+ * @param string $condition
+ * @param string] $value
+ * @param string $alternative
+ * @return string
+ */
+function e($condition, $value, $alternative = null) {
+    if ($condition == TRUE) {
+        echo $value;
+    } else {
+        if ($alternative != NULL) {
+            echo $alternative;
+        }        
+    }
+}
+
+/**
+ * Generates a list of HTML attributes
+ *
+ * @param array $attr
+ * @param string $prepend
+ * @param string $append
+ * @return string
+ */
+function attr(array $attr, $prepend = "", $append = "") {
+    $str = $prepend;
+
+    foreach ($attrr as $key => $value) {
+        $str .= $key . '="' . $value .  '"';
+    }
+
+    $str .= $append;
+    return $str;
+}
+
+/**
+ * Creates a script tag to load a javascript file
+ *
+ * @param string $url
+ * @param array $options
+ * @return string
+ */
+function js($url, $options = array()) {
+    $str = '<script type="text/javascript" src="' . $url .'"' . attr($options, " ", "")  . '></script>';
+    return $str;
+}
+
+/**
+ * Creates a link tag to load a css file
+ *
+ * @param string $url
+ * @param array $options
+ * @return string
+ */
+function css($url, $options = array()) {
+    $str = '<link type="text/css" rel="stylesheet" href="' . $url .'"' . attr($options, " ", "")  . '></link>';
+    return $str;
+}
+
+/**
+ * Shortcut for get_url()
+ *
+ * @return void
+ */
+function url() {
+    return get_url();
+}
+
+/**
+ * Returns all params from the current Url
+ *
+ * @param [type] $url
+ * @return void
+ */
+function params($url = NULL) {
+    if ($url == NULL) {
+        $url = url();
+    }
+
+    $query = parse_url($url, PHP_URL_QUERY);
+    parse_str($query, $arr);
+    return $arr;
+}
+
+/**
  * Fix input data
  *
  * @param string $data
@@ -11,6 +97,19 @@ function test_input($data) {
     $data = stripslashes($data);
     $data = htmlspecialchars($data);
     return $data;
+}
+
+/**
+ * Parses markdown in the given string. 
+ *
+ * @param [type] $text
+ * @return void
+ */
+function markdown($text) {
+    require_once(LIBS_DIR . 'parsedown/Parsedown.php');
+
+    $parser = new Parsedown();
+    return $parser->text($text);
 }
 
 /**
@@ -43,6 +142,12 @@ function is_url($str) {
     }
 }
 
+/**
+ * Slugify text
+ *
+ * @param [type] $text
+ * @return void
+ */
 function slugify($text){
     $text = preg_replace('~[^\pL\d]+~u', '-', $text);
     $text = iconv('utf-8', 'us-ascii//TRANSLIT', $text);
@@ -51,9 +156,8 @@ function slugify($text){
     $text = preg_replace('~-+~', '-', $text);
     $text = strtolower($text);
     return $text;
-  }
+}
 
-  	
 /**
  * Get The Current Request Method
  *
@@ -127,7 +231,7 @@ function get_value($fieldname, $default=null){
     if(!empty($_REQUEST[$fieldname])){
         $get = $_REQUEST[$fieldname];
         if(is_array($get)){
-            return implode(', ',$get);
+            return implode(', ', $get);
         }
         else{
             return $get;
@@ -135,7 +239,6 @@ function get_value($fieldname, $default=null){
     }
     return $default;
 }
-
 
 /**
  * Return current DateTime in Mysql Default Date Time Format
@@ -217,8 +320,6 @@ function relative_date($date){
     return "$difference $periods[$j] {$tense}";
 }
 
-
-
 /**
  * Print out language translation of the default language
  *
@@ -294,7 +395,12 @@ function get_query_str_value($name){
     return (array_key_exists($name, $_GET) ? $_GET[$name] : null);
 }
 
-
+/**
+ * Get a value from query string
+ *
+ * @param [type] $name
+ * @return void
+ */
 function get_val($name){
     return get_query_str_value($name);
 }
@@ -310,6 +416,7 @@ function get_query_string($key){
     if(!empty($_GET[$key])){
         $val=$_GET[$key];
     }
+
     return $val;
 }
 
@@ -365,6 +472,11 @@ function is_mobile() {
     return preg_match("/(android|avantgo|blackberry|bolt|boost|cricket|docomo|fone|hiptop|mini|mobi|palm|phone|pie|tablet|up\.browser|up\.link|webos|wos)/i", $_SERVER["HTTP_USER_AGENT"]);
 }
 
+/**
+ * Check if is a AJAX request
+ *
+ * @return boolean
+ */
 function is_ajax() {
     return isset($_SERVER['HTTP_X_REQUESTED_WITH']) && $_SERVER['HTTP_X_REQUESTED_WITH'] === 'XMLHttpRequest';
 }

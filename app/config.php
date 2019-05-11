@@ -11,6 +11,3 @@
     $config['db_name'] = 'framework.data2';
     $config['db_user'] = 'root';
     $config['db_password'] = 'P@ssw0rd';
-
-    // Load Functions
-    require (DRAGONFLY_LIB_PATH . '/loader.php');

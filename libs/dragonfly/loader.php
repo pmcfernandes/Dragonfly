@@ -3,7 +3,14 @@
     session_start();
 
     define('LIBS_DIR', DRAGONFLY_LIB_PATH);
-    define('LIBS_PROC_DIR', DRAGONFLY_LIB_PATH . '/proc');
+    define('LIBS_PROC_DIR', DRAGONFLY_LIB_PATH . '/proc');   
+
+    require_once (LIBS_DIR . '/pcl/pclzip.lib.php');
+    require_once (LIBS_DIR . '/pcl/pclxml.lib.php');
+
+    require_once (LIBS_DIR . '/simplepie/SimplePie.php');
+    require_once (LIBS_DIR . '/requests/Requests.php');
+    Requests::register_autoloader();
 
     // Load Functions
     require_once (LIBS_PROC_DIR . '/files.php');
@@ -49,3 +56,19 @@
     require_once (DRAGONFLY_LIB_PATH . '/class.mail.php');
     require_once (DRAGONFLY_LIB_PATH . '/class.lang.php');
     require_once (DRAGONFLY_LIB_PATH . '/class.validation.php');
+    require_once (DRAGONFLY_LIB_PATH . '/class.openweathermap.php');
+    require_once (DRAGONFLY_LIB_PATH . '/class.antixss.php');
+    require_once (DRAGONFLY_LIB_PATH . '/class.form.php');
+    
+    function autoload($class) {
+        if (!class_exists ($class)) {
+            if (mb_strpos ($class, "Controller") === false) {
+                require (__DIR__ . "/models/$class.php");
+            } else {
+                require (__DIR__ . "/controllers/$class.php");
+            }
+                
+        }
+    }
+
+    spl_autoload_register ("autoload");

@@ -15,6 +15,7 @@
     // Load Functions
     require_once (LIBS_PROC_DIR . '/files.php');
     require_once (LIBS_PROC_DIR . '/functions.php');
+    require_once (LIBS_PROC_DIR . '/helpers.php');
     require_once (LIBS_PROC_DIR . '/forms.php');
     require_once (LIBS_PROC_DIR . '/passwords.php');
     require_once (LIBS_PROC_DIR . '/remote.php');
@@ -24,7 +25,6 @@
     require_once (LIBS_PROC_DIR . '/console-args.php');
 
     require_once (DRAGONFLY_LIB_PATH . '/string.php');
-    require_once (DRAGONFLY_LIB_PATH . '/html_mail.php');
     require_once (DRAGONFLY_LIB_PATH . '/class.config.php');
     require_once (DRAGONFLY_LIB_PATH . '/class.string.php');
     require_once (DRAGONFLY_LIB_PATH . '/class.date.php');
@@ -59,6 +59,7 @@
     require_once (DRAGONFLY_LIB_PATH . '/class.openweathermap.php');
     require_once (DRAGONFLY_LIB_PATH . '/class.antixss.php');
     require_once (DRAGONFLY_LIB_PATH . '/class.form.php');
+    require_once (DRAGONFLY_LIB_PATH . '/class.header.php');
     
     function autoload($class) {
         if (!class_exists ($class)) {

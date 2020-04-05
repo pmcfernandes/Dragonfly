@@ -68,12 +68,6 @@ class Database
     private $having = array();
 
     /**
-     * Static instance of self
-     * @var PDODb
-     */
-    private static $instance;
-
-    /**
      * Is Subquery object
      * @var bool
      */
@@ -239,7 +233,7 @@ class Database
         if (is_array($type)) { // if params were passed as array
             $this->connectionParams = $type;
         }
-		elseif (is_object($type)) { // if type is set as pdo object
+		elseif (is_object($type)) { // if type is set as PDO object
             $this->pdo = $type;
         }
 		else {
@@ -258,8 +252,6 @@ class Database
 			$this->isSubQuery = true;
 			return;
 		}
-		
-        self::$instance = $this;
     }
 
 	
@@ -834,19 +826,6 @@ class Database
             default:
                 return PDO::PARAM_STR;
         }
-    }
-
-    /**
-     * A method of returning the static instance to allow access to the
-     * instantiated object from within another class.
-     * Inheriting this class would require reloading connection info.
-     *
-     * @uses $db = PDODb::getInstance();
-     * @return PDODb Returns the current instance.
-     */
-    public static function getInstance()
-    {
-        return self::$instance;
     }
 
     /**

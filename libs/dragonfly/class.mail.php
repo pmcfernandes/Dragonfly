@@ -16,6 +16,14 @@ class Mailer {
         }
     }
     
+    /**
+     * Send mail to SMTP server
+     *
+     * @param [type] $receipient_emails
+     * @param [type] $subject
+     * @param [type] $msg
+     * @return void
+     */
     public function send_mail($receipient_emails, $subject, $msg){
         require_once(LIBS_DIR . 'PHPMailer/PHPMailerAutoload.php');
         $mail = new PHPMailer;

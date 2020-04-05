@@ -10,7 +10,7 @@ class OpenWeatherMap
      * @param string $api
      * @return array Retorna areglo con las caracteristicas del clima
      */
-    public static function openWeatherMap($city, $api)
+    public function openWeatherMap($city, $api)
     {
         return json_decode(file_get_contents(self::HTTPS_URL . '?q=' . $city . '&appid=' . $api . '&units=metric'));
     } 

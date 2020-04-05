@@ -1,4 +1,6 @@
 <?php
+require_once(LIBS_DIR . 'gettext/autoloader.php');
+use Gettext\Translator;
 
 if (!function_exists('T')) {
     /**
@@ -8,9 +10,6 @@ if (!function_exists('T')) {
      * @return string
      */
     function T($str) {
-        require_once(LIBS_DIR . 'gettext/autoloader.php');
-        use Gettext\Translator;
-
         $t = new Translator();
         $t->loadTranslations('locales/' . locale_get_default() . '.po');
         return $t->gettext($str);

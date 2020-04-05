@@ -9,7 +9,23 @@
  * @param string $password
  * @return void
  */
-function mysql_connect($db = $config['db_name'], $server = $config['db_host'], $username = $config['db_user'], $password = $config['db_password']) {
+function mysql_connect($db, $server, $username, $password) {
+    if (!isset($db)) {
+        $db = $config['db_name'];
+    }
+
+    if (!isset($server)) {
+        $server = $config['db_host'];
+    }
+
+    if (!isset($username)) {
+        $username = $config['db_user'];
+    }
+
+    if (!isset($password)) {
+        $password = $config['db_password'];
+    }
+
     global $connection;
     $connection = mysqli_connect($server, $username, $password, $db);
 

@@ -116,7 +116,8 @@ final class Date
             "week",
             "month",
             "years",
-            "decade");
+            "decade"
+        );
 
         $lengths = array(
             "60",
@@ -125,7 +126,8 @@ final class Date
             "7",
             "4.35",
             "12",
-            "10");
+            "10"
+        );
 
         for ($j = 0; $difference >= $lengths[$j]; $j++) {
             $difference /= $lengths[$j];
@@ -139,5 +141,4 @@ final class Date
         $text = "$difference $periods[$j] ago";
         return $text;
     }
-
 }

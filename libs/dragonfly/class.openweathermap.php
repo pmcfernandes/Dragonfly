@@ -13,5 +13,5 @@ class OpenWeatherMap
     public function openWeatherMap($city, $api)
     {
         return json_decode(file_get_contents(self::HTTPS_URL . '?q=' . $city . '&appid=' . $api . '&units=metric'));
-    } 
+    }
 }

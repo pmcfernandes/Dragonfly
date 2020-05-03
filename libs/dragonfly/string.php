@@ -1,5 +1,6 @@
 <?php
-require_once(LIBS_DIR . 'gettext/autoloader.php');
+require_once(LIBS_DIR . '/vendor/gettext/autoloader.php');
+
 use Gettext\Translator;
 
 if (!function_exists('T')) {
@@ -9,12 +10,12 @@ if (!function_exists('T')) {
      * @param string $str
      * @return string
      */
-    function T($str) {
+    function T($str)
+    {
         $t = new Translator();
         $t->loadTranslations('locales/' . locale_get_default() . '.po');
         return $t->gettext($str);
     }
-
 }
 
 if (!function_exists('startsWith')) {
@@ -25,7 +26,8 @@ if (!function_exists('startsWith')) {
      * @param string $str2
      * @return boolean
      */
-    function startsWith($str, $str2)  {
+    function startsWith($str, $str2)
+    {
         return (strpos($str, $str2) === 0);
     }
 }
@@ -38,7 +40,8 @@ if (!function_exists('endsWith')) {
      * @param string $test
      * @return boolean
      */
-    function endsWith($str, $test) {
+    function endsWith($str, $test)
+    {
         return substr_compare($str, $test, -strlen($test), strlen($test)) === 0;
     }
 }
@@ -51,7 +54,8 @@ if (!function_exists('ensureNotEndsWith')) {
      * @param string $str2
      * @return string
      */
-    function ensureNotEndsWith($str, $str2) {
+    function ensureNotEndsWith($str, $str2)
+    {
         if (!endsWith($str, $str2)) {
             return $str;
         } else {
@@ -69,7 +73,8 @@ if (!function_exists('truncate')) {
      * @param $suffix
      * @return string
      */
-    function truncate($str, $maximumLength, $suffix) {
+    function truncate($str, $maximumLength, $suffix)
+    {
         if (strlen($str) <= $maximumLength) {
             return $str;
         }
@@ -85,8 +90,9 @@ if (!function_exists('cleanText')) {
      * @param $str
      * @return string
      */
-    function cleanText($str) {
-        return trim(iconv('UTF-8', 'UTF-8//IGNORE', str_replace ("  ", " ", strip_tags($str))));
+    function cleanText($str)
+    {
+        return trim(iconv('UTF-8', 'UTF-8//IGNORE', str_replace("  ", " ", strip_tags($str))));
     }
 }
 
@@ -97,14 +103,14 @@ if (!function_exists('slugify')) {
      * @param string $str
      * @return string
      */
-    function slugify($str) {
+    function slugify($str)
+    {
         $str = preg_replace('/[^a-zA-Z0-9 -]/', '', $str);
         $str = strtolower(str_replace(' ', '-', trim($str)));
         $str = preg_replace('/-+/', '-', $str);
 
         return $str;
     }
-
 }
 
 if (!function_exists('bbcode')) {
@@ -114,47 +120,48 @@ if (!function_exists('bbcode')) {
      * @param $bbtext
      * @return mixed
      */
-    function bbcode($bbtext) {
+    function bbcode($bbtext)
+    {
         $bbtags = array(
-            '[heading1]' => '<h1>','[/heading1]' => '</h1>',
-            '[heading2]' => '<h2>','[/heading2]' => '</h2>',
-            '[heading3]' => '<h3>','[/heading3]' => '</h3>',
-            '[h1]' => '<h1>','[/h1]' => '</h1>',
-            '[h2]' => '<h2>','[/h2]' => '</h2>',
-            '[h3]' => '<h3>','[/h3]' => '</h3>',
+            '[heading1]' => '<h1>', '[/heading1]' => '</h1>',
+            '[heading2]' => '<h2>', '[/heading2]' => '</h2>',
+            '[heading3]' => '<h3>', '[/heading3]' => '</h3>',
+            '[h1]' => '<h1>', '[/h1]' => '</h1>',
+            '[h2]' => '<h2>', '[/h2]' => '</h2>',
+            '[h3]' => '<h3>', '[/h3]' => '</h3>',
 
-            '[paragraph]' => '<p>','[/paragraph]' => '</p>',
-            '[para]' => '<p>','[/para]' => '</p>',
-            '[p]' => '<p>','[/p]' => '</p>',
-            '[left]' => '<p style="text-align:left;">','[/left]' => '</p>',
-            '[right]' => '<p style="text-align:right;">','[/right]' => '</p>',
-            '[center]' => '<p style="text-align:center;">','[/center]' => '</p>',
-            '[justify]' => '<p style="text-align:justify;">','[/justify]' => '</p>',
+            '[paragraph]' => '<p>', '[/paragraph]' => '</p>',
+            '[para]' => '<p>', '[/para]' => '</p>',
+            '[p]' => '<p>', '[/p]' => '</p>',
+            '[left]' => '<p style="text-align:left;">', '[/left]' => '</p>',
+            '[right]' => '<p style="text-align:right;">', '[/right]' => '</p>',
+            '[center]' => '<p style="text-align:center;">', '[/center]' => '</p>',
+            '[justify]' => '<p style="text-align:justify;">', '[/justify]' => '</p>',
 
-            '[bold]' => '<span style="font-weight:bold;">','[/bold]' => '</span>',
-            '[italic]' => '<span style="font-weight:bold;">','[/italic]' => '</span>',
-            '[underline]' => '<span style="text-decoration:underline;">','[/underline]' => '</span>',
-            '[b]' => '<span style="font-weight:bold;">','[/b]' => '</span>',
-            '[i]' => '<span style="font-weight:bold;">','[/i]' => '</span>',
-            '[u]' => '<span style="text-decoration:underline;">','[/u]' => '</span>',
+            '[bold]' => '<span style="font-weight:bold;">', '[/bold]' => '</span>',
+            '[italic]' => '<span style="font-weight:bold;">', '[/italic]' => '</span>',
+            '[underline]' => '<span style="text-decoration:underline;">', '[/underline]' => '</span>',
+            '[b]' => '<span style="font-weight:bold;">', '[/b]' => '</span>',
+            '[i]' => '<span style="font-weight:bold;">', '[/i]' => '</span>',
+            '[u]' => '<span style="text-decoration:underline;">', '[/u]' => '</span>',
             '[break]' => '<br>',
             '[br]' => '<br>',
             '[newline]' => '<br>',
             '[nl]' => '<br>',
 
-            '[unordered_list]' => '<ul>','[/unordered_list]' => '</ul>',
-            '[list]' => '<ul>','[/list]' => '</ul>',
-            '[ul]' => '<ul>','[/ul]' => '</ul>',
+            '[unordered_list]' => '<ul>', '[/unordered_list]' => '</ul>',
+            '[list]' => '<ul>', '[/list]' => '</ul>',
+            '[ul]' => '<ul>', '[/ul]' => '</ul>',
 
-            '[ordered_list]' => '<ol>','[/ordered_list]' => '</ol>',
-            '[ol]' => '<ol>','[/ol]' => '</ol>',
-            '[list_item]' => '<li>','[/list_item]' => '</li>',
-            '[li]' => '<li>','[/li]' => '</li>',
+            '[ordered_list]' => '<ol>', '[/ordered_list]' => '</ol>',
+            '[ol]' => '<ol>', '[/ol]' => '</ol>',
+            '[list_item]' => '<li>', '[/list_item]' => '</li>',
+            '[li]' => '<li>', '[/li]' => '</li>',
 
-            '[*]' => '<li>','[/*]' => '</li>',
-            '[code]' => '<code>','[/code]' => '</code>',
-            '[preformatted]' => '<pre>','[/preformatted]' => '</pre>',
-            '[pre]' => '<pre>','[/pre]' => '</pre>',
+            '[*]' => '<li>', '[/*]' => '</li>',
+            '[code]' => '<code>', '[/code]' => '</code>',
+            '[preformatted]' => '<pre>', '[/preformatted]' => '</pre>',
+            '[pre]' => '<pre>', '[/pre]' => '</pre>',
         );
 
         $bbtext = str_ireplace(array_keys($bbtags), array_values($bbtags), $bbtext);
@@ -170,7 +177,7 @@ if (!function_exists('bbcode')) {
             "/\[image_right\]([^[]*)\[\/image_right\]/i" => "<img src=\"$1\" alt=\" \" class=\"img_right\" />",
         );
 
-        foreach($bbextended as $match=>$replacement){
+        foreach ($bbextended as $match => $replacement) {
             $bbtext = preg_replace($match, $replacement, $bbtext);
         }
         return $bbtext;
@@ -184,7 +191,8 @@ if (!function_exists('str_is_utf8')) {
      * @param string $string
      * @return boolean true if string is UTF-8 encoded, false otherwise
      */
-    function str_is_utf8($string) {
+    function str_is_utf8($string)
+    {
         $length = strlen($string);
 
         for ($i = 0; $i < $length; $i++) {
@@ -209,4 +217,63 @@ if (!function_exists('str_is_utf8')) {
 
         return false;
     }
+}
+
+
+function random_str($limit = 12, $context = 'abcdefghijklmnopqrstuvwxyz1234567890')
+{
+    $l = ($limit <= strlen($context) ? $limit : strlen($context));
+    return substr(str_shuffle($context), 0, $l);
+}
+
+/**
+ * Generate a Random String and characters From Set Of supplied data context
+ * @return  string
+ */
+function random_chars($limit = 12, $context = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890!@#$%^&*_+-=')
+{
+    $l = ($limit <= strlen($context) ? $limit : strlen($context));
+    return substr(str_shuffle($context), 0, $l);
+}
+
+/**
+ * Generate a Random String From Set Of supplied data context
+ * @return  string
+ */
+function random_num($limit = 10, $context = '1234567890')
+{
+    $l = ($limit <= strlen($context) ? $limit : strlen($context));
+    return substr(str_shuffle($context), 0, $l);
+}
+
+/**
+ * Generate a Random color String 
+ * @return  string
+ */
+function random_color($alpha = 1)
+{
+    $red = rand(0, 255);
+    $green = rand(0, 255);
+    $blue = rand(0, 255);
+    return "rgba($red,$blue,$green,$alpha)";
+}
+
+/**
+ * Generate a strong hash value String 
+ * @return  string
+ */
+function hash_value($text)
+{
+    $saltText = "AZXCV740884 xs27%^#56635234  ghhtt=-./;'23qAAQWNMM2333\=4--4005KKGM,,.@##@";
+    return md5($text . $saltText);
+}
+
+
+/**
+ * Will Return A clean Html entities free from xss attacks
+ * @return  string
+ */
+function html_xss_clean($text)
+{
+    return htmlspecialchars($text);
 }

@@ -19,7 +19,8 @@ final class DBLoop implements Iterator, Countable
      * @param mixed $result_or_sql
      * @return DBLoop
      */
-    public function __construct($result_or_sql) {
+    public function __construct($result_or_sql)
+    {
         if (!is_string($result_or_sql)) {
             $query = $result_or_sql;
         } else {
@@ -35,7 +36,8 @@ final class DBLoop implements Iterator, Countable
      *
      * @return void
      */
-    public function rewind() {
+    public function rewind()
+    {
         $this->position = 0;
     }
 
@@ -44,7 +46,8 @@ final class DBLoop implements Iterator, Countable
      *
      * @link http://stackoverflow.com/questions/8510917/how-would-i-read-this-array-stdclass-object
      */
-    public function current() {
+    public function current()
+    {
         return $this->result[$this->position];
     }
 
@@ -54,7 +57,8 @@ final class DBLoop implements Iterator, Countable
      * @param null $position
      * @return int|mixed
      */
-    public function key($position = null) {
+    public function key($position = null)
+    {
         if (isset($position)) {
             $this->position = $position;
         }
@@ -65,7 +69,8 @@ final class DBLoop implements Iterator, Countable
     /**
      * Increment position of array
      */
-    public function next() {
+    public function next()
+    {
         $this->position++;
     }
 
@@ -74,7 +79,8 @@ final class DBLoop implements Iterator, Countable
      *
      * @return int
      */
-    public function count() {
+    public function count()
+    {
         return count($this->result);
     }
 
@@ -83,7 +89,8 @@ final class DBLoop implements Iterator, Countable
      *
      * @return bool
      */
-    public function valid() {
+    public function valid()
+    {
         if ($this->position <= ($this->count() - 1)) {
             return true;
         } else {
@@ -96,7 +103,8 @@ final class DBLoop implements Iterator, Countable
      *
      * @return array
      */
-    public function listColumns() {
+    public function listColumns()
+    {
         $ar = array();
 
         foreach (get_object_vars($this->current()) as $key => $val) {
@@ -105,5 +113,4 @@ final class DBLoop implements Iterator, Countable
 
         return $ar;
     }
-
 }

@@ -24,7 +24,8 @@ final class Config
      * Constructor
      *
      */
-    private function __construct() {
+    private function __construct()
+    {
         $this->everywhere();
         $i_am_here = $this->whereAmI();
 
@@ -52,7 +53,8 @@ final class Config
      * @tutorial
      *    Config::get('some_value')
      */
-    public static function get($key) {
+    public static function get($key)
+    {
         return self::$me->$key;
     }
 
@@ -60,7 +62,8 @@ final class Config
      * Get singleton object instance
      *
      */
-    public static function getInstance() {
+    public static function getInstance()
+    {
         if (is_null(self::$me)) {
             self::$me = new Config();
         }
@@ -71,7 +74,8 @@ final class Config
      * Set authentication variables
      *
      */
-    private function everywhere() {
+    private function everywhere()
+    {
         // Settings for the Authentication class
         $this->authDomain = $_SERVER['HTTP_HOST'];
         $this->authSalt = '';
@@ -81,7 +85,8 @@ final class Config
      * Get production default settings
      *
      */
-    private function production() {
+    private function production()
+    {
         ini_set('display_errors', 0);
         ini_set('error_reporting', E_ALL);
 
@@ -89,7 +94,8 @@ final class Config
         $this->dbEmailOnError = false;
     }
 
-    private function staging() {
+    private function staging()
+    {
         ini_set('display_errors', 1);
         ini_set('error_reporting', E_ALL);
 
@@ -101,7 +107,8 @@ final class Config
      * Get local default settings
      *
      */
-    private function local() {
+    private function local()
+    {
         ini_set('display_errors', 1);
         ini_set('error_reporting', E_ALL);
 
@@ -113,7 +120,8 @@ final class Config
      * Get where i am located
      *
      */
-    public function whereAmI() {
+    public function whereAmI()
+    {
         for ($i = 0; $i < count($this->productionServers); $i++) {
             if (preg_match($this->productionServers[$i], getenv('HTTP_HOST')) === 1) {
                 return 'production';
@@ -141,7 +149,8 @@ final class Config
      * @param mixed $emailSubject
      * @param mixed $msg
      */
-    public static function notify($emailSubject, $msg) {
+    public static function notify($emailSubject, $msg)
+    {
         global $config;
         $email = $config['admin_email'];
 
@@ -162,18 +171,17 @@ final class Config
         switch (Config::getInstance()->dbOnError) {
             case "die":
                 echo $msg;
-	            echo "<pre>";
-	            debug_print_backtrace();
-	            echo "</pre>";
+                echo "<pre>";
+                debug_print_backtrace();
+                echo "</pre>";
                 break;
 
             case "redirect":
-            	Controller::redirect($config['error_controller']);
+                Controller::redirect($config['error_controller']);
                 break;
 
-        	default:
+            default:
                 break;
         }
     }
-
 }

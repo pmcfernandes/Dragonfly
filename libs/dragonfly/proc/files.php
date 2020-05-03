@@ -6,8 +6,9 @@
  * @param string $filename
  * @return void
  */
-function read_file($filename) {
-    $myfile = fopen($filename, "r") or die("Unable to open file!");
+function read_file($filename)
+{
+    $handle = fopen($filename, "r") or die("Unable to open file!");
     $contents = fread($handle, filesize($filename));
     fclose($handle);
     return $contents;
@@ -20,7 +21,8 @@ function read_file($filename) {
  * @param string $contents
  * @return void
  */
-function write_file ($filename, $contents) {
+function write_file($filename, $contents)
+{
     $myfile = fopen($filename, "w") or die("Unable to open file!");
     fwrite($myfile, $contents);
     fclose($myfile);
@@ -32,10 +34,11 @@ function write_file ($filename, $contents) {
  * @param [type] $dirpath
  * @return void
  */
-function get_dir_file_count($dirpath){
+function get_dir_file_count($dirpath)
+{
     $filecount = 0;
     $files = glob($dirpath . "*");
-    if($files){
+    if ($files) {
         $filecount = count($files);
     }
     return $filecount;

@@ -20,5 +20,4 @@ final class Version
         $version = str_replace(' ', '', $version);
         return version_compare($version, $currentVersion);
     }
-
 }

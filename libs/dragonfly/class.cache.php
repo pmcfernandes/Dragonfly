@@ -35,7 +35,8 @@ class SimpleCache
      * @param mixed $url
      * @return object
      */
-    public function getData($label, $url) {
+    public function getData($label, $url)
+    {
         $data = $this->getCache($label);
 
         if ($data) {
@@ -53,7 +54,8 @@ class SimpleCache
      * @param $label
      * @param $data
      */
-    public function setCache($label, $data) {
+    public function setCache($label, $data)
+    {
         file_put_contents($this->cache_path . $this->safe_filename($label) . '.cache', $data);
     }
 
@@ -63,7 +65,8 @@ class SimpleCache
      * @param mixed $label
      * @return Object
      */
-    public function getCache($label) {
+    public function getCache($label)
+    {
         $filename = $this->cache_path . $this->safe_filename($label) . '.cache';
 
         if (file_exists($filename) && (filemtime($filename) + $this->cache_time >= time())) {
@@ -79,7 +82,8 @@ class SimpleCache
      * @param mixed $label
      * @return Boolean
      */
-    public function isCached($label) {
+    public function isCached($label)
+    {
         $filename = $this->cache_path . $this->safe_filename($label) . '.cache';
 
         if (file_exists($filename) && (filemtime($filename) + $this->cache_time >= time())) {
@@ -95,7 +99,8 @@ class SimpleCache
      * @param $url
      * @return mixed
      */
-    private function do_curl($url) {
+    private function do_curl($url)
+    {
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
@@ -112,8 +117,8 @@ class SimpleCache
      * @param $filename
      * @return mixed
      */
-    private function safe_filename($filename) {
+    private function safe_filename($filename)
+    {
         return preg_replace('/[^0-9a-z\.\_\-]/i', '', strtolower($filename));
     }
-
 }

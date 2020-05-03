@@ -8,13 +8,14 @@
  * @param string $alternative
  * @return string
  */
-function e($condition, $value, $alternative = null) {
+function e($condition, $value, $alternative = null)
+{
     if ($condition == TRUE) {
         echo $value;
     } else {
         if ($alternative != NULL) {
             echo $alternative;
-        }        
+        }
     }
 }
 
@@ -26,10 +27,11 @@ function e($condition, $value, $alternative = null) {
  * @param string $append
  * @return string
  */
-function attr(array $attr, $prepend = "", $append = "") {
+function attr(array $attr, $prepend = "", $append = "")
+{
     $str = $prepend;
 
-    foreach ($attrr as $key => $value) {
+    foreach ($attr as $key => $value) {
         $str .= $key . '="' . $value .  '"';
     }
 
@@ -44,8 +46,9 @@ function attr(array $attr, $prepend = "", $append = "") {
  * @param array $options
  * @return string
  */
-function js($url, $options = array()) {
-    $str = '<script type="text/javascript" src="' . $url .'"' . attr($options, " ", "")  . '></script>';
+function js($url, $options = array())
+{
+    $str = '<script type="text/javascript" src="' . $url . '"' . attr($options, " ", "")  . '></script>';
     return $str;
 }
 
@@ -56,8 +59,9 @@ function js($url, $options = array()) {
  * @param array $options
  * @return string
  */
-function css($url, $options = array()) {
-    $str = '<link type="text/css" rel="stylesheet" href="' . $url .'"' . attr($options, " ", "")  . '></link>';
+function css($url, $options = array())
+{
+    $str = '<link type="text/css" rel="stylesheet" href="' . $url . '"' . attr($options, " ", "")  . '></link>';
     return $str;
 }
 
@@ -66,7 +70,8 @@ function css($url, $options = array()) {
  *
  * @return void
  */
-function url() {
+function url()
+{
     return get_url();
 }
 
@@ -76,7 +81,8 @@ function url() {
  * @param [type] $url
  * @return void
  */
-function params($url = NULL) {
+function params($url = NULL)
+{
     if ($url == NULL) {
         $url = url();
     }
@@ -92,7 +98,8 @@ function params($url = NULL) {
  * @param string $data
  * @return void
  */
-function test_input($data) {
+function test_input($data)
+{
     $data = trim($data);
     $data = stripslashes($data);
     $data = htmlspecialchars($data);
@@ -105,8 +112,9 @@ function test_input($data) {
  * @param [type] $text
  * @return void
  */
-function markdown($text) {
-    require_once(LIBS_DIR . 'parsedown/Parsedown.php');
+function markdown($text)
+{
+    require_once(LIBS_DIR . '/vendor/parsedown/Parsedown.php');
 
     $parser = new Parsedown();
     return $parser->text($text);
@@ -118,7 +126,8 @@ function markdown($text) {
  * @param string $str
  * @return boolean
  */
-function is_email($str) {
+function is_email($str)
+{
     $email = test_input($str);
     if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
         return false;
@@ -133,7 +142,8 @@ function is_email($str) {
  * @param string $str
  * @return boolean
  */
-function is_url($str) {
+function is_url($str)
+{
     $url = test_input($str);
     if (!preg_match("/\b(?:(?:https?|ftp):\/\/|www\.)[-a-z0-9+&@#\/%?=~_|!:,.;]*[-a-z0-9+&@#\/%=~_|]/i", $url)) {
         return false;
@@ -148,7 +158,8 @@ function is_url($str) {
  * @param [type] $text
  * @return void
  */
-function slugify($text){
+function slugify($text)
+{
     $text = preg_replace('~[^\pL\d]+~u', '-', $text);
     $text = iconv('utf-8', 'us-ascii//TRANSLIT', $text);
     $text = preg_replace('~[^-\w]+~', '', $text);
@@ -163,7 +174,8 @@ function slugify($text){
  *
  * @return void
  */
-function request_method(){
+function request_method()
+{
     return strtolower($_SERVER['REQUEST_METHOD']);
 }
 
@@ -172,8 +184,9 @@ function request_method(){
  *
  * @return boolean
  */
-function is_post_request(){
-    return (request_method()=='post');
+function is_post_request()
+{
+    return (request_method() == 'post');
 }
 
 /**
@@ -183,14 +196,16 @@ function is_post_request(){
  * @param string $status
  * @return void
  */
-function render_json( $data, $status='ok' ){
+function render_json($data, $status = 'ok')
+{
     header('Content-type: application/json; charset=utf-8');
     echo json_encode($data);
     exit;
 }
 
 
-function render_error( $data = null ,$code = 501){
+function render_error($data = null, $code = 501)
+{
     header("HTTP/1.1 $code $data", true, $code);
     exit;
 }
@@ -201,7 +216,8 @@ function render_error( $data = null ,$code = 501){
  * @param [type] $text
  * @return void
  */
-function html_xss_clean($text){
+function html_xss_clean($text)
+{
     return htmlspecialchars($text);
 }
 
@@ -211,13 +227,32 @@ function html_xss_clean($text){
  * @param [type] $arr
  * @return void
  */
-function transform_request_data($arr){
-    foreach($arr as $key=>$val){
-        if(is_array($val)){
-            $arr[$key]=implode(',',$val);
+function transform_request_data($arr)
+{
+    foreach ($arr as $key => $val) {
+        if (is_array($val)) {
+            $arr[$key] = implode(',', $val);
         }
     }
     return $arr;
+}
+
+/**
+ * Concat Array  Values With Comma
+ * Specific for this Framework Only
+ * @arr $_POST || $_GET data
+ * @return  Array
+ */
+function transform_multi_request_data($arr)
+{
+    $alldata = array();
+    foreach ($arr as $key => $value) {
+        $combine_vals = implode("", array_values($value));
+        if (!empty($combine_vals)) {
+            $alldata[] = transform_request_data($value);
+        }
+    }
+    return $alldata;
 }
 
 /**
@@ -227,25 +262,26 @@ function transform_request_data($arr){
  * @param [type] $default
  * @return void
  */
-function get_value($fieldname, $default=null){
-    if(!empty($_REQUEST[$fieldname])){
+function get_value($fieldname, $default = null)
+{
+    if (!empty($_REQUEST[$fieldname])) {
         $get = $_REQUEST[$fieldname];
-        if(is_array($get)){
+        if (is_array($get)) {
             return implode(', ', $get);
-        }
-        else{
+        } else {
             return $get;
         }
     }
     return $default;
 }
-
-/**
+    
+    /**
  * Return current DateTime in Mysql Default Date Time Format
  *
  * @return void
  */
-function datetime_now(){
+function datetime_now()
+{
     return date("Y-m-d H:i:s");
 }
 
@@ -254,7 +290,8 @@ function datetime_now(){
  *
  * @return void
  */
-function time_now(){
+function time_now()
+{
     return date("H:i:s");
 }
 
@@ -263,7 +300,8 @@ function time_now(){
  *
  * @return void
  */
-function date_now(){
+function date_now()
+{
     return date("Y-m-d");
 }
 
@@ -273,50 +311,49 @@ function date_now(){
  * @param [type] $date
  * @return void
  */
-function relative_date($date){
-    if(empty($date)) {
+function relative_date($date)
+{
+    if (empty($date)) {
         return "No date provided";
     }
-    
+
     $periods         = array("sec", "min", "hour", "day", "week", "month", "year", "decade");
-    $lengths         = array("60","60","24","7","4.35","12","10");
-    
+    $lengths         = array("60", "60", "24", "7", "4.35", "12", "10");
+
     $now             = time();
-    
+
     //check if supplied Date is in unix date form
-    if(is_numeric($date)){
+    if (is_numeric($date)) {
         $unix_date        = $date;
-    }
-    else{
+    } else {
         $unix_date         = strtotime($date);
     }
-    
-    
-       // check validity of date
-    if(empty($unix_date)) {    
+
+
+    // check validity of date
+    if (empty($unix_date)) {
         return "Bad date";
     }
 
     // is it future date or past date
-    if($now > $unix_date) {    
+    if ($now > $unix_date) {
         $difference     = $now - $unix_date;
         $tense         = "ago";
-        
     } else {
         $difference     = $unix_date - $now;
         $tense         = "from now";
     }
-    
-    for($j = 0; $difference >= $lengths[$j] && $j < count($lengths)-1; $j++) {
+
+    for ($j = 0; $difference >= $lengths[$j] && $j < count($lengths) - 1; $j++) {
         $difference /= $lengths[$j];
     }
-    
+
     $difference = round($difference);
-    
-    if($difference != 1) {
-        $periods[$j].= "s";
+
+    if ($difference != 1) {
+        $periods[$j] .= "s";
     }
-    
+
     return "$difference $periods[$j] {$tense}";
 }
 
@@ -326,14 +363,14 @@ function relative_date($date){
  * @param [type] $name
  * @return void
  */
-function print_lang($name){
+function print_lang($name)
+{
     global $lang;
     $phrase = $lang->get_phrase($name);
-    if(!empty($phrase)){
+    if (!empty($phrase)) {
         echo $phrase;
-    }
-    else{
-        echo $name ;
+    } else {
+        echo $name;
     }
 }
 
@@ -343,13 +380,14 @@ function print_lang($name){
  * @param [type] $name
  * @return void
  */
-function get_lang($name){
+function get_lang($name)
+{
     global $lang;
     $phrase = $lang->get_phrase($name);
-    if(!empty($phrase)){
+    if (!empty($phrase)) {
         return $phrase;
     }
-    return $name ;
+    return $name;
 }
 
 /**
@@ -357,32 +395,13 @@ function get_lang($name){
  *
  * @return void
  */
-function get_url(){
-    $url  = isset( $_SERVER['HTTPS'] ) && 'on' === $_SERVER['HTTPS'] ? 'https' : 'http';
+function get_url()
+{
+    $url  = isset($_SERVER['HTTPS']) && 'on' === $_SERVER['HTTPS'] ? 'https' : 'http';
     $url .= '://' . $_SERVER['SERVER_NAME'];
-    $url .= in_array( $_SERVER['SERVER_PORT'], array('80', '443') ) ? '' : ':' . $_SERVER['SERVER_PORT'];
+    $url .= in_array($_SERVER['SERVER_PORT'], array('80', '443')) ? '' : ':' . $_SERVER['SERVER_PORT'];
     $url .= $_SERVER['REQUEST_URI'];
     return $url;
-}
-
-/**
- * Construct New Url With Current Url Or  New Query String || Path
- *
- * @param [type] $pagepath
- * @param array $newqs
- * @return void
- */
-function set_page_link($pagepath=null, $newqs=array()){
-    $get=$_GET;
-    unset($get['request_uri']);
-    $allqet=array_merge($get,$newqs);
-    if(empty($pagepath)){
-        $qs=http_build_query($allqet);
-        return Router::$page_url . (!empty($qs) ? "?$qs" : null);
-    }
-
-    $qs=http_build_query($allqet);
-    return "$pagepath"  . (!empty($qs) ? "?$qs" : null);
 }
 
 /**
@@ -391,7 +410,8 @@ function set_page_link($pagepath=null, $newqs=array()){
  * @param [type] $name
  * @return void
  */
-function get_query_str_value($name){
+function get_query_str_value($name)
+{
     return (array_key_exists($name, $_GET) ? $_GET[$name] : null);
 }
 
@@ -401,7 +421,8 @@ function get_query_str_value($name){
  * @param [type] $name
  * @return void
  */
-function get_val($name){
+function get_val($name)
+{
     return get_query_str_value($name);
 }
 
@@ -411,10 +432,11 @@ function get_val($name){
  * @param [type] $key
  * @return void
  */
-function get_query_string($key){
-    $val=null;
-    if(!empty($_GET[$key])){
-        $val=$_GET[$key];
+function get_query_string($key)
+{
+    $val = null;
+    if (!empty($_GET[$key])) {
+        $val = $_GET[$key];
     }
 
     return $val;
@@ -429,25 +451,26 @@ function get_query_string($key){
  * @param integer $showduration
  * @return void
  */
-function set_flash_msg($msg,$type="success",$dismissable=true,$showduration=5000){
-    if($msg!==''){
-        $class=null;
-        $closeBtn=null;
-        if($type!='custom'){
-            $class="alert alert-$type";
-            if($dismissable==true){
-                $class.=" alert-dismissable";
-                $closeBtn='<button type="button" class="close" data-dismiss="alert">&times;</button>';
+function set_flash_msg($msg, $type = "success", $dismissable = true, $showduration = 5000)
+{
+    if ($msg !== '') {
+        $class = null;
+        $closeBtn = null;
+        if ($type != 'custom') {
+            $class = "alert alert-$type";
+            if ($dismissable == true) {
+                $class .= " alert-dismissable";
+                $closeBtn = '<button type="button" class="close" data-dismiss="alert">&times;</button>';
             }
         }
-        
-        $msg='<div data-show-duration="'.$showduration.'" id="flashmsgholder" class="'.$class.' animated bounce">
-                    '.$closeBtn.'
-                    '.$msg.'
+
+        $msg = '<div data-show-duration="' . $showduration . '" id="flashmsgholder" class="' . $class . ' animated bounce">
+                    ' . $closeBtn . '
+                    ' . $msg . '
             </div>';
-            
-        set_session("MsgFlash",$msg);	
-    }   
+
+        set_session("MsgFlash", $msg);
+    }
 }
 
 /**
@@ -455,9 +478,10 @@ function set_flash_msg($msg,$type="success",$dismissable=true,$showduration=5000
  *
  * @return void
  */
-function show_flash_msg(){
-    $f=get_session("MsgFlash");
-    if(!empty($f)){
+function show_flash_msg()
+{
+    $f = get_session("MsgFlash");
+    if (!empty($f)) {
         echo $f;
         clear_session("MsgFlash");
     }
@@ -468,7 +492,8 @@ function show_flash_msg(){
  *
  * @return boolean
  */
-function is_mobile() {
+function is_mobile()
+{
     return preg_match("/(android|avantgo|blackberry|bolt|boost|cricket|docomo|fone|hiptop|mini|mobi|palm|phone|pie|tablet|up\.browser|up\.link|webos|wos)/i", $_SERVER["HTTP_USER_AGENT"]);
 }
 
@@ -477,7 +502,8 @@ function is_mobile() {
  *
  * @return boolean
  */
-function is_ajax() {
+function is_ajax()
+{
     return isset($_SERVER['HTTP_X_REQUESTED_WITH']) && $_SERVER['HTTP_X_REQUESTED_WITH'] === 'XMLHttpRequest';
 }
 

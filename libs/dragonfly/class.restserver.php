@@ -14,7 +14,8 @@ class RestServer
      *
      * @param $serviceClass
      */
-    public function __construct($serviceClass) {
+    public function __construct($serviceClass)
+    {
         $this->serviceClass = $serviceClass;
     }
 
@@ -22,7 +23,8 @@ class RestServer
      * Initialize the rest server
      *
      */
-    public function handle() {
+    public function handle()
+    {
         if (array_key_exists("method", array_change_key_case($_REQUEST, CASE_LOWER))) {
             $rArray = array_change_key_case($_REQUEST, CASE_LOWER);
             $method = $rArray["method"];

@@ -19,7 +19,8 @@ class Database
 
     private static $me;
 
-    public static function getInstance() {
+    public static function getInstance()
+    {
         if (is_null(self::$me)) {
             self::$me = new Database(array(
                 'type' => 'mysql',
@@ -126,8 +127,8 @@ class Database
      * @var int 
      */
     private $isRecordCountQuery = false;
-	
-	/**
+
+    /**
      * Rows per 1 page on paginate() method
      * @var int 
      */
@@ -186,14 +187,14 @@ class Database
      * @var bool 
      */
     private $transaction = false;
-	
+
     /**
      * Variable which holds an amount of returned rows during get/getOne/select queries with withTotalCount()
      * @var int
      */
     public $totalCount = 0;
-	
-	
+
+
     /**
      * Total pages of paginate() method
      * @var int
@@ -217,7 +218,7 @@ class Database
      * @var array
      */
     private $where = array();
-    
+
 
     /**
      * @param string|array|object $type
@@ -232,30 +233,28 @@ class Database
     {
         if (is_array($type)) { // if params were passed as array
             $this->connectionParams = $type;
-        }
-		elseif (is_object($type)) { // if type is set as PDO object
+        } elseif (is_object($type)) { // if type is set as PDO object
             $this->pdo = $type;
-        }
-		else {
+        } else {
             foreach ($this->connectionParams as $key => $param) {
                 if (isset($$key) && !is_null($$key)) {
                     $this->connectionParams[$key] = $$key;
                 }
             }
         }
-		
-		if (isset($this->connectionParams['prefix'])) {
-			$this->setPrefix($this->connectionParams['prefix']);
-		}
 
-		if (isset($this->connectionParams['isSubQuery'])) {
-			$this->isSubQuery = true;
-			return;
-		}
+        if (isset($this->connectionParams['prefix'])) {
+            $this->setPrefix($this->connectionParams['prefix']);
+        }
+
+        if (isset($this->connectionParams['isSubQuery'])) {
+            $this->isSubQuery = true;
+            return;
+        }
     }
 
-	
-	/**
+
+    /**
      * A method to connect to the database
      *
      * @throws Exception
@@ -263,52 +262,49 @@ class Database
      */
     public function connect()
     {
-		
+
         if (empty($this->connectionParams['type'])) {
             throw new Exception('DB Type is not set.');
         }
-		
-		$dbType = strtolower($this->connectionParams['type']);
-		if($dbType == 'sqlite'){
-			$connectionString = 'sqlite:'.$this->connectionParams['dbname'];
-			$this->pdo = new PDO($connectionString);
-		}
-		elseif($dbType == 'sqlsrv'){
-			$dsn = $this->connectionParams['host'];
-			$dbname = $this->connectionParams['dbname'];
-			$username = $this->connectionParams['username'];
-			$password = $this->connectionParams['password'];
-			
-			$connectionString = "sqlsrv:server=$dsn;database=$dbname;";
-			$this->pdo = new PDO($connectionString,$username,$password);
-		}
-		else{
-			$connectionString = $this->connectionParams['type'].':';
-			$connectionParams = ['host', 'dbname', 'port'];
 
-			foreach ($connectionParams as $connectionParam) {
-				if (!empty($this->connectionParams[$connectionParam])) {
-					$connectionString .= $connectionParam.'='.$this->connectionParams[$connectionParam].';';
-				}
-			}
+        $dbType = strtolower($this->connectionParams['type']);
+        if ($dbType == 'sqlite') {
+            $connectionString = 'sqlite:' . $this->connectionParams['dbname'];
+            $this->pdo = new PDO($connectionString);
+        } elseif ($dbType == 'sqlsrv') {
+            $dsn = $this->connectionParams['host'];
+            $dbname = $this->connectionParams['dbname'];
+            $username = $this->connectionParams['username'];
+            $password = $this->connectionParams['password'];
 
-			$connectionString = rtrim($connectionString, ';');
-			$options = array(
-				PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
-				PDO::ATTR_PERSISTENT => false
-			);
-			
-			$this->pdo = new PDO($connectionString, $this->connectionParams['username'], $this->connectionParams['password'], $options);
-			
-			$charset = $this->connectionParams['charset'];
-			if(!empty($charset)){
-				$this->pdo->query("SET NAMES '$charset'");
-			}
-		}
-       
+            $connectionString = "sqlsrv:server=$dsn;database=$dbname;";
+            $this->pdo = new PDO($connectionString, $username, $password);
+        } else {
+            $connectionString = $this->connectionParams['type'] . ':';
+            $connectionParams = ['host', 'dbname', 'port'];
+
+            foreach ($connectionParams as $connectionParam) {
+                if (!empty($this->connectionParams[$connectionParam])) {
+                    $connectionString .= $connectionParam . '=' . $this->connectionParams[$connectionParam] . ';';
+                }
+            }
+
+            $connectionString = rtrim($connectionString, ';');
+            $options = array(
+                PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+                PDO::ATTR_PERSISTENT => false
+            );
+
+            $this->pdo = new PDO($connectionString, $this->connectionParams['username'], $this->connectionParams['password'], $options);
+
+            $charset = $this->connectionParams['charset'];
+            if (!empty($charset)) {
+                $this->pdo->query("SET NAMES '$charset'");
+            }
+        }
     }
-	
-	
+
+
     /**
      * Abstraction method that will build the part of the WHERE conditions
      *
@@ -322,16 +318,16 @@ class Database
         }
 
         //Prepare the where portion of the query
-        $this->query .= ' '.$operator;
+        $this->query .= ' ' . $operator;
 
         foreach ($conditions as $cond) {
-            list ($concat, $varName, $operator, $val) = $cond;
-            $this->query .= " ".$concat." ".$varName;
+            list($concat, $varName, $operator, $val) = $cond;
+            $this->query .= " " . $concat . " " . $varName;
 
             switch (strtolower($operator)) {
                 case 'not in':
                 case 'in':
-                    $comparison = ' '.$operator.' (';
+                    $comparison = ' ' . $operator . ' (';
                     if (is_object($val)) {
                         $comparison .= $this->buildPair("", $val);
                     } else {
@@ -340,7 +336,7 @@ class Database
                             $this->params[] = $v;
                         }
                     }
-                    $this->query .= rtrim($comparison, ',').' ) ';
+                    $this->query .= rtrim($comparison, ',') . ' ) ';
                     break;
                 case 'not between':
                 case 'between':
@@ -349,13 +345,13 @@ class Database
                     break;
                 case 'not exists':
                 case 'exists':
-                    $this->query.= $operator.$this->buildPair("", $val);
+                    $this->query .= $operator . $this->buildPair("", $val);
                     break;
                 default:
                     if (is_array($val)) {
                         $this->params = array_merge($this->params, $val);
                     } elseif ($val === null) {
-                        $this->query .= ' '.$operator." NULL";
+                        $this->query .= ' ' . $operator . " NULL";
                     } elseif ($val != 'DBNULL' || $val == '0') {
                         $this->query .= $this->buildPair($operator, $val);
                     }
@@ -378,15 +374,15 @@ class Database
 
             if (!$isInsert) {
                 if (strpos($column, '.') === false) {
-                    $this->query .= "`".$column."` = ";
+                    $this->query .= "`" . $column . "` = ";
                 } else {
-                    $this->query .= str_replace('.', '.`', $column)."` = ";
+                    $this->query .= str_replace('.', '.`', $column) . "` = ";
                 }
             }
 
             // Subquery value
             if ($value instanceof PDODb) {
-                $this->query .= $this->buildPair("", $value).", ";
+                $this->query .= $this->buildPair("", $value) . ", ";
                 continue;
             }
 
@@ -402,10 +398,10 @@ class Database
             $val = $value[$key];
             switch ($key) {
                 case '[I]':
-                    $this->query .= $column.$val.", ";
+                    $this->query .= $column . $val . ", ";
                     break;
                 case '[F]':
-                    $this->query .= $val[0].", ";
+                    $this->query .= $val[0] . ", ";
                     if (!empty($val[1])) {
                         foreach ($val[1] as $param) {
                             $this->params[] = $param;
@@ -414,9 +410,9 @@ class Database
                     break;
                 case '[N]':
                     if ($val == null) {
-                        $this->query .= "!".$column.", ";
+                        $this->query .= "!" . $column . ", ";
                     } else {
-                        $this->query .= "!".$val.", ";
+                        $this->query .= "!" . $val . ", ";
                     }
                     break;
                 default:
@@ -440,10 +436,10 @@ class Database
         $this->query .= " GROUP BY ";
 
         foreach ($this->groupBy as $key => $value) {
-            $this->query .= $value.", ";
+            $this->query .= $value . ", ";
         }
 
-        $this->query = rtrim($this->query, ', ')." ";
+        $this->query = rtrim($this->query, ', ') . " ";
     }
 
     /**
@@ -456,7 +452,7 @@ class Database
      */
     private function buildInsert($tableName, $insertData, $operation)
     {
-        $this->query         = $operation.implode(' ', $this->queryOptions).' INTO '.$this->getTableName($tableName);
+        $this->query         = $operation . implode(' ', $this->queryOptions) . ' INTO ' . $this->getTableName($tableName);
         $this->queryType     = $operation;
         $stmt                = $this->buildQuery(null, $insertData);
         $status              = $stmt->execute();
@@ -488,7 +484,7 @@ class Database
         $isInsert    = in_array($this->queryType, ['REPLACE', 'INSERT']);
         $dataColumns = array_keys($tableData);
         if ($isInsert) {
-            if (isset($dataColumns[0])) $this->query .= ' (`'.implode($dataColumns, '`, `').'`) ';
+            if (isset($dataColumns[0])) $this->query .= ' (`' . implode($dataColumns, array('`, `')) . '`) ';
             $this->query .= ' VALUES (';
         } else {
             $this->query .= " SET ";
@@ -514,7 +510,7 @@ class Database
         }
 
         foreach ($this->join as $data) {
-            list ($joinType, $joinTable, $joinCondition) = $data;
+            list($joinType, $joinTable, $joinCondition) = $data;
 
             if (is_object($joinTable)) {
                 $joinStr = $this->buildPair("", $joinTable);
@@ -522,9 +518,9 @@ class Database
                 $joinStr = $joinTable;
             }
 
-            $this->query .= " ".$joinType." JOIN ".$joinStr.
+            $this->query .= " " . $joinType . " JOIN " . $joinStr .
                 (false !== stripos($joinCondition, 'using') ? " " : " ON ")
-                .$joinCondition;
+                . $joinCondition;
         }
     }
 
@@ -540,35 +536,33 @@ class Database
         if (!isset($numRows)) {
             return;
         }
-		
-		if (empty($numRows)) {
+
+        if (empty($numRows)) {
             return;
         }
-		
-		$dbType = $this->connectionParams['type'];
-		if($dbType == 'sqlsrv'){
-			if (is_array($numRows)) {
-				$limit = $numRows[1];
-				$offset = intval($numRows[0]);
-				
-				//comusorly order by required by ms sql when using OFFSET FETCH NEXT statement
-				$orderby = null;
-				if(empty($this->orderBy)){
-					$orderby = " ORDER BY(SELECT NULL)";
-				}
-				
-				$this->query .= "$orderby OFFSET $offset ROWS FETCH NEXT $limit ROWS ONLY";
-			}
-		}
-		else{
-			if (is_array($numRows)) {
-				$this->query .= ' LIMIT '.(int) $numRows[1].' OFFSET '.(int) $numRows[0];
-			} 
-			else {
-				$this->query .= ' LIMIT '.(int) $numRows;
-			}	
-		}
-	}
+
+        $dbType = $this->connectionParams['type'];
+        if ($dbType == 'sqlsrv') {
+            if (is_array($numRows)) {
+                $limit = $numRows[1];
+                $offset = intval($numRows[0]);
+
+                //comusorly order by required by ms sql when using OFFSET FETCH NEXT statement
+                $orderby = null;
+                if (empty($this->orderBy)) {
+                    $orderby = " ORDER BY(SELECT NULL)";
+                }
+
+                $this->query .= "$orderby OFFSET $offset ROWS FETCH NEXT $limit ROWS ONLY";
+            }
+        } else {
+            if (is_array($numRows)) {
+                $this->query .= ' LIMIT ' . (int) $numRows[1] . ' OFFSET ' . (int) $numRows[0];
+            } else {
+                $this->query .= ' LIMIT ' . (int) $numRows;
+            }
+        }
+    }
 
     /**
      * Helper function to add variables into the query statement
@@ -580,7 +574,7 @@ class Database
         if (is_array($this->updateColumns) && !empty($this->updateColumns)) {
             $this->query .= " ON DUPLICATE KEY UPDATE ";
             if ($this->lastInsertId) {
-                $this->query .= $this->lastInsertId."=LAST_INSERT_ID (".$this->lastInsertId."), ";
+                $this->query .= $this->lastInsertId . "=LAST_INSERT_ID (" . $this->lastInsertId . "), ";
             }
 
             foreach ($this->updateColumns as $key => $val) {
@@ -606,20 +600,20 @@ class Database
         if (empty($this->orderBy)) {
             return;
         }
-		if($this->isRecordCountQuery ){
-			return;
-		}
-		
+        if ($this->isRecordCountQuery) {
+            return;
+        }
+
         $this->query .= " ORDER BY ";
         foreach ($this->orderBy as $prop => $value) {
             if (strtolower(str_replace(" ", "", $prop)) == 'rand()') {
                 $this->query .= "RAND(), ";
             } else {
-                $this->query .= $prop." ".$value.", ";
+                $this->query .= $prop . " " . $value . ", ";
             }
         }
 
-        $this->query = rtrim($this->query, ', ')." ";
+        $this->query = rtrim($this->query, ', ') . " ";
     }
 
     /**
@@ -635,7 +629,7 @@ class Database
     {
         if (!is_object($value)) {
             $this->params[] = $value;
-            return ' '.$operator.' ? ';
+            return ' ' . $operator . ' ? ';
         }
 
         $subQuery = $value->getSubQuery();
@@ -643,7 +637,7 @@ class Database
             $this->params[] = $value;
         }
 
-        return " ".$operator." (".$subQuery['query'].") ".$subQuery['alias'];
+        return " " . $operator . " (" . $subQuery['query'] . ") " . $subQuery['alias'];
     }
 
     /**
@@ -658,18 +652,18 @@ class Database
      */
     private function buildQuery($numRows, $tableData = null)
     {
-		$this->params = [];
+        $this->params = [];
         $this->buildJoin();
         $this->buildInsertQuery($tableData);
         $this->buildCondition('WHERE', $this->where);
         $this->buildGroupBy();
         $this->buildCondition('HAVING', $this->having);
         $this->buildOrderBy();
-		
-		if( !$this->isRecordCountQuery ){
-			$this->buildLimit($numRows);
-		}
-        
+
+        if (!$this->isRecordCountQuery) {
+            $this->buildLimit($numRows);
+        }
+
         $this->buildOnDuplicate($tableData);
 
         if ($this->isSubQuery) {
@@ -687,17 +681,15 @@ class Database
      */
     private function buildResult($stmt)
     {
-		if ($stmt->columnCount () == 0){
-			return $stmt->rowCount();
-		}
-		else{
-			if ($this->useGenerator) {
-				return $this->buildResultGenerator($stmt);
-			} 
-			else {
-				return $stmt->fetchAll($this->returnType);
-			}
-		}
+        if ($stmt->columnCount() == 0) {
+            return $stmt->rowCount();
+        } else {
+            if ($this->useGenerator) {
+                return $this->buildResultGenerator($stmt);
+            } else {
+                return $stmt->fetchAll($this->returnType);
+            }
+        }
     }
 
     /**
@@ -739,7 +731,7 @@ class Database
         return $result;
     }
 
-    
+
 
     /**
      * Method returns a copy of a PDODb subquery object
@@ -764,7 +756,7 @@ class Database
         if (!is_numeric($num)) {
             throw new Exception('Argument supplied to dec must be a number');
         }
-        return array("[I]" => "-".$num);
+        return array("[I]" => "-" . $num);
     }
 
     /**
@@ -781,12 +773,12 @@ class Database
             return;
         }
 
-        $table = $this->prefix.$tableName;
+        $table = $this->prefix . $tableName;
 
         if (count($this->join)) {
-            $this->query = "DELETE ".preg_replace('/.* (.*)/', '$1', $table)." FROM ".$table;
+            $this->query = "DELETE " . preg_replace('/.* (.*)/', '$1', $table) . " FROM " . $table;
         } else {
-            $this->query = "DELETE FROM ".$table;
+            $this->query = "DELETE FROM " . $table;
         }
 
         $stmt                = $this->buildQuery($numRows);
@@ -904,7 +896,8 @@ class Database
             return null;
         }
 
-        $val = ['query' => $this->query,
+        $val = [
+            'query' => $this->query,
             'params' => $this->params,
             'alias' => $this->connectionParams['host']
         ];
@@ -920,7 +913,7 @@ class Database
      */
     private function getTableName($tableName)
     {
-        return strpos($tableName, '.') !== false ? $tableName : $this->prefix.$tableName;
+        return strpos($tableName, '.') !== false ? $tableName : $this->prefix . $tableName;
     }
 
     /**
@@ -1013,26 +1006,26 @@ class Database
         if (empty($columns)) {
             $columns = '*';
         }
-		
+
         $column = is_array($columns) ? implode(', ', $columns) : $columns;
-		
-		$dbType = $this->connectionParams['type'];
-		
-		$queryOptions = implode(' ', $this->queryOptions);
-		
-		if (in_array('SQL_CALC_FOUND_ROWS', $this->queryOptions) && $dbType != 'mysql') {
-			$queryOptions = str_ireplace('SQL_CALC_FOUND_ROWS','',$queryOptions);
-		}
-		
-		$sqlsrvTop = "";
-		
-		if(!is_array($numRows) && $dbType == 'sqlsrv' && !empty($numRows)){
-			$sqlsrvTop = " TOP $numRows ";
-		}
-		
+
+        $dbType = $this->connectionParams['type'];
+
+        $queryOptions = implode(' ', $this->queryOptions);
+
+        if (in_array('SQL_CALC_FOUND_ROWS', $this->queryOptions) && $dbType != 'mysql') {
+            $queryOptions = str_ireplace('SQL_CALC_FOUND_ROWS', '', $queryOptions);
+        }
+
+        $sqlsrvTop = "";
+
+        if (!is_array($numRows) && $dbType == 'sqlsrv' && !empty($numRows)) {
+            $sqlsrvTop = " TOP $numRows ";
+        }
+
         $this->query = "SELECT $queryOptions $sqlsrvTop $column FROM " . $this->getTableName($tableName);
-       
-		$stmt = $this->buildQuery($numRows);
+
+        $stmt = $this->buildQuery($numRows);
 
         if ($this->isSubQuery) {
             return $this;
@@ -1042,19 +1035,18 @@ class Database
         $this->lastError     = $stmt->errorInfo();
         $this->lastErrorCode = $stmt->errorCode();
         $this->rowCount      = $stmt->rowCount();
-		
+
         if (in_array('SQL_CALC_FOUND_ROWS', $this->queryOptions)) {
-			if( $dbType == 'mysql' ){
-				$totalStmt        = $this->pdo()->query('SELECT FOUND_ROWS()');
-				$this->totalCount = $totalStmt->fetchColumn();
-			}
-			else{
-				$this->isRecordCountQuery = true;
-				$this->query = 'SELECT COUNT(*) FROM '.$this->getTableName($tableName);
-				$totalStmt        = $this->buildQuery(null);
-				$totalStmt->execute();
-				$this->totalCount = $totalStmt->fetchColumn();
-			}
+            if ($dbType == 'mysql') {
+                $totalStmt        = $this->pdo()->query('SELECT FOUND_ROWS()');
+                $this->totalCount = $totalStmt->fetchColumn();
+            } else {
+                $this->isRecordCountQuery = true;
+                $this->query = 'SELECT COUNT(*) FROM ' . $this->getTableName($tableName);
+                $totalStmt        = $this->buildQuery(null);
+                $totalStmt->execute();
+                $this->totalCount = $totalStmt->fetchColumn();
+            }
         }
 
         $result = $this->buildResult($stmt);
@@ -1132,7 +1124,7 @@ class Database
         if (!is_numeric($num)) {
             throw new Exception('Argument supplied to inc must be a number');
         }
-        return ["[I]" => "+".$num];
+        return ["[I]" => "+" . $num];
     }
 
     /**
@@ -1146,9 +1138,9 @@ class Database
     {
         return $this->buildInsert($tableName, $insertData, 'INSERT');
     }
-	
-	
-	/**
+
+
+    /**
      * Insert method to add several rows at once
      *
      * @param string $tableName The name of the table.
@@ -1163,19 +1155,19 @@ class Database
         $autoCommit = (isset($this->_transaction_in_progress) ? !$this->_transaction_in_progress : true);
         $ids = array();
 
-        if($autoCommit) {
+        if ($autoCommit) {
             $this->startTransaction();
         }
 
         foreach ($multiInsertData as $insertData) {
-            if($dataKeys !== null) {
+            if ($dataKeys !== null) {
                 // apply column-names if given, else assume they're already given in the data
                 $insertData = array_combine($dataKeys, $insertData);
             }
 
             $id = $this->insert($tableName, $insertData);
-            if(!$id) {
-                if($autoCommit) {
+            if (!$id) {
+                if ($autoCommit) {
                     $this->rollback();
                 }
                 return false;
@@ -1183,129 +1175,130 @@ class Database
             $ids[] = $id;
         }
 
-        if($autoCommit) {
+        if ($autoCommit) {
             $this->commit();
         }
 
         return $ids;
     }
-	
-	/**
+
+    /**
      * PHP function to import a CSV into a database.
      * 
      * @param string $csv_path
      * @param array $options
      * @return int
      */
-	function loadCsvData($csv_path, $options = array(), $transaction = true){
-		
-		extract($options);
-		
-		if (($csv_handle = fopen($csv_path, "r")) === FALSE)
-			throw new Exception('Cannot open CSV file');
+    function loadCsvData($csv_path, $options = array(), $transaction = true)
+    {
 
-		if(empty($delimiter))
-			$delimiter = ',';
-		
-		if(empty($quote))
-			$quote = '"';
+        extract($options);
 
-		if(empty($table))
-			$table = preg_replace("/[^a-zA-Z0-9_]/i", '', basename($csv_path));
-		
-		
-		if(empty($fields)){
-			$fields = array_map(function ($field){
-				return strtolower(preg_replace("/[^a-zA-Z0-9_]/i", '', $field));
-			}, fgetcsv($csv_handle, 0, $delimiter, $quote));
-			$insert_fields_str = join(', ', $fields);
-		}
-		else{
-			$insert_fields_str = $fields;
-		}
-		
-		if ($transaction == true){
-			$this->startTransaction();
-		}
-		
-		$insert_values_str = join(', ', array_fill(0, count($fields),  '?'));
-		$insert_sql = "INSERT INTO $table ($insert_fields_str) VALUES ($insert_values_str)";
-		$stmt = $this->pdo()->prepare($insert_sql);
+        if (($csv_handle = fopen($csv_path, "r")) === FALSE)
+            throw new Exception('Cannot open CSV file');
 
-		$total_rows = 0;
-		while (($data = fgetcsv($csv_handle, 0, $delimiter, $quote)) !== FALSE) {
-			$stmt->execute($data);
-			$total_rows++;
-		}
+        if (empty($delimiter))
+            $delimiter = ',';
 
-		$this->lastError     = $stmt->errorInfo();
+        if (empty($quote))
+            $quote = '"';
+
+        if (empty($table))
+            $table = preg_replace("/[^a-zA-Z0-9_]/i", '', basename($csv_path));
+
+
+        if (empty($fields)) {
+            $fields = array_map(function ($field) {
+                return strtolower(preg_replace("/[^a-zA-Z0-9_]/i", '', $field));
+            }, fgetcsv($csv_handle, 0, $delimiter, $quote));
+            $insert_fields_str = join(', ', $fields);
+        } else {
+            $insert_fields_str = $fields;
+        }
+
+        if ($transaction == true) {
+            $this->startTransaction();
+        }
+
+        $insert_values_str = join(', ', array_fill(0, count($fields),  '?'));
+        $insert_sql = "INSERT INTO $table ($insert_fields_str) VALUES ($insert_values_str)";
+        $stmt = $this->pdo()->prepare($insert_sql);
+
+        $total_rows = 0;
+        while (($data = fgetcsv($csv_handle, 0, $delimiter, $quote)) !== FALSE) {
+            $stmt->execute($data);
+            $total_rows++;
+        }
+
+        $this->lastError     = $stmt->errorInfo();
         $this->lastErrorCode = $stmt->errorCode();
         $this->rowCount      = $stmt->rowCount();
-		
-		if ($transaction == true){
-			$this->commit();
-		}
-		
-		fclose($csv_handle);
-		
-		return array(
-			'table' => $table,
-			'fields' => $fields,
-			'total_rows' => $total_rows,
-		);
-	}
-	
-	
-	/**
+
+        if ($transaction == true) {
+            $this->commit();
+        }
+
+        fclose($csv_handle);
+
+        return array(
+            'table' => $table,
+            'fields' => $fields,
+            'total_rows' => $total_rows,
+        );
+    }
+
+
+    /**
      * PHP function to import a CSV into a database.
      * 
      * @param string $csv_path
      * @param array $options
      * @return int
      */
-	function loadJsonData($file_path, $table, $transaction = true){
+    function loadJsonData($file_path, $table, $transaction = true)
+    {
 
-		if ($transaction == true){
-			$this->startTransaction();
-		}
-		
-		$jsonstr = file_get_contents($file_path);
-		
-		$json =json_decode($jsonstr);
-		
-		$fields = array_keys((array)($json[0]));
-		
-		
-		$insert_fields_str = join(', ', $fields);
-		
-		$insert_values_str = join(', ', array_fill(0, count($fields),  '?'));
-		
-		$insert_sql = "INSERT INTO $table ($insert_fields_str) VALUES ($insert_values_str)";
-		
-		$stmt = $this->pdo()->prepare($insert_sql);
+        if ($transaction == true) {
+            $this->startTransaction();
+        }
 
-		$total_rows = 0;
-		foreach($json as $row){
-			$data =  array_values((array)($row));
-			$stmt->execute($data);
-			$total_rows++;
-		}
+        $jsonstr = file_get_contents($file_path);
 
-		$this->lastError     = $stmt->errorInfo();
+        $json = json_decode($jsonstr);
+
+        $fields = array_keys((array) ($json[0]));
+
+
+        $insert_fields_str = join(', ', $fields);
+
+        $insert_values_str = join(', ', array_fill(0, count($fields),  '?'));
+
+        $insert_sql = "INSERT INTO $table ($insert_fields_str) VALUES ($insert_values_str)";
+
+        $stmt = $this->pdo()->prepare($insert_sql);
+
+        $total_rows = 0;
+        foreach ($json as $row) {
+            $data =  array_values((array) ($row));
+            $stmt->execute($data);
+            $total_rows++;
+        }
+
+        $this->lastError     = $stmt->errorInfo();
         $this->lastErrorCode = $stmt->errorCode();
         $this->rowCount      = $stmt->rowCount();
-		
-		if ($transaction == true){
-			$this->commit();
-		}
-		
-		return array(
-			'table' => $table,
-			'fields' => $fields,
-			'total_rows' => $total_rows,
-		);
-	}
-	
+
+        if ($transaction == true) {
+            $this->commit();
+        }
+
+        return array(
+            'table' => $table,
+            'fields' => $fields,
+            'total_rows' => $total_rows,
+        );
+    }
+
     /**
      * Method returns generated interval function as a string
      *
@@ -1340,7 +1333,7 @@ class Database
                 throw new Exception("invalid interval type in '{$diff}'");
             }
 
-            $func .= " ".$incr." interval ".$items." ".$types[$type]." ";
+            $func .= " " . $incr . " interval " . $items . " " . $types[$type] . " ";
         }
         return $func;
     }
@@ -1361,11 +1354,11 @@ class Database
         $joinType     = strtoupper(trim($joinType));
 
         if ($joinType && !in_array($joinType, $allowedTypes)) {
-            throw new Exception('Wrong JOIN type: '.$joinType);
+            throw new Exception('Wrong JOIN type: ' . $joinType);
         }
 
         if (!is_object($joinTable)) {
-            $joinTable = $this->prefix.$joinTable;
+            $joinTable = $this->prefix . $joinTable;
         }
 
         $this->join[] = [$joinType, $joinTable, $joinCondition];
@@ -1433,11 +1426,11 @@ class Database
         // Add table prefix to orderByField if needed.
         //FIXME: We are adding prefix only if table is enclosed into `` to distinguish aliases
         // from table names
-        $orderByField = preg_replace('/(\`)([`a-zA-Z0-9_]*\.)/', '\1'.$this->prefix.'\2', $orderByField);
+        $orderByField = preg_replace('/(\`)([`a-zA-Z0-9_]*\.)/', '\1' . $this->prefix . '\2', $orderByField);
 
 
         if (empty($orderbyDirection) || !in_array($orderbyDirection, $allowedDirection)) {
-            throw new Exception('Wrong order direction: '.$orderbyDirection);
+            throw new Exception('Wrong order direction: ' . $orderbyDirection);
         }
 
         if (is_array($customFields)) {
@@ -1445,7 +1438,7 @@ class Database
                 $customFields[$key] = preg_replace("/[^-a-z0-9\.\(\),_` ]+/i", '', $value);
             }
 
-            $orderByField = 'FIELD ('.$orderByField.', "'.implode('","', $customFields).'")';
+            $orderByField = 'FIELD (' . $orderByField . ', "' . implode('","', $customFields) . '")';
         }
 
         $this->orderBy[$orderByField] = $orderbyDirection;
@@ -1522,20 +1515,20 @@ class Database
      */
     private function prepare()
     {
-		$dbType = $this->connectionParams['type'];
-		$query = $this->query;
-		
-		if( $dbType == 'pgsql' ){
-			$query = str_replace('`','',$query);
-		}
-		
+        $dbType = $this->connectionParams['type'];
+        $query = $this->query;
+
+        if ($dbType == 'pgsql') {
+            $query = str_replace('`', '', $query);
+        }
+
         $stmt = $this->pdo()->prepare($query);
-		
-		if( !$this->isRecordCountQuery ){
-			$this->lastQuery = $this->query;
-		}
-		
-       
+
+        if (!$this->isRecordCountQuery) {
+            $this->lastQuery = $this->query;
+        }
+
+
 
         if (!$stmt instanceof PDOStatement) {
             $this->lastErrorCode = $this->pdo()->errorCode();
@@ -1544,13 +1537,13 @@ class Database
         }
 
         foreach ($this->params as $key => $value) {
-            $stmt->bindValue(is_int($key) ? $key + 1 : ':'.$key, $value, $this->determineType($value));
+            $stmt->bindValue(is_int($key) ? $key + 1 : ':' . $key, $value, $this->determineType($value));
         }
 
         return $stmt;
     }
-	
-	/**
+
+    /**
      * A method to perform select query
      * 
      * @param string $query   Contains a user-provided select query.
@@ -1561,12 +1554,12 @@ class Database
     public function query($query, $numRows = null, $params = null)
     {
         $this->query = $query;
-		
+
         if (is_array($params)) {
             $this->params = $params;
         }
-		
-		$stmt = $this->buildQuery($numRows);
+
+        $stmt = $this->buildQuery($numRows);
         if ($stmt) {
             $stmt->execute();
             $this->lastError     = $stmt->errorInfo();
@@ -1576,26 +1569,24 @@ class Database
             if (in_array('SQL_CALC_FOUND_ROWS', $this->queryOptions)) {
                 $dbType = $this->connectionParams['type'];
 
-                if( $dbType == 'mysql' ){
+                if ($dbType == 'mysql') {
                     $totalStmt        = $this->pdo()->query('SELECT FOUND_ROWS()');
                     $this->totalCount = $totalStmt->fetchColumn();
-                }
-                else{
+                } else {
                     $this->isRecordCountQuery = true;
-                    $this->query = 'SELECT COUNT(*) FROM '.$this->getTableName($tableName);
+                    $this->query = 'SELECT COUNT(*) FROM ' . $this->getTableName($tableName);
                     $totalStmt = $this->buildQuery(null);
                     $totalStmt->execute();
                     $this->totalCount = $totalStmt->fetchColumn();
                 }
             }
-        } 
-		else {
+        } else {
             $result = null;
         }
         $this->reset();
         return $result;
     }
-	
+
     /**
      * Perform db query
      * 
@@ -1657,7 +1648,7 @@ class Database
             return null;
         } else if (!$this->useGenerator && !$result) {
             return null;
-        }        
+        }
 
         if ($this->useGenerator) {
             $firstResult = $result->current();
@@ -1758,9 +1749,11 @@ class Database
      */
     public function setQueryOption($options)
     {
-        $allowedOptions = ['ALL', 'DISTINCT', 'DISTINCTROW', 'HIGH_PRIORITY', 'STRAIGHT_JOIN', 'SQL_SMALL_RESULT',
+        $allowedOptions = [
+            'ALL', 'DISTINCT', 'DISTINCTROW', 'HIGH_PRIORITY', 'STRAIGHT_JOIN', 'SQL_SMALL_RESULT',
             'SQL_BIG_RESULT', 'SQL_BUFFER_RESULT', 'SQL_CACHE', 'SQL_NO_CACHE', 'SQL_CALC_FOUND_ROWS',
-            'LOW_PRIORITY', 'IGNORE', 'QUICK', 'MYSQLI_NESTJOIN', 'FOR UPDATE', 'LOCK IN SHARE MODE'];
+            'LOW_PRIORITY', 'IGNORE', 'QUICK', 'MYSQLI_NESTJOIN', 'FOR UPDATE', 'LOCK IN SHARE MODE'
+        ];
 
         if (!is_array($options)) {
             $options = [$options];
@@ -1769,7 +1762,7 @@ class Database
         foreach ($options as $option) {
             $option = strtoupper($option);
             if (!in_array($option, $allowedOptions)) {
-                throw new Exception('Wrong query option: '.$option);
+                throw new Exception('Wrong query option: ' . $option);
             }
 
             if ($option == 'MYSQLI_NESTJOIN') {
@@ -1837,7 +1830,7 @@ class Database
         }
 
         foreach ($tables as $i => $value) {
-            $tables[$i] = $this->prefix.$value;
+            $tables[$i] = $this->prefix . $value;
         }
         $this->withTotalCount();
         $this->where('table_schema', $this->connectionParams['dbname']);
@@ -1860,7 +1853,7 @@ class Database
             return;
         }
 
-        $this->query     = 'UPDATE '.$this->getTableName($tableName);
+        $this->query     = 'UPDATE ' . $this->getTableName($tableName);
         $this->queryType = 'UPDATE';
 
         $stmt                = $this->buildQuery($numRows, $tableData);
@@ -1910,7 +1903,7 @@ class Database
      */
     public function withTotalCount()
     {
-		$this->setQueryOption('SQL_CALC_FOUND_ROWS');
+        $this->setQueryOption('SQL_CALC_FOUND_ROWS');
         return $this;
     }
 }

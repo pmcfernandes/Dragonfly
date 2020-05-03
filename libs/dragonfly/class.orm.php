@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Class to implement ORM
  *
@@ -18,7 +19,8 @@ class dbORM
      *
      * @param null|$tableName
      */
-    public function __construct($tableName = null) {
+    public function __construct($tableName = null)
+    {
         $this->Tablename = $tableName;
     }
 
@@ -28,7 +30,8 @@ class dbORM
      * @param $obj
      * @return array
      */
-    private function getKey($obj) {
+    private function getKey($obj)
+    {
         if (is_string($obj) == true) {
             $tableName = dbORM::getTablename($obj);
         } else {
@@ -60,7 +63,8 @@ class dbORM
      * @param null $values
      * @return null|string
      */
-    private static function createWhere($values = null) {
+    private static function createWhere($values = null)
+    {
         if ($values == null) {
             return '';
         }
@@ -89,7 +93,8 @@ class dbORM
      * @param $obj
      * @return object
      */
-    private static function createInstanceOfObject($obj) {
+    private static function createInstanceOfObject($obj)
+    {
         $reflect = new ReflectionClass($obj);
         return $reflect->newInstance(strval($obj));
     }
@@ -101,7 +106,8 @@ class dbORM
      * @param $data
      * @return null
      */
-    private static function merge($instance, $data) {
+    private static function merge($instance, $data)
+    {
         $reflect = new ReflectionClass($instance);
         $props = $reflect->getProperties(ReflectionProperty::IS_PUBLIC | ReflectionProperty::IS_PROTECTED);
 
@@ -110,7 +116,7 @@ class dbORM
         }
 
         foreach ($props as $prop) {
-            $arr = ((array)$data);
+            $arr = ((array) $data);
 
             if (isset($arr[$prop->getName()])) {
                 $prop->setValue($instance, $arr[$prop->getName()]);
@@ -126,7 +132,8 @@ class dbORM
      * @param $obj
      * @return mixed
      */
-    private static function getTablename($obj) {
+    private static function getTablename($obj)
+    {
         $reflect = new ReflectionClass($obj);
         $prop = $reflect->getProperty("Tablename");
 
@@ -136,9 +143,8 @@ class dbORM
             } else {
                 return $prop->getValue($obj);
             }
-
         } else {
-            die ('Tablename property is not founded in ORM class.');
+            die('Tablename property is not founded in ORM class.');
         }
     }
 
@@ -148,7 +154,8 @@ class dbORM
      * @param null $values
      * @return null
      */
-    public static function findAll($values = null) {
+    public static function findAll($values = null)
+    {
         $obj = get_called_class();
         $sql = trim("select * from " . dbORM::getTablename($obj) . " " . dbORM::createWhere($values));
 
@@ -176,7 +183,8 @@ class dbORM
      * @param null $values
      * @return null
      */
-    public static function find($values = null) {
+    public static function find($values = null)
+    {
         if ($values != null && !is_array($values)) {
             die('Values parameter must have a null or array structure.');
         }
@@ -201,7 +209,8 @@ class dbORM
      *
      * @return bool|null
      */
-    public function insert() {
+    public function insert()
+    {
         $reflect = new ReflectionClass($this);
         $props = $reflect->getProperties(ReflectionProperty::IS_PUBLIC | ReflectionProperty::IS_PROTECTED);
         if (count($props) == 0) {
@@ -233,7 +242,8 @@ class dbORM
      *
      * @return bool|null
      */
-    public function update() {
+    public function update()
+    {
         $reflect = new ReflectionClass($this);
         $props = $reflect->getProperties(ReflectionProperty::IS_PUBLIC | ReflectionProperty::IS_PROTECTED);
         if (count($props) == 0) {
@@ -267,7 +277,8 @@ class dbORM
      *
      * @return bool
      */
-    public function delete() {
+    public function delete()
+    {
         $reflect = new ReflectionClass($this);
         $delete = new SQLDelete(dbORM::getTablename($this));
 
@@ -287,7 +298,8 @@ class dbORM
      *
      * @return null|string
      */
-    public function toJSON() {
+    public function toJSON()
+    {
         $values = array();
 
         $reflect = new ReflectionClass($this);
@@ -305,5 +317,4 @@ class dbORM
 
         return json_encode($values);
     }
-
 }

@@ -15,7 +15,8 @@ class Cookie
      * @param mixed $name
      * @param mixed $content
      */
-    public static function setCookie($name, $content) {
+    public static function setCookie($name, $content)
+    {
         $authDomain = Config::getInstance()->authDomain;
         setcookie($name, base64_encode($content), mktime(0, 0, 0, 6, 2, 2037), '/', (empty($authDomain) ? null : $authDomain));
     }
@@ -26,7 +27,8 @@ class Cookie
      * @param mixed $name
      * @return string
      */
-    public static function getCookie($name) {
+    public static function getCookie($name)
+    {
         return base64_decode($_COOKIE[$name]);
     }
 
@@ -36,8 +38,8 @@ class Cookie
      * @param $name
      * @return bool
      */
-    public static function isCookie($name) {
+    public static function isCookie($name)
+    {
         return (isset($_COOKIE[$name]) == true);
     }
-
 }

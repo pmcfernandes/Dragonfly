@@ -219,5 +219,3 @@ function get_argument($n)
 	if (isset($args[$n])) return $args[$n];
 	return '';
 }
-
-?>

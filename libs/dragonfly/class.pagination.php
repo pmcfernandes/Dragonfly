@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Class to implement pagination
  *
@@ -17,7 +18,8 @@ class Pagination
      *
      * @param $params
      */
-    public function __construct($params) {
+    public function __construct($params)
+    {
         $this->params = $params;
     }
 
@@ -28,7 +30,8 @@ class Pagination
      * @param $items_per_page
      * @return float
      */
-    private function calculateTotalPages($total_items, $items_per_page) {
+    private function calculateTotalPages($total_items, $items_per_page)
+    {
         return round($total_items / $items_per_page, 0);
     }
 
@@ -37,7 +40,8 @@ class Pagination
      *
      * @return string
      */
-    public function render() {
+    public function render()
+    {
         extract($this->params);
 
         if (!isset($page)) {
@@ -81,7 +85,8 @@ class Pagination
      * @param $value
      * @return string
      */
-    private function rebuildURL($name, $value) {
+    private function rebuildURL($name, $value)
+    {
         $params = $_GET;
         $params[$name] = $value;
         return http_build_query($params);

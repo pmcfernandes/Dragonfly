@@ -1,13 +1,15 @@
 <?php
 
-class Server {
+class Server
+{
 
     /**
      * Returns the server's IP address
      *
      * @return void
      */
-    public static function address() {
+    public static function address()
+    {
         return $_SERVER['SERVER_ADDR'];
     }
 
@@ -16,8 +18,9 @@ class Server {
      *
      * @return void
      */
-    public static function cli() {
-        return (php_sapi_name() === 'cli');        
+    public static function cli()
+    {
+        return (php_sapi_name() === 'cli');
     }
 
     /**
@@ -26,7 +29,8 @@ class Server {
      * @param [type] $name
      * @return void
      */
-    public static function get($name) {
+    public static function get($name)
+    {
         return server($name);
     }
 
@@ -35,7 +39,8 @@ class Server {
      *
      * @return void
      */
-    public static function host() {
+    public static function host()
+    {
         return $_SERVER['SERVER_NAME'];
     }
 
@@ -44,7 +49,8 @@ class Server {
      *
      * @return void
      */
-    public static function https() {
+    public static function https()
+    {
         return isset($_SERVER['HTTPS']) && 'on' === $_SERVER['HTTPS'];
     }
 
@@ -53,18 +59,19 @@ class Server {
      *
      * @return void
      */
-    public static function port() {
+    public static function port()
+    {
         return $_SERVER['SERVER_PORT'];
     }
-    
+
     /**
      * Help to sanitize some _SERVER keys
      *
      * @param string $key
      * @return void
      */
-    public static function sanitize($name) {
+    public static function sanitize($name)
+    {
         return filter_var(Server::get($name), FILTER_SANITIZE_STRING);
     }
-
 }

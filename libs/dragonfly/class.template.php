@@ -32,7 +32,8 @@ class Template
      * @param string $path the path to the templates
      * @return void
      */
-    function __construct($path = null) {
+    function __construct($path = null)
+    {
         $this->path = $path;
         $this->vars = array();
     }
@@ -43,7 +44,8 @@ class Template
      * @param string $path path to template files
      * @return void
      */
-    function setPath($path) {
+    function setPath($path)
+    {
         $this->path = $path;
     }
 
@@ -54,7 +56,8 @@ class Template
      * @param mixed $value the value of the variable
      * @return void
      */
-    function assign($name, $value) {
+    function assign($name, $value)
+    {
         $this->vars[$name] = $value;
     }
 
@@ -65,7 +68,8 @@ class Template
      * @param bool $clear whether to completely overwrite the existing vars
      * @return void
      */
-    function setVars($vars, $clear = false) {
+    function setVars($vars, $clear = false)
+    {
         if ($clear) {
             $this->vars = $vars;
         } else {
@@ -81,7 +85,8 @@ class Template
      * @param string $file the template file name
      * @return string
      */
-    function fetch($file) {
+    function fetch($file)
+    {
         extract($this->vars); // Extract the vars to local namespace
         ob_start(); // Start output buffering
         include $this->path . $file; // Include the file
@@ -96,10 +101,10 @@ class Template
      * @param string $file the template file name
      * @return string
      */
-    function display($file) {
+    function display($file)
+    {
         echo $this->fetch($file);
     }
-
 }
 
 /**
@@ -133,8 +138,9 @@ class Template_Cache extends Template
      * @param int $expire number of seconds the cache will live
      * @return void
      */
-    function __construct($path, $path_cache_files = 'cache/', $cache_id = null, $expire = 900) {
-        $this->Template($path);
+    function __construct($path, $path_cache_files = 'cache/', $cache_id = null, $expire = 900)
+    {    
+        parent::__construct($path);
         $this->cache_id = $cache_id ? $path_cache_files . md5($cache_id) : $cache_id;
         $this->expire = $expire;
     }
@@ -145,7 +151,8 @@ class Template_Cache extends Template
      *
      * @return bool
      */
-    function isCached() {
+    function isCached()
+    {
         if ($this->cached)
             return true;
 
@@ -184,7 +191,8 @@ class Template_Cache extends Template
      * @param string $file string the template file
      * @return string
      */
-    function fetch($file) {
+    function fetch($file)
+    {
         if ($this->isCached()) {
             $fp = @fopen($this->cache_id, 'r');
             $contents = fread($fp, filesize($this->cache_id));
@@ -205,5 +213,4 @@ class Template_Cache extends Template
             return $contents;
         }
     }
-
 }

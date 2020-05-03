@@ -10,7 +10,8 @@ class Regex
      * @param $str
      * @return int
      */
-    public static function test($expression, $str) {
+    public static function test($expression, $str)
+    {
         return preg_match($expression, $str);
     }
 
@@ -20,7 +21,8 @@ class Regex
      * @param $email
      * @return bool
      */
-    public static function checkEmail($email)  {
+    public static function checkEmail($email)
+    {
         return Regex::test("/^([[:alnum:]_.-]){3,}@([[:lower:][:digit:]_.-]{3,})(.[[:lower:]]{2,3})(.[[:lower:]]{2})?$/", $email);
     }
 }

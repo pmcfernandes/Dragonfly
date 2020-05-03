@@ -16,7 +16,8 @@ class File
      *
      * @param $file
      */
-    public static function download($file) {
+    public static function download($file)
+    {
         if (file_exists($file)) {
             header('Content-Description: File Transfer');
             header('Content-Type: application/octet-stream');
@@ -39,7 +40,8 @@ class File
      * @param string $file Full Path of File including name and extension
      * @return string
      */
-    public static function getExtension($file) {
+    public static function getExtension($file)
+    {
         $parts = explode(".", $file);
         return end($parts);
     }
@@ -50,7 +52,8 @@ class File
      * @param $size
      * @return int
      */
-    public static function size($size) {
+    public static function size($size)
+    {
         $sizes = array("B", "KB", "MB", "GB");
         $length = $size;
         $i = 0;
@@ -69,7 +72,8 @@ class File
      * @param string $file Full Path of File including name and extension
      * @return string
      */
-    public static function read($file) {
+    public static function read($file)
+    {
         $handle = fopen($file, "r");
         $contents = fread($handle, filesize($file));
         fclose($handle);
@@ -84,7 +88,8 @@ class File
      * @param $data
      * @return bool
      */
-    public static function write($file, $data) {
+    public static function write($file, $data)
+    {
         $handle = fopen($file, "w");
 
         if ($handle) {
@@ -102,7 +107,8 @@ class File
      * @param $path Full Path of Directory name in Disk
      * @return array
      */
-    public static function getDir($path) {
+    public static function getDir($path)
+    {
         $files = array();
 
         $objects = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($path));
@@ -120,7 +126,8 @@ class File
      * @param $fileOrDirectory Full Path of File including name and extension or Directory name only
      * @return bool
      */
-    public static function isDir($fileOrDirectory) {
+    public static function isDir($fileOrDirectory)
+    {
         return is_dir($fileOrDirectory);
     }
 
@@ -130,7 +137,8 @@ class File
      * @param $file Full Path of File including name and extension
      * @return bool
      */
-    public static function exists($file) {
+    public static function exists($file)
+    {
         return file_exists($file);
     }
 
@@ -140,7 +148,8 @@ class File
      * @param $file Full Path of File including name and extension
      * @return array
      */
-    public static function info($file) {
+    public static function info($file)
+    {
         return stat($file);
     }
 
@@ -149,7 +158,8 @@ class File
      *
      * @param $path
      */
-    public static function createDirectory($path) {
+    public static function createDirectory($path)
+    {
         mkdir($path);
     }
 
@@ -158,7 +168,8 @@ class File
      *
      * @param $fileOrDirectory  Full Path of File including name and extension or Directory name only
      */
-    public static function delete($fileOrDirectory) {
+    public static function delete($fileOrDirectory)
+    {
         if (File::isDir($fileOrDirectory) == true) {
             rmdir($fileOrDirectory);
         } else {
@@ -167,5 +178,4 @@ class File
             }
         }
     }
-
 }

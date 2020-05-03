@@ -12,7 +12,6 @@ class FieldType
     const Memo = 7;
     const Decimal4 = 8;
     const Decimal18 = 9;
-
 }
 
 class WhereOperator
@@ -41,7 +40,6 @@ class LogicalOperator
 {
     const AND_ = 0;
     const OR_ = 1;
-
 }
 
 class JoinType
@@ -50,14 +48,12 @@ class JoinType
     const Left = 1;
     const Right = 2;
     const Full = 3;
-
 }
 
 class OrderByDirection
 {
     const Asc = 0;
     const Desc = 1;
-
 }
 
 class SQLBase
@@ -106,10 +102,14 @@ class SQLBase
             $str = ' ';
 
             foreach ($fields as $field) {
-                $str .= $this->Enclose(trim($field[0]), $field[1], $field[2]
-                        , WhereOperator::Equal
-                        , LogicalOperator::AND_
-                        , true) . ', ';
+                $str .= $this->Enclose(
+                    trim($field[0]),
+                    $field[1],
+                    $field[2],
+                    WhereOperator::Equal,
+                    LogicalOperator::AND_,
+                    true
+                ) . ', ';
             }
 
             return ensureNotEndsWith(trim($str), ',');
@@ -130,10 +130,14 @@ class SQLBase
             $str = ' ';
 
             foreach ($fields as $field) {
-                $str .= trim($field[0]) . ' = ' . $this->Enclose(trim($field[0]), $field[1], $field[2]
-                        , WhereOperator::Equal
-                        , LogicalOperator::AND_
-                        , true) . ', ';
+                $str .= trim($field[0]) . ' = ' . $this->Enclose(
+                    trim($field[0]),
+                    $field[1],
+                    $field[2],
+                    WhereOperator::Equal,
+                    LogicalOperator::AND_,
+                    true
+                ) . ', ';
             }
 
             return ensureNotEndsWith(trim($str), ',');
@@ -347,12 +351,10 @@ class SQLBase
                         break;
                 }
             }
-
         }
 
         return $strEnclose;
     }
-
 }
 
 class SQLDelete extends SQLBase
@@ -387,7 +389,6 @@ class SQLDelete extends SQLBase
         $sql = 'DELETE FROM ' . $this->Tablename . ' ' . $this->GetWheres($this->wheres);
         return trim($sql);
     }
-
 }
 
 class SQLInsert extends SQLBase
@@ -420,7 +421,6 @@ class SQLInsert extends SQLBase
 
         return trim($sql);
     }
-
 }
 
 class SQLSelect extends SQLBase
@@ -544,7 +544,6 @@ class SQLSelect extends SQLBase
 
         return trim($sql);
     }
-
 }
 
 class SQLUpdate extends SQLBase
@@ -598,5 +597,4 @@ class SQLUpdate extends SQLBase
 
         return trim($sql);
     }
-
 }

@@ -8,7 +8,8 @@ class Upload
      *
      * @return array
      */
-    public static function getUploadFiles()  {
+    public static function getUploadFiles()
+    {
         $files = array();
 
         foreach ($_FILES as $file) {
@@ -32,7 +33,8 @@ class Upload
      *
      * @param $file
      */
-    private function __construct($file) {
+    private function __construct($file)
+    {
         $this->tmp_name = $file["tmp_name"];
         $this->filename = $file["name"];
         $this->type = $file["type"];
@@ -44,7 +46,8 @@ class Upload
      *
      * @return mixed
      */
-    public function getName() {
+    public function getName()
+    {
         return $this->filename;
     }
 
@@ -53,7 +56,8 @@ class Upload
      *
      * @return mixed
      */
-    public function getType() {
+    public function getType()
+    {
         return $this->type;
     }
 
@@ -62,7 +66,8 @@ class Upload
      *
      * @return mixed
      */
-    public function getSize() {
+    public function getSize()
+    {
         return $this->size;
     }
 
@@ -71,10 +76,10 @@ class Upload
      *
      * @param $destination
      */
-    public function saveAs($destination) {
+    public function saveAs($destination)
+    {
         if (file_exists($this->tmp_name)) {
             move_uploaded_file($this->tmp_name, $destination);
         }
     }
-
 }

@@ -89,7 +89,7 @@ final class GD
      */
     public function saveAs($filename, $quality = 75)
     {
-        $type = Strings::right($filename, 4);
+        $type = Str::right($filename, 4);
 
         switch ($type) {
             case ".jpg":
@@ -112,8 +112,8 @@ final class GD
      */
     public function output($type, $quality = 75)
     {
-        if (Strings::isNullOrEmpty($type)) {
-            $type = Strings::right($this->filename, 4);
+        if (Str::isNullOrEmpty($type)) {
+            $type = Str::right($this->filename, 4);
         }
 
         switch ($type) {
@@ -205,5 +205,4 @@ final class GD
             $y = 0;
         return $this->crop($x, $y, $w, $h);
     }
-
 }

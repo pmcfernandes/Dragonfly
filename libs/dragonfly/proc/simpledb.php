@@ -9,7 +9,10 @@
  * @param string $password
  * @return void
  */
-function mysql_connect($db, $server, $username, $password) {
+function mysql_connect($db, $server, $username, $password)
+{
+    global $config;
+
     if (!isset($db)) {
         $db = $config['db_name'];
     }
@@ -33,7 +36,7 @@ function mysql_connect($db, $server, $username, $password) {
         die("Database connection failed: " . mysqli_connect_error() . " (" . mysqli_connect_errno() . ")");
     } else {
         mysqli_autocommit($connection, TRUE);
-        mysqli_set_charset($connection, "utf8");        
+        mysqli_set_charset($connection, "utf8");
         return $connection;
     }
 }
@@ -43,7 +46,8 @@ function mysql_connect($db, $server, $username, $password) {
  *
  * @return void
  */
-function mysql_close() {
+function mysql_close()
+{
     global $connection;
 
     if (isset($connection)) {
@@ -57,9 +61,10 @@ function mysql_close() {
  * @param string $string
  * @return void
  */
-function mysql_prep($string) {
+function mysql_prep($string)
+{
     global $connection;
-    
+
     $escaped_string = mysqli_real_escape_string($connection, $string);
     return $escaped_string;
 }
@@ -70,7 +75,8 @@ function mysql_prep($string) {
  * @param mixed $result_set
  * @return void
  */
-function confirm_query($result_set) {
+function confirm_query($result_set)
+{
     if (!$result_set) {
         die("Database query failed.");
     }
@@ -82,7 +88,8 @@ function confirm_query($result_set) {
  * @param string $sql
  * @return void
  */
-function mysql_query($sql) {
+function mysql_query($sql)
+{
     global $connection;
 
     $result = mysqli_query($connection, $sql);
@@ -90,8 +97,8 @@ function mysql_query($sql) {
     $data = array();
 
     if (mysqli_num_rows($result) > 0) {
-        while($row = mysqli_fetch_assoc($result)) {
-           $data[] = $row;           
+        while ($row = mysqli_fetch_assoc($result)) {
+            $data[] = $row;
         }
     }
 
@@ -105,10 +112,11 @@ function mysql_query($sql) {
  * @param string $sql
  * @return void
  */
-function mysql_insert($sql) {
+function mysql_insert($sql)
+{
     global $connection;
 
-    if (mysqli_query($connectionn, $sql)) {
+    if (mysqli_query($connection, $sql)) {
         return mysqli_affected_rows($connection);
     } else {
         return 0;
@@ -121,7 +129,8 @@ function mysql_insert($sql) {
  * @param string $sql
  * @return void
  */
-function mysql_update($sql) {
+function mysql_update($sql)
+{
     return mysql_insert($sql);
 }
 
@@ -131,7 +140,8 @@ function mysql_update($sql) {
  * @param string $sql
  * @return void
  */
-function mysql_delete($sql) {
+function mysql_delete($sql)
+{
     return mysql_insert($sql);
 }
 
@@ -140,7 +150,8 @@ function mysql_delete($sql) {
  *
  * @return void
  */
-function mysql_lastid() {
+function mysql_lastid()
+{
     global $connection;
     $last_id = mysqli_insert_id($connection);
     return $last_id;
@@ -152,7 +163,8 @@ function mysql_lastid() {
  * @param string $sql
  * @return void
  */
-function mysql_count($sql) {
+function mysql_count($sql)
+{
     global $connection;
 
     $result = mysqli_query($connection, $sql);
@@ -166,7 +178,8 @@ function mysql_count($sql) {
  *
  * @return void
  */
-function mysql_begin_transaction() {
+function mysql_begin_transaction()
+{
     global $connection;
     mysqli_autocommit($connection, FALSE);
     mysqli_begin_transaction($connection, MYSQLI_TRANS_START_READ_ONLY);
@@ -177,8 +190,9 @@ function mysql_begin_transaction() {
  *
  * @return void
  */
-function mysql_commit() {
-    global $connection; 
+function mysql_commit()
+{
+    global $connection;
     mysqli_commit($connection);
     mysqli_autocommit($connection, TRUE);
 }
@@ -188,7 +202,8 @@ function mysql_commit() {
  *
  * @return void
  */
-function mysql_rollback() {
+function mysql_rollback()
+{
     global $connection;
     mysqli_rollback($connection);
     mysqli_autocommit($connection, TRUE);

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Class to implement Page
  *
@@ -7,7 +8,8 @@
  * @version $Revision$
  * @author Pedro Fernandes
  */
-class Page {
+class Page
+{
 
     /**
      * Get a variable from Query String
@@ -16,7 +18,8 @@ class Page {
      * @param null $default
      * @return null
      */
-    public static function get($key, $default = null) {
+    public static function get($key, $default = null)
+    {
         if (isset($_GET[$key])) {
             return $_GET[$key];
         }
@@ -31,7 +34,8 @@ class Page {
      * @param null $default
      * @return null
      */
-    public static function post($key, $default = null) {
+    public static function post($key, $default = null)
+    {
         if (isset($_POST[$key])) {
             return $_POST[$key];
         }
@@ -59,18 +63,19 @@ class Page {
      *
      * @return bool
      */
-    public static function is_postback() {
+    public static function is_postback()
+    {
         return (strtolower($_SERVER['REQUEST_METHOD']) == 'post');
     }
 
     /**
      * Check if AJAX call or normal call (post)
      */
-    public static function is_callback() {
+    public static function is_callback()
+    {
         echo $_SERVER['HTTP_X_REQUESTED_WITH'];
 
         return (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) &&
             strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest');
     }
-
 }

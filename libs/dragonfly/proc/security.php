@@ -5,7 +5,8 @@
  *
  * @return void
  */
-function logged_in() {
+function logged_in()
+{
     return isset($_SESSION['admin_id']);
 }
 
@@ -14,7 +15,8 @@ function logged_in() {
  *
  * @return void
  */
-function confirm_logged_in() {
+function confirm_logged_in()
+{
     if (!logged_in()) {
         redirect_to("login.php");
     }
@@ -26,7 +28,8 @@ function confirm_logged_in() {
  * @param string $new_location
  * @return void
  */
-function redirect_to($new_location) {
+function redirect_to($new_location)
+{
     header("Location: " . $new_location);
     exit;
 }
@@ -38,7 +41,8 @@ function redirect_to($new_location) {
  * @param string $password
  * @return void
  */
-function attempt_login($username, $password) {
+function attempt_login($username, $password)
+{
     $user = find_user_by_username($username);
     if ($user) {
         if (password_check($password, $user["Password"])) {
@@ -57,10 +61,11 @@ function attempt_login($username, $password) {
  * @param string $username
  * @return void
  */
-function find_user_by_username($username) {
+function find_user_by_username($username)
+{
     global $connection;
     $safe_username = mysqli_real_escape_string($connection, $username);
-    
+
     $query  = "SELECT * ";
     $query .= "FROM MetaUser ";
     $query .= "WHERE Username = '{$safe_username}' ";
@@ -68,7 +73,7 @@ function find_user_by_username($username) {
     $user_set = mysqli_query($connection, $query);
     confirm_query($user_set);
 
-    if($user = mysqli_fetch_assoc($user_set)) {
+    if ($user = mysqli_fetch_assoc($user_set)) {
         return $user;
     } else {
         return null;
@@ -81,10 +86,11 @@ function find_user_by_username($username) {
  * @param int $user_id
  * @return void
  */
-function find_user_by_id($user_id) {
+function find_user_by_id($user_id)
+{
     global $connection;
     $safe_user_id = mysqli_real_escape_string($connection, $user_id);
-    
+
     $query  = "SELECT * ";
     $query .= "FROM MetaUser ";
     $query .= "WHERE IDUser = {$safe_user_id} ";
@@ -92,7 +98,7 @@ function find_user_by_id($user_id) {
     $user_set = mysqli_query($connection, $query);
 
     confirm_query($user_set);
-    if($user = mysqli_fetch_assoc($user_set)) {
+    if ($user = mysqli_fetch_assoc($user_set)) {
         return $user;
     } else {
         return null;

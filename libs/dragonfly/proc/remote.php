@@ -6,7 +6,8 @@
  * @param [type] $url
  * @return void
  */
-function rest_get_data($url) {
+function rest_get_data($url)
+{
     $ch = curl_init();
     curl_setopt($ch, CURLOPT_URL, $url);
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
@@ -22,7 +23,8 @@ function rest_get_data($url) {
  * @param [type] $data
  * @return void
  */
-function rest_post_data($url, $data) {
+function rest_post_data($url, $data)
+{
     if (is_array($data)) {
         $data = json_encode($data);
     }
@@ -46,7 +48,8 @@ function rest_post_data($url, $data) {
  * @param [type] $data
  * @return void
  */
-function rest_put_data($url, $data) {
+function rest_put_data($url, $data)
+{
     if (is_array($data)) {
         $data = json_encode($data);
     }
@@ -69,11 +72,13 @@ function rest_put_data($url, $data) {
  * @param [type] $data
  * @return void
  */
-function rest_delete_data($url, $data) {
+function rest_delete_data($url, $data)
+{
     if (is_array($data)) {
         $data = json_encode($data);
     }
 
+    $ch = curl_init();
     curl_setopt($ch, CURLOPT_URL, $url);
     curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type:application/json'));
     curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "DELETE");
@@ -83,4 +88,3 @@ function rest_delete_data($url, $data) {
     curl_close($ch);
     return $result;
 }
-

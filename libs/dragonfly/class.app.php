@@ -2,14 +2,16 @@
 
 parse_str($_SERVER['QUERY_STRING']);
 
-class Application {
+class Application
+{
 
     /**
      * Check if DEBUG is available
      *
      * @return int
      */
-    public static function canDebug() {
+    public static function canDebug()
+    {
         global $DEBUG;
 
         $allowed = array('127.0.0.1', '81.1.1.1');
@@ -26,7 +28,8 @@ class Application {
      *
      * @param $message
      */
-    public static function debug($message) {
+    public static function debug($message)
+    {
         if (!Application::canDebug()) {
             return;
         }
@@ -46,7 +49,8 @@ class Application {
      * Disable global variables
      *
      */
-    private static function disableGlobals() {
+    private static function disableGlobals()
+    {
         if (ini_get('register_globals')) {
             $array = array(
                 '_SESSION',
@@ -76,22 +80,24 @@ class Application {
      * @param $controller
      * @return mixed
      */
-	public static function render($action, $controller) {
-		$instance = new $controller;
-		
-		if ($instance) {
-			return $instance->$action();
-		} else {
-			die('Can\'t initialize controller, check if controller and action exists.');
-		}
-	}
+    public static function render($action, $controller)
+    {
+        $instance = new $controller;
+
+        if ($instance) {
+            return $instance->$action();
+        } else {
+            die('Can\'t initialize controller, check if controller and action exists.');
+        }
+    }
 
     /**
      * Start application and Model-view-controller magic process
      *
      */
-	public static function run() {
-		Application::disableGlobals();
+    public static function run()
+    {
+        Application::disableGlobals();
 
         global $config;
 
@@ -152,5 +158,5 @@ class Application {
 
         // Create object and call method
         die(Application::render($action, $controller . 'Controller'));
-	}
+    }
 }

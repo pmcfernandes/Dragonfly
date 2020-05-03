@@ -1,6 +1,7 @@
 <?php
 
-class Str {
+class Str
+{
 
     /**
      * A UTF-8 safe version of strotoupper()
@@ -8,7 +9,8 @@ class Str {
      * @param string $str
      * @return void
      */
-    public static function upper($str) {
+    public static function upper($str)
+    {
         return strotoupper($str);
     }
 
@@ -18,7 +20,8 @@ class Str {
      * @param string $str
      * @return void
      */
-    public static function lower($str) {
+    public static function lower($str)
+    {
         return strtolower($str);
     }
 
@@ -28,8 +31,9 @@ class Str {
      * @param string $str
      * @return string
      */
-    public static function ascii($str) {
-        return iconv("UTF-8", "ASCII", $text);
+    public static function ascii($str)
+    {
+        return iconv("UTF-8", "ASCII", $str);
     }
 
     /**
@@ -39,10 +43,11 @@ class Str {
      * @param string $needle
      * @return void
      */
-    public static function contains($str, $needle) {
+    public static function contains($str, $needle)
+    {
         if (preg_match("/{$needle}/i", $str)) {
             return true;
-        } 
+        }
 
         return false;
     }
@@ -53,7 +58,8 @@ class Str {
      * @param string $str
      * @return void
      */
-    public static function length($str) {
+    public static function length($str)
+    {
         return strlen($str);
     }
 
@@ -65,7 +71,8 @@ class Str {
      * @param [type] $start
      * @return void
      */
-    public static function template($str, $data = [], $start = '{{', $end = '}}') {
+    public static function template($str, $data = [], $start = '{{', $end = '}}')
+    {
         $d = array();
 
         foreach ($data as $key => $value) {
@@ -81,22 +88,23 @@ class Str {
      * @param [type] $str
      * @return void
      */
-    public static function normalize($str) {
+    public static function normalize($str)
+    {
         $table = array(
-            'Š'=>'S', 'š'=>'s', 'Đ'=>'Dj', 'đ'=>'dj', 'Ž'=>'Z', 'ž'=>'z', 'Č'=>'C', 'č'=>'c', 'Ć'=>'C', 'ć'=>'c',
-            'À'=>'A', 'Á'=>'A', 'Â'=>'A', 'Ã'=>'A', 'Ä'=>'A', 'Å'=>'A', 'Æ'=>'A', 'Ç'=>'C', 'È'=>'E', 'É'=>'E',
-            'Ê'=>'E', 'Ë'=>'E', 'Ì'=>'I', 'Í'=>'I', 'Î'=>'I', 'Ï'=>'I', 'Ñ'=>'N', 'Ò'=>'O', 'Ó'=>'O', 'Ô'=>'O',
-            'Õ'=>'O', 'Ö'=>'O', 'Ø'=>'O', 'Ù'=>'U', 'Ú'=>'U', 'Û'=>'U', 'Ü'=>'U', 'Ý'=>'Y', 'Þ'=>'B', 'ß'=>'Ss',
-            'à'=>'a', 'á'=>'a', 'â'=>'a', 'ã'=>'a', 'ä'=>'a', 'å'=>'a', 'æ'=>'a', 'ç'=>'c', 'è'=>'e', 'é'=>'e',
-            'ê'=>'e', 'ë'=>'e', 'ì'=>'i', 'í'=>'i', 'î'=>'i', 'ï'=>'i', 'ð'=>'o', 'ñ'=>'n', 'ò'=>'o', 'ó'=>'o',
-            'ô'=>'o', 'õ'=>'o', 'ö'=>'o', 'ø'=>'o', 'ù'=>'u', 'ú'=>'u', 'û'=>'u', 'ý'=>'y', 'ý'=>'y', 'þ'=>'b',
-            'ÿ'=>'y', 'Ŕ'=>'R', 'ŕ'=>'r',
+            'Š' => 'S', 'š' => 's', 'Đ' => 'Dj', 'đ' => 'dj', 'Ž' => 'Z', 'ž' => 'z', 'Č' => 'C', 'č' => 'c', 'Ć' => 'C', 'ć' => 'c',
+            'À' => 'A', 'Á' => 'A', 'Â' => 'A', 'Ã' => 'A', 'Ä' => 'A', 'Å' => 'A', 'Æ' => 'A', 'Ç' => 'C', 'È' => 'E', 'É' => 'E',
+            'Ê' => 'E', 'Ë' => 'E', 'Ì' => 'I', 'Í' => 'I', 'Î' => 'I', 'Ï' => 'I', 'Ñ' => 'N', 'Ò' => 'O', 'Ó' => 'O', 'Ô' => 'O',
+            'Õ' => 'O', 'Ö' => 'O', 'Ø' => 'O', 'Ù' => 'U', 'Ú' => 'U', 'Û' => 'U', 'Ü' => 'U', 'Ý' => 'Y', 'Þ' => 'B', 'ß' => 'Ss',
+            'à' => 'a', 'á' => 'a', 'â' => 'a', 'ã' => 'a', 'ä' => 'a', 'å' => 'a', 'æ' => 'a', 'ç' => 'c', 'è' => 'e', 'é' => 'e',
+            'ê' => 'e', 'ë' => 'e', 'ì' => 'i', 'í' => 'i', 'î' => 'i', 'ï' => 'i', 'ð' => 'o', 'ñ' => 'n', 'ò' => 'o', 'ó' => 'o',
+            'ô' => 'o', 'õ' => 'o', 'ö' => 'o', 'ø' => 'o', 'ù' => 'u', 'ú' => 'u', 'û' => 'u', 'ý' => 'y', 'ý' => 'y', 'þ' => 'b',
+            'ÿ' => 'y', 'Ŕ' => 'R', 'ŕ' => 'r',
         );
-        
-        return strtr($str, $table);        
+
+        return strtr($str, $table);
     }
 
-      /**
+    /**
      * Returns a random string of the selected length
      *
      * @param $number
@@ -122,7 +130,8 @@ class Str {
      * @param mixed $delimiter
      * @return array
      */
-    public static function split($str, $delimiter) {
+    public static function split($str, $delimiter)
+    {
         return explode($delimiter, $str);
     }
 
@@ -134,12 +143,13 @@ class Str {
      * @param mixed $size
      * @return string
      */
-    public static function mid($str, $startIndex, $size) {
+    public static function mid($str, $startIndex, $size)
+    {
         if (empty($str)) {
             return '';
         } else {
             return substr($str, $startIndex, $size);
-        }        
+        }
     }
 
     /**
@@ -149,7 +159,8 @@ class Str {
      * @param mixed $size
      * @return string
      */
-    public static function left($str, $size) {
+    public static function left($str, $size)
+    {
         return self::mid($str, 0, $size);
     }
 
@@ -160,7 +171,8 @@ class Str {
      * @param mixed $size
      * @return string
      */
-    public static function right($str, $size) {
+    public static function right($str, $size)
+    {
         return self::mid($str, self::length($str) - $size, $size);
     }
 
@@ -169,7 +181,8 @@ class Str {
      *
      * @return string
      */
-    public static function format() {
+    public static function format()
+    {
         $args = func_get_args();
 
         if (count($args) == 0) {
@@ -202,12 +215,14 @@ class Str {
      *
      * @return string
      */
-    public static function new_guid() {
+    public static function new_guid()
+    {
         if (function_exists('com_create_guid') === true) {
             return trim(com_create_guid(), '{}');
         }
 
-        return sprintf('%04X%04X-%04X-%04X-%04X-%04X%04X%04X',
+        return sprintf(
+            '%04X%04X-%04X-%04X-%04X-%04X%04X%04X',
             mt_rand(0, 65535),
             mt_rand(0, 65535),
             mt_rand(0, 65535),
@@ -215,7 +230,8 @@ class Str {
             mt_rand(32768, 49151),
             mt_rand(0, 65535),
             mt_rand(0, 65535),
-            mt_rand(0, 65535));
+            mt_rand(0, 65535)
+        );
     }
 
     /**
@@ -224,12 +240,12 @@ class Str {
      * @param $str
      * @return bool
      */
-    public static function isNullOrEmpty($str) {
+    public static function isNullOrEmpty($str)
+    {
         if (isset($str) && !empty($str)) {
             return false;
         }
 
         return true;
     }
-
 }

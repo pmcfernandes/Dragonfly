@@ -9,7 +9,8 @@ class View
     /**
      * Constructor of View
      */
-    public function __construct($template) {
+    public function __construct($template)
+    {
         $this->filename = $template;
 
         $this->tmpl = new Template();
@@ -22,7 +23,8 @@ class View
      * @param mixed $var
      * @param mixed $val
      */
-    public function set($var, $val) {
+    public function set($var, $val)
+    {
         $this->pageVars[$var] = $val;
     }
 
@@ -32,7 +34,8 @@ class View
      * @param $var
      * @return null|mixed
      */
-    public function get($var) {
+    public function get($var)
+    {
         if (isset($this->pageVars[$var])) {
             return $this->pageVars[$var];
         }
@@ -43,9 +46,9 @@ class View
     /**
      * Render page
      */
-    public function render() {
+    public function render()
+    {
         $this->tmpl->setVars($this->pageVars, true);
         $this->tmpl->display($this->filename . '.php');
     }
-
 }

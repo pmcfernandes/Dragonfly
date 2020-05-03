@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Class to implement Model for database
  *
@@ -14,7 +15,8 @@ class Model
     /**
      * Constructor of Model
      */
-    public function __construct() {
+    public function __construct()
+    {
         $this->connection = Database::getInstance();
     }
 
@@ -24,7 +26,8 @@ class Model
      * @param mixed $qry
      * @return int
      */
-    public function execute($qry) {
+    public function execute($qry)
+    {
         return $this->connection->execute($qry);
     }
 
@@ -34,8 +37,8 @@ class Model
      * @param $qry
      * @return mixed
      */
-    public function query($qry) {
+    public function query($qry)
+    {
         return $this->connection->query($qry);
     }
-
 }

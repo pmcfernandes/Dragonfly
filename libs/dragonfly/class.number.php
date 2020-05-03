@@ -16,7 +16,8 @@ final class Number
      * @param mixed $numberToCompare
      * @return bool
      */
-    public function isMultipleOf($i, $numberToCompare) {
+    public function isMultipleOf($i, $numberToCompare)
+    {
         return ($i % $numberToCompare) == 0;
     }
 
@@ -26,7 +27,8 @@ final class Number
      * @param mixed $i
      * @return bool
      */
-    public function isNumeric($i) {
+    public function isNumeric($i)
+    {
         return is_numeric($i);
     }
 
@@ -36,7 +38,8 @@ final class Number
      * @param mixed $i
      * @return bool
      */
-    public function isNegative($i) {
+    public function isNegative($i)
+    {
         if (is_numeric($i) == true) {
             return ($i < 0);
         } else {
@@ -50,7 +53,8 @@ final class Number
      * @param mixed $i
      * @return bool
      */
-    public static function isPar($i) {
+    public static function isPar($i)
+    {
         return self::isMultipleOf($i, 2);
     }
 }

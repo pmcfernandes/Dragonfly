@@ -11,6 +11,36 @@
 class Page
 {
 
+    public static function printDoctype()
+    {
+        echo '<!DOCTYPE html>';
+    }
+
+    public static function printTitle($title)
+    {
+        echo "<title>$title</title>";
+    }
+
+    public static function printDescription($description)
+    {
+        echo '<meta name="description" content="' . $description . '">';
+    }
+
+    public static function enableResponsiveDesign()
+    {
+        echo '<meta name="viewport" content="width=device-width">';
+    }
+
+    public static function printCharset()
+    {
+        echo '<meta charset="utf-8">';
+    }
+
+    public static function blockRobots() 
+    {
+        echo '<meta name="robots" content="nofollow,noindex">';
+    }
+
     /**
      * Get a variable from Query String
      *

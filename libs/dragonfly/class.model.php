@@ -17,7 +17,7 @@ class Model
      */
     public function __construct()
     {
-        $this->connection = Database::getInstance();
+        $this->connection = PDODb::getInstance();
     }
 
     /**

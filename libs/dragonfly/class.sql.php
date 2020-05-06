@@ -80,12 +80,13 @@ class SQLBase
     /**
      * Sanitize sql query
      *
+     * @param mixed $mysql
      * @param mixed $sql
      * @return string
      */
-    public static function Sanitize($sql)
+    public static function Sanitize($mysql, $sql)
     {
-        return mysql_real_escape_string($sql);
+        return mysqli_real_escape_string($mysql, $sql);
     }
 
     /**

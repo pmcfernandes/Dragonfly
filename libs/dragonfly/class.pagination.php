@@ -65,7 +65,7 @@ class Pagination
             if ($isActive) {
                 $a = '<a href="#">' . ($i + 1) . '</a>';
             } else {
-                $a = '<a href="' . ensureNotEndsWith(full_url(false), '/') . '/?' . $this->rebuildURL("page", $i + 1) . '">' . ($i + 1) . '</a>';
+                $a = '<a href="' . ensureNotEndsWith(full_url($_SERVER), '/') . '/?' . $this->rebuildURL("page", $i + 1) . '">' . ($i + 1) . '</a>';
             }
 
             $text .= '<li' . ($isActive ? ' class="active"' : '') . '>' . $a . '</li>';

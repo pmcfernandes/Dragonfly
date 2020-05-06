@@ -14,15 +14,17 @@
  * @link      http://github.com/joshcam/PHP-MySQLi-Database-Class
  * @version   1.1.0
  */
-class Database
+class PDODb
 {
 
     private static $me;
 
     public static function getInstance()
     {
+        global $config;
+
         if (is_null(self::$me)) {
-            self::$me = new Database(array(
+            self::$me = new PDODb(array(
                 'type' => 'mysql',
                 'host' => $config['db_host'],
                 'username' => $config['db_user'],
@@ -1574,7 +1576,7 @@ class Database
                     $this->totalCount = $totalStmt->fetchColumn();
                 } else {
                     $this->isRecordCountQuery = true;
-                    $this->query = 'SELECT COUNT(*) FROM ' . $this->getTableName($tableName);
+                    $this->query = 'SELECT COUNT(*) FROM ' . $params['tableName'];
                     $totalStmt = $this->buildQuery(null);
                     $totalStmt->execute();
                     $this->totalCount = $totalStmt->fetchColumn();

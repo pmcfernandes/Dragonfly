@@ -24,7 +24,7 @@ final class DBLoop implements Iterator, Countable
         if (!is_string($result_or_sql)) {
             $query = $result_or_sql;
         } else {
-            $query = Database::getInstance()->query($result_or_sql);
+            $query = PDODb::getInstance()->query($result_or_sql);
         }
 
         $this->result = $query;

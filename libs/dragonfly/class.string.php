@@ -11,7 +11,7 @@ class Str
      */
     public static function upper($str)
     {
-        return strotoupper($str);
+        return strtoupper($str);
     }
 
     /**

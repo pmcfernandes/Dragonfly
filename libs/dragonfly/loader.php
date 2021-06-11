@@ -43,8 +43,10 @@ require_once(DRAGONFLY_LIB_PATH . '/class.page.php');
 require_once(DRAGONFLY_LIB_PATH . '/class.file.php');
 require_once(DRAGONFLY_LIB_PATH . '/class.regex.php');
 require_once(DRAGONFLY_LIB_PATH . '/class.sql.php');
+require_once(DRAGONFLY_LIB_PATH . '/class.pdo.php');
 require_once(DRAGONFLY_LIB_PATH . '/class.database.php');
 require_once(DRAGONFLY_LIB_PATH . '/class.dbloop.php');
+require_once(DRAGONFLY_LIB_PATH . '/class.table.php');
 require_once(DRAGONFLY_LIB_PATH . '/class.orm.php');
 require_once(DRAGONFLY_LIB_PATH . '/class.cache.php');
 require_once(DRAGONFLY_LIB_PATH . '/class.cookie.php');
@@ -69,10 +71,10 @@ require_once(DRAGONFLY_LIB_PATH . '/class.csrf.php');
 function autoload($class)
 {
     if (!class_exists($class)) {
-        if (mb_strpos($class, "Controller") === false) {
-            require(__DIR__ . "/models/$class.php");
-        } else {
+        if (mb_strpos($class, "Controller") === true) {
             require(__DIR__ . "/controllers/$class.php");
+        } else {
+            require(__DIR__ . "/models/$class.php");
         }
     }
 }

@@ -41,19 +41,17 @@ function form_upload($target_dir, $field)
   return "";
 }
 
-
-
-	/**
-     * Get Form Checkbox Check Status On POST BACK
-     * @example <input type="checkbox" <?php echo get_form_field_checked('user_name'); ?> />
-     * @return  string
-     */
-    function check_form_field_checked($srcdata,$value){
-      if(!empty($srcdata)){
-        $arr=explode(",",$srcdata);
-        if(in_array($value,$arr)){
-          return "checked";
-        }
-      }
-      return null;
-      }
+/**
+ * Get Form Checkbox Check Status On POST BACK
+ * @example <input type="checkbox" <?php echo get_form_field_checked('user_name'); ?> />
+ * @return  string
+ */
+function check_form_field_checked($srcdata,$value){
+  if(!empty($srcdata)){
+    $arr=explode(",",$srcdata);
+    if(in_array($value,$arr)){
+      return "checked";
+    }
+  }
+  return null;
+  }

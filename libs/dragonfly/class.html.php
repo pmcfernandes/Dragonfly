@@ -8,7 +8,6 @@
  * @version $Revision$
  * @author Pedro Fernandes
  */
-
 class HTML
 {
     /**

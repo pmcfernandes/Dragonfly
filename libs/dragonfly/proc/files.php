@@ -38,8 +38,7 @@ function get_dir_file_count($dirpath)
 {
     $filecount = 0;
     $files = glob($dirpath . "*");
-    if ($files) {
-        $filecount = count($files);
-    }
+    
+    if ($files) $filecount = count($files);
     return $filecount;
 }

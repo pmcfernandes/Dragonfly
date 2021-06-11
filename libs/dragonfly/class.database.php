@@ -733,8 +733,6 @@ class PDODb
         return $result;
     }
 
-
-
     /**
      * Method returns a copy of a PDODb subquery object
      *

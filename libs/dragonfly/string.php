@@ -1,7 +1,22 @@
 <?php
-require_once(LIBS_DIR . '/vendor/gettext/autoloader.php');
-
 use Gettext\Translator;
+
+/**
+ * Get parameter value
+ *
+ * @param [type] $param
+ * @return void
+ */
+function parameter($param) {
+    $conf = file_get_contents(__DIR__ . "/../../../conf/settings.json");
+    $conf = json_decode($conf,true);
+
+    if(isset($conf['application'][$param])) {
+        return $conf['application'][$param];
+    } else {
+        return null;
+    }
+}
 
 if (!function_exists('T')) {
     /**

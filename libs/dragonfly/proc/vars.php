@@ -4,32 +4,22 @@
  * Get
  *
  * @param string $name
- * @param mixed $value
- * @return void
+ * @return string
  */
-function get($name, $value)
+function get($param = null)
 {
-    if (isset($value)) {
-        $_GET[$name] = $value;
-    }
-
-    return $_GET[$name];
+    return $param !== null ? $_GET[$param] : $_GET;
 }
 
 /**
  * Post
  *
  * @param string $name
- * @param mixed $value
- * @return void
+ * @return string
  */
-function post($name, $value)
+function post($param = null)
 {
-    if (isset($value)) {
-        $_POST[$name] = $value;
-    }
-
-    return $_POST[$name];
+    return $param !== null ? $_POST[$param] : $_POST;
 }
 
 /**

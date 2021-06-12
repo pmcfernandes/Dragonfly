@@ -30,7 +30,7 @@ class PDODb
                 'username' => $config['db_user'],
                 'password' => $config['db_password'],
                 'dbname' => $config['db_name'],
-                'port' => 3306,
+                'port' => $config['db_port'],
                 'charset' => 'utf8'
             ));
         }
@@ -48,8 +48,8 @@ class PDODb
         'username' => null,
         'password' => null,
         'dbname' => null,
-        'port' => null,
-        'charset' => null
+        'port' => 3306,
+        'charset' => 'utf8'
     );
 
     /**

@@ -114,8 +114,6 @@ function test_input($data)
  */
 function markdown($text)
 {
-    require_once(LIBS_DIR . '/vendor/parsedown/Parsedown.php');
-
     $parser = new Parsedown();
     return $parser->text($text);
 }

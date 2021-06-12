@@ -2,14 +2,14 @@
 
 class Mailer
 {
-    protected $smtp_username = constant('SMTP_USERNAME');
-    protected $smtp_password = constant('SMTP_PASSWORD');
-    protected $smtp_host = constant('SMTP_HOST');
-    protected $smtp_port = constant('SMTP_PORT');
+    protected $smtp_username = SMTP_USERNAME;
+    protected $smtp_password = SMTP_PASSWORD;
+    protected $smtp_host = SMTP_HOST;
+    protected $smtp_port = SMTP_PORT;
     protected $smtp_secure = 'ssl';
 
-    protected $sender_email = constant('DEFAULT_EMAIL');
-    protected $sender_name = constant('DEFAULT_EMAIL_ACCOUNT_NAME');
+    protected $sender_email = DEFAULT_EMAIL;
+    protected $sender_name = DEFAULT_EMAIL_ACCOUNT_NAME;
 
     public function __construct()
     {
@@ -28,10 +28,9 @@ class Mailer
      */
     public function send_mail($receipient_emails, $subject, $msg)
     {
-        require_once(LIBS_DIR . '/vendor/phpmailer/PHPMailerAutoload.php');
         $mail = new PHPMailer;
 
-        if (constant('USE_SMTP') == true) {
+        if (USE_SMTP == true) {
             //$mail->SMTPDebug = 3;                                 // Enable verbose debug output
             $mail->isSMTP();                                        // Set mailer to use SMTP
             $mail->Host = $this->smtp_host;                         // Specify main and backup SMTP servers

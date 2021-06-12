@@ -25,7 +25,7 @@ echo = $data;
  */
 class SimpleCache
 {
-    var $cache_path = '../cache/'; // Path to cache folder (with trailing /)    
+    var $cache_path = '../../cache/'; // Path to cache folder (with trailing /)    
     var $cache_time = 3600; // Length of time to cache a file in seconds
 
     /**

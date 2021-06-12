@@ -1,0 +1,29 @@
+{
+    "connection": {
+        "production": {
+            "host": "localhost",
+            "port": 3386,
+            "username": "root",
+            "password": "P@ssw0rd",
+            "db": "mysql"
+        },
+        "staging": {
+            "host": "localhost",
+            "port": 3386,
+            "username": "root",
+            "password": "P@ssw0rd",
+            "db": "mysql"
+        },
+        "local": {
+            "host": "localhost",
+            "port": 3386,
+            "username": "root",
+            "password": "P@ssw0rd",
+            "db": "mysql"
+        }
+    },
+    "application": {
+        "param1": "xxx",
+        "param2": "xxx"
+    }
+}

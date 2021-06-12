@@ -8,7 +8,14 @@ $config['error_controller'] = 'error'; // Controller used for errors (e.g. 404, 
 $config['admin_email'] = 'root@localhost'; // Email used for send trace messages
 
 // Database configuration
-$config['db_host'] = 'localhost';
-$config['db_name'] = 'framework.data2';
-$config['db_user'] = 'root';
-$config['db_password'] = 'P@ssw0rd';
+
+$_config = new Config();
+
+$parameters = json_decode(file_get_contents(__DIR__ . '/../conf/settings.json'),true)
+    ['connection'][$_config->whereAmI()];
+
+$config['db_host'] = $parameters['host'];
+$config['db_name'] = $parameters['db'];
+$config['db_user'] = $parameters['username'];
+$config['db_password'] = $parameters['password'];
+$config['db_port'] = $parameters['port'];

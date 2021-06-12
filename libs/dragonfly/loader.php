@@ -5,12 +5,7 @@ session_start();
 define('LIBS_DIR', DRAGONFLY_LIB_PATH);
 define('LIBS_PROC_DIR', DRAGONFLY_LIB_PATH . '/proc');
 
-require_once(LIBS_DIR . '/vendor/timthumb.php');
-
-require_once(LIBS_DIR . '/vendor/pcl/pclzip.lib.php');
-require_once(LIBS_DIR . '/vendor/pcl/pclxml.lib.php');
-
-require_once(LIBS_DIR . '/vendor/simplepie/SimplePie.php');
+require_once(LIBS_DIR . '/../../vendor/autoload.php');
 require_once(LIBS_DIR . '/vendor/requests/Requests.php');
 Requests::register_autoloader();
 

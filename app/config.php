@@ -9,7 +9,7 @@ $config['admin_email'] = 'root@localhost'; // Email used for send trace messages
 
 // Database configuration
 
-$_config = new Config();
+$_config = Config::getInstance();
 
 $parameters = json_decode(file_get_contents(__DIR__ . '/../conf/settings.json'),true)
     ['connection'][$_config->whereAmI()];

@@ -6,7 +6,6 @@ define('LIBS_DIR', DRAGONFLY_LIB_PATH);
 define('LIBS_PROC_DIR', DRAGONFLY_LIB_PATH . '/proc');
 
 require_once(LIBS_DIR . '/../../vendor/autoload.php');
-require_once(LIBS_DIR . '/vendor/requests/Requests.php');
 Requests::register_autoloader();
 
 // Load Functions
@@ -21,7 +20,7 @@ require_once(LIBS_PROC_DIR . '/remote.php');
 require_once(LIBS_PROC_DIR . '/security.php');
 require_once(LIBS_PROC_DIR . '/simpledb.php');
 require_once(LIBS_PROC_DIR . '/vars.php');
-require_once(LIBS_PROC_DIR . '/console-args.php');
+// require_once(LIBS_PROC_DIR . '/console-args.php');
 
 require_once(DRAGONFLY_LIB_PATH . '/string.php');
 require_once(DRAGONFLY_LIB_PATH . '/class.config.php');

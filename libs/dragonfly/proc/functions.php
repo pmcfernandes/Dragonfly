@@ -168,26 +168,6 @@ function slugify($text)
 }
 
 /**
- * Get The Current Request Method
- *
- * @return void
- */
-function request_method()
-{
-    return strtolower($_SERVER['REQUEST_METHOD']);
-}
-
-/**
- * Get The Current Request Method
- *
- * @return boolean
- */
-function is_post_request()
-{
-    return (request_method() == 'post');
-}
-
-/**
  * Dispatch Content in JSON Formart
  *
  * @param [type] $data
@@ -493,16 +473,6 @@ function show_flash_msg()
 function is_mobile()
 {
     return preg_match("/(android|avantgo|blackberry|bolt|boost|cricket|docomo|fone|hiptop|mini|mobi|palm|phone|pie|tablet|up\.browser|up\.link|webos|wos)/i", $_SERVER["HTTP_USER_AGENT"]);
-}
-
-/**
- * Check if is a AJAX request
- *
- * @return boolean
- */
-function is_ajax()
-{
-    return isset($_SERVER['HTTP_X_REQUESTED_WITH']) && $_SERVER['HTTP_X_REQUESTED_WITH'] === 'XMLHttpRequest';
 }
 
 /**

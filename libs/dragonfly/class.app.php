@@ -1,6 +1,6 @@
 <?php
-
-parse_str($_SERVER['QUERY_STRING']);
+defined('DRAGONFLY_LIB_PATH') or die('No direct script access allowed');
+parse_str($_SERVER['QUERY_STRING'], $qs);
 
 class Application
 {

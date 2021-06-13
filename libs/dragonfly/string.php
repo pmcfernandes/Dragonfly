@@ -1,4 +1,6 @@
 <?php
+defined('DRAGONFLY_LIB_PATH') or die('No direct script access allowed');
+
 use Gettext\Translator;
 
 /**
@@ -283,12 +285,13 @@ function hash_value($text)
     return md5($text . $saltText);
 }
 
-
-/**
- * Will Return A clean Html entities free from xss attacks
- * @return  string
- */
-function html_xss_clean($text)
-{
-    return htmlspecialchars($text);
+if (!function_exists('html_xss_clean')) {
+    /**
+     * Will Return A clean Html entities free from xss attacks
+     * @return  string
+     */
+    function html_xss_clean($text)
+    {
+        return htmlspecialchars($text);
+    }
 }

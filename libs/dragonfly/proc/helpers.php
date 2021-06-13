@@ -1,31 +1,6 @@
 <?php
 
 /**
- * Generates a list of HTML attributes
- *
- * @param array $attr
- * @param string $before
- * @param string $after
- * @return string
- */
-function attr(array $attr = null, string $before = null, string $after = null)
-{
-    $str = '';
-
-    if ($before != null) {
-        $str .= $before;
-    }
-
-    $str .= HTML::attributes($attr);
-
-    if ($after != null) {
-        $str .= $after;
-    }
-
-    return $str;
-}
-
-/**
  * Checks / returns a CSRF token
  *
  * @param string $formName

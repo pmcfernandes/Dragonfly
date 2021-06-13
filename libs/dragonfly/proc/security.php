@@ -74,6 +74,7 @@ function find_user_by_username($username)
     confirm_query($user_set);
 
     if ($user = mysqli_fetch_assoc($user_set)) {
+        mysqli_free_result($user_set);
         return $user;
     } else {
         return null;
@@ -99,8 +100,37 @@ function find_user_by_id($user_id)
 
     confirm_query($user_set);
     if ($user = mysqli_fetch_assoc($user_set)) {
+        mysqli_free_result($user_set);
         return $user;
     } else {
         return null;
+    }
+}
+
+
+function user_is_member_of($user_id, $group) {
+    global $connection;
+
+    $sql = "SELECT COUNT(mgu.IDGroup) AS total " .
+           "FROM MetaGroupUsers mgu " . 
+           "INNER JOIN MetaUser mg ON mgu.IDGroup = mg.IDUser " . 
+           "WHERE mgu.IDUser = {$user_id} AND mg.Username LIKE '{$group}'";
+
+    $result = mysqli_query($connection, $sql);  
+    confirm_query($result);
+
+    if (mysqli_num_rows($result) == 0) {
+        mysqli_free_result($result);
+        return false;
+    } else {
+        $row = mysqli_fetch_array($result, MYSQLI_ASSOC);
+
+        if ($row[0]['total'] == 0) {
+            mysqli_free_result($result);
+            return false;
+        } else {
+            mysqli_free_result($result);
+            return true;
+        }
     }
 }

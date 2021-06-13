@@ -1,8 +1,11 @@
 <?php
+defined('DRAGONFLY_LIB_PATH') or die('No direct script access allowed');
 
 class OpenWeatherMap
 {
     const HTTPS_URL = 'https://api.openweathermap.org/data/2.5/weather';
+
+    public function __construct() { }
 
     /**
      * Retorna areglo con las caracteristicas del clima

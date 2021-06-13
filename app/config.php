@@ -1,5 +1,13 @@
 <?php
 
+define('USE_SMTP', true);    
+define('SMTP_USERNAME', '');
+define('SMTP_PASSWORD', '');
+define('SMTP_HOST', '');
+define('SMTP_PORT', '');
+define('DEFAULT_EMAIL', '');
+define('DEFAULT_EMAIL_ACCOUNT_NAME', '');
+
 global $config;
 
 $config['base_url'] = '/'; // Base URL including trailing slash (e.g. http://localhost/)
@@ -9,7 +17,7 @@ $config['admin_email'] = 'root@localhost'; // Email used for send trace messages
 
 // Database configuration
 
-$_config = new Config();
+$_config = Config::getInstance();
 
 $parameters = json_decode(file_get_contents(__DIR__ . '/../conf/settings.json'),true)
     ['connection'][$_config->whereAmI()];

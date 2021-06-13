@@ -1,4 +1,5 @@
 <?php
+defined('DRAGONFLY_LIB_PATH') or die('No direct script access allowed');
 
 class Mailer
 {
@@ -26,7 +27,7 @@ class Mailer
      * @param [type] $msg
      * @return void
      */
-    public function send_mail($receipient_emails, $subject, $msg)
+    public function sendMail($receipient_emails, $subject, $msg)
     {
         $mail = new PHPMailer;
 

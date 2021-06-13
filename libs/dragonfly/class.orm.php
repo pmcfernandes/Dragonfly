@@ -1,4 +1,5 @@
 <?php
+defined('DRAGONFLY_LIB_PATH') or die('No direct script access allowed');
 
 /**
  * Class to implement ORM
@@ -41,7 +42,9 @@ class dbORM
         $keys = array();
         $db = Database::getInstance();
 
-        if ($db->getDbType() == "mysql") {
+        if ($db->getDbType() != "mysql") {
+            die("Unsupported database or metadata not founded.");
+        } else {
             $q = $db->query("SHOW KEYS FROM " . $tableName . " WHERE Key_name = 'PRIMARY'");
             $rs = new DBLoop($q);
 
@@ -51,8 +54,6 @@ class dbORM
             }
 
             return $keys;
-        } else {
-            die("Unsupported database or metadata not founded.");
         }
     }
 

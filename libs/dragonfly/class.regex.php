@@ -22,7 +22,7 @@ class Regex
      * @param $email
      * @return bool
      */
-    public static function checkEmail($email)
+    public static function isEmail($email)
     {
         return Regex::test("/^([[:alnum:]_.-]){3,}@([[:lower:][:digit:]_.-]{3,})(.[[:lower:]]{2,3})(.[[:lower:]]{2})?$/", $email);
     }

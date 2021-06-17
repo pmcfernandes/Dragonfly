@@ -35,20 +35,20 @@ class TableGateway
         return $this->_connection->exec($insert);
     }
 
-    public function update(array $dados, $where)
+    public function update(array $data, $where)
     {
-        foreach ($dados as $campo => $valor) {
-            $sets[] = "$campo='$valor'";
+        foreach ($data as $field => $value) {
+            $sets[] = "$field='$value'";
         }
         $sets = implode(',', $sets);
         $update = "UPDATE {$this->_table} SET $sets WHERE $where";
         return $this->_connection->query($update);
     }
 
-    public function query($campos = '*', $where = null, $ordem = null, $join = null, $limit = null)
+    public function query($fields = '*', $where = null, $ordem = null, $join = null, $limit = null)
     {
         // Logica para listar todos os registros
-        $select = "SELECT $campos FROM $this->_table";
+        $select = "SELECT $fields FROM $this->_table";
 
         if ($join) {
             $select .= " $join";
@@ -73,10 +73,10 @@ class TableGateway
         return $pdoSt->fetchAll(\PDO::FETCH_ASSOC);
     }
 
-    public function find($where, $campos = '*')
+    public function find($where, $fields = '*')
     {
         // Lógica para retornar um registro
-        $select = "SELECT $campos FROM $this->_table WHERE $where";
+        $select = "SELECT $fields FROM $this->_table WHERE $where";
         $pdoSt = $this->_connection->prepare($select);
         $pdoSt->execute();
         return $pdoSt->fetch(\PDO::FETCH_ASSOC);

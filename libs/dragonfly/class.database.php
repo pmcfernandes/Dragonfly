@@ -25,18 +25,30 @@ class PDODb
         global $config;
 
         if (is_null(self::$me)) {
+            $port = $config['db_port'];
+
             self::$me = new PDODb(array(
-                'type' => 'mysql',
-                'host' => $config['db_host'],
-                'username' => $config['db_user'],
-                'password' => $config['db_password'],
-                'dbname' => $config['db_name'],
-                'port' => $config['db_port'],
-                'charset' => 'utf8'
+                'type'      => getDatabseType($port),
+                'host'      => $config['db_host'],
+                'username'  => $config['db_user'],
+                'password'  => $config['db_password'],
+                'dbname'    => $config['db_name'],
+                'port'      => $port,
+                'charset'   => 'utf8'
             ));
         }
 
         return self::$me;
+    }
+
+    private static function getDatabseType($port) {
+        if ($port == 1433)
+            return "sqlsrv";
+        else if ($port == 3306) {
+            return "mysql";
+        } else {
+            return "sqlite";
+        }
     }
 
     /**
@@ -44,13 +56,13 @@ class PDODb
      * @var string
      */
     private $connectionParams = array(
-        'type' => 'mysql',
-        'host' => null,
-        'username' => null,
-        'password' => null,
-        'dbname' => null,
-        'port' => 3306,
-        'charset' => 'utf8'
+        'type'      => 'mysql',
+        'host'      => null,
+        'username'  => null,
+        'password'  => null,
+        'dbname'    => null,
+        'port'      => 3306,
+        'charset'   => 'utf8'
     );
 
     /**

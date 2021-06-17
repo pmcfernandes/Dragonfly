@@ -1,6 +1,6 @@
 {
     "connection": {
-        "production": {
+        "production": {            
             "host": "localhost",
             "port": 3386,
             "username": "root",

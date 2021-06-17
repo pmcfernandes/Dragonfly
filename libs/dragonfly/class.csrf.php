@@ -35,7 +35,7 @@ class Csrf
         }
 
         if ($req_token != $current_token) {
-            render_error("Cross-Site request Forgery Detected. Please Contact The System Administrator For More Information", 403);
+            render_error("Cross-site request forgery detected. Please contact the system administrator for more information", 403);
             exit;
         }
 

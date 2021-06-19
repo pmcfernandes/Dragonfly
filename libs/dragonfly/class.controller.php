@@ -85,19 +85,44 @@ class Controller
         ], JSON_PARTIAL_OUTPUT_ON_ERROR);
     }
 
+    /**
+     * 400 Bad request
+     *
+     * @return void
+     */
     public function bad_request() {
         header('HTTP/1.0 400 Bad Request');
+        exit();
     }
 
+    /**
+     * 401 Unauhorized
+     *
+     * @return void
+     */
     public function unauthorized() {
         header('HTTP/1.1 401 Unauthorized');
+        exit();
     }
 
+    /**
+     * 200 OK
+     *
+     * @return void
+     */
     public function ok() {
         header('HTTP/1.1 200 OK');
+        exit();
     }
 
-    public function error($message = '') {
+    /**
+     * 500 
+     *
+     * @param string $message
+     * @return void
+     */
+    public function panic($message = '') {
         header('HTTP/1.1 500 ' .  message);
+        exit();
     }
 }

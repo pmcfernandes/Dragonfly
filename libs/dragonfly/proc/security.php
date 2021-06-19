@@ -1,5 +1,24 @@
 <?php
 
+function secure_api_method() {
+    if (!logged_in()) {
+        die('User is not authenticated.');
+    } else {
+        $authorization = get_bearer_auth_token();
+        $jwt = JWT::decode($authorization);
+
+        if ($jwt === array()) {
+            die('Bearer JWT token is not valid.');
+        } else {
+            if ($jwt->username === $_SESSION['login_name']) {
+                return true;
+            } else {
+                die('Bearer JWT token is not valid for this login.');
+            }
+        }
+    }
+}
+
 /**
  * Check if user is logged
  *

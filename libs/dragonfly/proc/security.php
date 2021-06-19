@@ -7,7 +7,7 @@
  */
 function logged_in()
 {
-    return isset($_SESSION['admin_id']);
+    return isset($_SESSION['login_id']);
 }
 
 /**
@@ -46,6 +46,8 @@ function attempt_login($username, $password)
     $user = find_user_by_username($username);
     if ($user) {
         if (password_check($password, $user["Password"])) {
+            $_SESSION['login_id'] = $user['IDUser'];
+            $_SESSION['login_name'] = $user['Username'];
             return $user;
         } else {
             return false;
@@ -68,7 +70,7 @@ function find_user_by_username($username)
 
     $query  = "SELECT * ";
     $query .= "FROM MetaUser ";
-    $query .= "WHERE Username = '{$safe_username}' ";
+    $query .= "WHERE Username = '{$safe_username}' AND IsGroup = 0 AND M_IsDeleted = 0 ";
     $query .= "LIMIT 1";
     $user_set = mysqli_query($connection, $query);
     confirm_query($user_set);

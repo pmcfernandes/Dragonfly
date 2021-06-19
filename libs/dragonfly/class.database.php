@@ -41,7 +41,12 @@ class PDODb
         return self::$me;
     }
 
-    private static function getDatabseType($port) {
+    public static function getDatabseType($port = null) {
+        if (!isset($port)) {
+            global $config;
+            $port = $config['port'];
+        }
+
         if ($port == 1433)
             return "sqlsrv";
         else if ($port == 3306) {

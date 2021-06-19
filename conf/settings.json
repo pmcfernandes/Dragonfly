@@ -15,11 +15,11 @@
             "db": "mysql"
         },
         "local": {
-            "host": "localhost",
-            "port": 3386,
-            "username": "root",
-            "password": "P@ssw0rd",
-            "db": "mysql"
+            "host": ".\\sqlexpress",
+            "port": 1433,
+            "username": "sa",
+            "password": "P1lim07181702",
+            "db": "Framework.Data2"
         }
     },
     "application": {

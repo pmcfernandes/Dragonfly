@@ -51,7 +51,7 @@ class Controller
      *
      * @param mixed $location
      */
-    public static function redirect($location)  {
+    public function redirect($location)  {
         global $config;
         header('Location: ' . $config['base_url'] . $location);
     }
@@ -62,9 +62,42 @@ class Controller
      * @param mixed $data
      * @return void
      */
-    public static function json($data) {
+    public function json($data) {
         header("content-type:application/json");
         return json_encode($data, JSON_PARTIAL_OUTPUT_ON_ERROR);
     }
 
+    /**
+     * Return custom json data
+     *
+     * @param [type] $data
+     * @param [type] $error
+     * @return void
+     */
+    public function ajs($data, $error = null) {
+        header("content-type:application/json");
+        return json_encode([
+            'success'             => ($error === null),
+            'targetUrl'           => '/',
+            'error'               => $error,
+            'unAuthorizedRequest' => false,
+            '__ajs'               => $data
+        ], JSON_PARTIAL_OUTPUT_ON_ERROR);
+    }
+
+    public function bad_request() {
+        header('HTTP/1.0 400 Bad Request');
+    }
+
+    public function unauthorized() {
+        header('HTTP/1.1 401 Unauthorized');
+    }
+
+    public function ok() {
+        header('HTTP/1.1 200 OK');
+    }
+
+    public function error($message = '') {
+        header('HTTP/1.1 500 ' .  message);
+    }
 }

@@ -59,7 +59,7 @@ function server($name, $value = NULL)
  *
  * @param string $name
  * @param mixed $value
- * @return void
+ * @return string
  */
 function cookie($name, $value)
 {
@@ -68,6 +68,41 @@ function cookie($name, $value)
     }
 
     return $_COOKIE[$name];
+}
+
+/**
+ * Get header value from HTTP header
+ *
+ * @param string $name
+ * @return string
+ */
+function http_header($name) {
+    $headers = getallheaders();
+
+    foreach ($headers as $_name => $value) {
+        if ($name == $_name) {
+            return $value;
+        }
+    }
+
+    return '';
+}
+
+/**
+ * Get Bearer authentication token from HTTP headers
+ *
+ * @return string
+ */
+function get_bearer_auth_token() {
+    $authorization = http_header('Authorization');
+
+    if ($authorization !== '') {
+        if (preg_match('/Bearer\s(\S+)/', $authorization, $matches)) {
+            return $matches[1];
+        }
+    }
+
+    return '';
 }
 
 /**

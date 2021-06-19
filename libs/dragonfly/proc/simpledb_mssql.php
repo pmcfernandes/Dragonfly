@@ -9,9 +9,10 @@
  * @param string $password
  * @return void
  */
-function mssql_connect($db, $server, $username, $password)
+function mssql_connect($db = null, $server = null, $username = null, $password = null)
 {
     global $config;
+    global $connection;
 
     if (!isset($db)) {
         $db = $config['db_name'];
@@ -28,8 +29,7 @@ function mssql_connect($db, $server, $username, $password)
     if (!isset($password)) {
         $password = $config['db_password'];
     }
-
-    global $connection;
+    
     $connection = sqlsrv_connect($server, array( 
         "UID"       => $username,  
         "PWD"       => $password,  
@@ -60,14 +60,14 @@ function mssql_close()
 /**
  * Escape sql string agains sql injection
  *
- * @param string $string
+ * @param string $sql
  * @return void
  */
-function mssql_prep($string)
+function mssql_prep($sql)
 {
     global $connection;
 
-    $escaped_string = sqlsrv_prepare($connection, $string);
+    $escaped_string = sqlsrv_prepare($connection, $sql);
     return $escaped_string;
 }
 
@@ -77,10 +77,10 @@ function mssql_prep($string)
  * @param mixed $result_set
  * @return void
  */
-function confirm_query($result_set)
+function confirm_query($stmt)
 {
-    if (!$result_set) {
-        die("Database query failed.");
+    if (!$stmt) {
+        die(print_r(sqlsrv_errors(), true));
     }
 }
 
@@ -94,17 +94,17 @@ function mssql_query($sql)
 {
     global $connection;
 
-    $result = sqlsrv_query($connection, $sql);
-    confirm_query($result);
+    $stmt = sqlsrv_query($connection, $sql, array(), array("Scrollable" => 'static'));
+    confirm_query($stmt);
     $data = array();
 
-    if (sqlsrv_num_rows($result) > 0) {
-        while ($row = sqlsrv_fetch_array($result, SQLSRV_FETCH_ASSOC)) {
+    if (sqlsrv_num_rows($stmt) > 0) {
+        while ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
             $data[] = $row;
         }
     }
 
-    sqlsrv_free_stmt($result);
+    sqlsrv_free_stmt($stmt);
     return $data;
 }
 
@@ -176,7 +176,7 @@ function mssql_count($sql)
 {
     global $connection;
 
-    $result = sqlsrv_query($connection, $sql);
+    $result = sqlsrv_query($connection, $sql, array(), array("Scrollable" => 'static'));
     confirm_query($result);
     $count = sqlsrv_num_rows($result);
     return $count;

@@ -1,5 +1,6 @@
 <?php
 defined('DRAGONFLY_LIB_PATH') or die('No direct script access allowed');
+define('JWT_SECRET', 'GQDstcKsx0NHjPOuXOYg5MbeJ1XT0uFiwDVvVBrk');
 
 class JWT
 {
@@ -10,7 +11,7 @@ class JWT
      * @param $salt
      * @return string
      */
-    public static function encode($data, $expires = 60, $secret = 'bGS6lzFqvvSQ8ALbOxatm7/Vk7mLQyzqaS34Q4oR1ew=')
+    public static function encode($data, $expires = 60 * 1000)
     {
         $header = [
             'alg' => 'HS256',
@@ -27,12 +28,12 @@ class JWT
             'iss' => $server_name,
             'iat' => $issuedAt,
             'nbf' => $issuedAt,
-            "exp" => $issuedAt + 60,
+            "exp" => $issuedAt + $expires,
         ], $data);
         $payload = json_encode($payload);
         $payload = base64_encode($payload);
 
-        $signature = hash_hmac('sha256',"$header.$payload", $secret, true);
+        $signature = hash_hmac('sha256',"$header.$payload", JWT_SECRET, true);
         $signature = base64_encode($signature);
 
         return "$header.$payload.$signature";
@@ -45,13 +46,13 @@ class JWT
      * @param string $secret
      * @return boolean
      */
-    public static function isValid($token, $secret = 'bGS6lzFqvvSQ8ALbOxatm7/Vk7mLQyzqaS34Q4oR1ew=') {
+    public static function isValid($token) {
         $part = explode(".", $token);
         $header = $part[0];
         $payload = $part[1];
         $signature = $part[2];
 
-        $valid = hash_hmac('sha256', "$header.$payload", $secret, true);
+        $valid = hash_hmac('sha256', "$header.$payload", JWT_SECRET, true);
         $valid = base64_encode($valid);
 
         if ($signature == $valid){
@@ -67,9 +68,9 @@ class JWT
      * @param $certPath
      * @return mixed
      */
-    public static function decode($token, $secret = 'bGS6lzFqvvSQ8ALbOxatm7/Vk7mLQyzqaS34Q4oR1ew=')
+    public static function decode($token)
     {
-        if (JWT::isValid($token, $secret)) {
+        if (JWT::isValid($token)) {
             $ts = time();
             $jwt = json_decode(base64_decode(str_replace('_', '/', str_replace('-','+', explode('.', $token)[1]))));
 

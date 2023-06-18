@@ -21,7 +21,7 @@ echo = $data;
  * Class to implement Cache helper operations
  *
  * @since 1.0
- * @version $Revision$
+ * @version 1.0
  * @author Pedro Fernandes
  */
 class SimpleCache

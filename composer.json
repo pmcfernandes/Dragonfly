@@ -1,5 +1,15 @@
 {
+    "name": "pmcfernandes/dragonfly",
+    "description": "Small php framework for mvc programming",
+    "type": "wordpress-theme",
+    "authors": [
+        {
+            "name": "Pedro Fernandes",
+            "email": "hello@impedro.com"
+        }
+    ],
     "require": {
+        "php": ">=7.4.0",
         "gettext/gettext": "^5.5",
         "erusev/parsedown": "^1.7",
         "pclzip/pclzip": "^2.8",
@@ -8,5 +18,10 @@
         "gabrielgil/timthumb": "^2.8",
         "rmccue/requests": "^1.8",
         "twig/twig": "^3.3"
+    },
+    "config": {
+        "allow-plugins": {
+            "composer/installers": true
+        }
     }
 }

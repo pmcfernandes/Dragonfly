@@ -29,7 +29,7 @@ final class Config
     {
         $this->everywhere();
         $i_am_here = $this->whereAmI();
-
+        
         if ($i_am_here == 'production') {
             $this->production();
             return;
@@ -124,19 +124,19 @@ final class Config
     public function whereAmI()
     {
         for ($i = 0; $i < count($this->productionServers); $i++) {
-            if (preg_match($this->productionServers[$i], getenv('HTTP_HOST')) === 1) {
+            if (preg_match($this->productionServers[$i], $_SERVER['HTTP_HOST']) === 1) {
                 return 'production';
             }
         }
 
         for ($i = 0; $i < count($this->stagingServers); $i++) {
-            if (preg_match($this->stagingServers[$i], getenv('HTTP_HOST')) === 1) {
+            if (preg_match($this->stagingServers[$i], $_SERVER['HTTP_HOST']) === 1) {
                 return 'staging';
             }
         }
 
         for ($i = 0; $i < count($this->localServers); $i++) {
-            if (preg_match($this->localServers[$i], getenv('HTTP_HOST')) === 1) {
+            if (preg_match($this->localServers[$i], $_SERVER['HTTP_HOST']) === 1) {
                 return 'local';
             }
         }

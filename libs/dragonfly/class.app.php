@@ -1,6 +1,9 @@
 <?php
 defined('DRAGONFLY_LIB_PATH') or die('No direct script access allowed');
-parse_str($_SERVER['QUERY_STRING'], $qs);
+
+if (isset($_SERVER['QUERY_STRING'])) {
+    parse_str($_SERVER['QUERY_STRING'], $qs);
+} 
 
 class Application
 {
@@ -121,7 +124,6 @@ class Application
             $str = str_replace('index.php', '', $script_url);
             $str = str_replace('/', '\//', $str);
             $str = preg_replace('/' . $str, '', $request_url, 1);
-
             $url = trim($str, '/');
         }
 

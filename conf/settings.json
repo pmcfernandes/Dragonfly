@@ -18,7 +18,7 @@
             "host": ".\\sqlexpress",
             "port": 1433,
             "username": "sa",
-            "password": "P1lim07181702",
+            "password": "P@ssw0rd",
             "db": "Framework.Data2"
         }
     },

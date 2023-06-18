@@ -4,7 +4,7 @@ defined('DRAGONFLY_LIB_PATH') or die('No direct script access allowed');
 /**
  * Class to implement pagination
  *
- * @link http://www.pfernandes.pt
+ * @link http://www.impedro.com
  * @since 1.0
  * @version 1.0
  * @author Pedro Fernandes

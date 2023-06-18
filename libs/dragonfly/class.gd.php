@@ -4,7 +4,7 @@ defined('DRAGONFLY_LIB_PATH') or die('No direct script access allowed');
 /**
  * Class to implement easy GD library
  *
- * @link http://www.pfernandes.pt
+ * @link http://www.impedro.com
  * @since 1.0
  * @version 1.0.1
  * @author Pedro Fernandes

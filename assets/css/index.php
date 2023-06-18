@@ -1,1 +1,0 @@
-<?php // Let me alone

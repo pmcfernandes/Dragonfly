@@ -10,7 +10,7 @@ defined('DRAGONFLY_LIB_PATH') or die('No direct script access allowed');
  * It is originally created in this Sitepoint article:
  * http://www.sitepoint.com/article/beyond-template-engine
  *
- * @link http://www.pfernandes.pt
+ * @link http://www.impedro.com
  * @since 1.0
  * @version $Revision$
  * @author Pedro Fernandes

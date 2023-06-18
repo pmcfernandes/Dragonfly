@@ -6,7 +6,7 @@ if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
     /**
      * Class to interoperability with Microsoft related technologies
      *
-     * @link http://www.pfernandes.pt
+     * @link http://www.impedro.com
      * @since 1.0
      * @version $Revision$
      * @author Pedro Fernandes

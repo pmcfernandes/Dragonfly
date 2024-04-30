@@ -1,4 +1,6 @@
 <?php
+defined('DRAGONFLY_LIB_PATH') or die('No direct script access allowed');
+
 // Copyright (c) 2007, Yves Goergen, http://unclassified.de
 // All rights reserved.
 //
@@ -84,7 +86,7 @@ for ($i = 0; $i < $argc; $i++)
 		// For each character
 		for ($c = 1; $c < strlen($arg); $c++)
 		{
-			$ch = $arg{$c};
+			$ch = $arg[$c];
 			$ok = false;
 
 			foreach ($known_opts as $opt)

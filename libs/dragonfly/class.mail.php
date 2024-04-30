@@ -1,5 +1,9 @@
 <?php
+namespace Impedro\Dragonfly;
+
 defined('DRAGONFLY_LIB_PATH') or die('No direct script access allowed');
+
+use PHPMailer\PHPMailer\PHPMailer;
 
 class Mailer
 {
@@ -25,11 +29,11 @@ class Mailer
      * @param [type] $receipient_emails
      * @param [type] $subject
      * @param [type] $msg
-     * @return void
+     * @return bool | string
      */
     public function sendMail($receipient_emails, $subject, $msg)
     {
-        $mail = new PHPMailer;
+        $mail = new PHPMailer();
 
         if (USE_SMTP == true) {
             //$mail->SMTPDebug = 3;                                 // Enable verbose debug output

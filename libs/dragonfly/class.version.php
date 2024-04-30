@@ -1,4 +1,6 @@
 <?php
+namespace Impedro\Dragonfly;
+
 defined('DRAGONFLY_LIB_PATH') or die('No direct script access allowed');
 
 /**

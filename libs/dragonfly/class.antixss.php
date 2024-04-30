@@ -1,4 +1,6 @@
 <?php
+namespace Impedro\Dragonfly;
+
 defined('DRAGONFLY_LIB_PATH') or die('No direct script access allowed');
 
 class AntiXSS
@@ -129,7 +131,6 @@ class AntiXSS
             $countArr = count($methods_arr);
             for ($i = 0; $i < $countArr; ++$i) {
                 $tmp_function_b = $methods_arr[$i];
-                //$str_arg = call_user_func($tmp_function_b, $str_arg); 
                 $str_arg = $this->$tmp_function_b($str_arg);
             }
             return $str_arg;

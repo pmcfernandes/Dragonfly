@@ -1,0 +1,59 @@
+<?php
+namespace Impedro\Dragonfly\Mvc;
+
+defined('DRAGONFLY_LIB_PATH') or die('No direct script access allowed');
+
+use Impedro\Dragonfly\Mvc\Template;
+
+class View
+{
+    private $pageVars = array();
+    private $filename;
+    private $tmpl;
+
+    /**
+     * Constructor of View
+     */
+    public function __construct($template)
+    {
+        $this->filename = $template;
+
+        $this->tmpl = new Template();
+        $this->tmpl->setPath('app/views/');
+    }
+
+    /**
+     * Set variable to page view
+     *
+     * @param string $var
+     * @param mixed $val
+     */
+    public function set($var, $val)
+    {
+        $this->pageVars[$var] = $val;
+    }
+
+    /**
+     * Get variable in page view
+     *
+     * @param string $var
+     * @return null|mixed
+     */
+    public function get($var)
+    {
+        if (isset($this->pageVars[$var])) {
+            return $this->pageVars[$var];
+        }
+
+        return null;
+    }
+
+    /**
+     * Render page
+     */
+    public function render()
+    {
+        $this->tmpl->setVars($this->pageVars, true);
+        $this->tmpl->display($this->filename . '.php');
+    }
+}

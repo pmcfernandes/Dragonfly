@@ -1,4 +1,6 @@
 <?php
+namespace Impedro\Dragonfly;
+
 defined('DRAGONFLY_LIB_PATH') or die('No direct script access allowed');
 define('JWT_SECRET', 'GQDstcKsx0NHjPOuXOYg5MbeJ1XT0uFiwDVvVBrk');
 
@@ -17,14 +19,14 @@ class JWT
             'alg' => 'HS256',
             'typ' => 'JWT'
         ];
-         
+
         $header = json_encode($header);
         $header = base64_encode($header);
 
         $issuedAt = time();
         $server_name = $_SERVER['HTTP_HOST'];
 
-        $payload = array_merge([ 
+        $payload = array_merge([
             'iss' => $server_name,
             'iat' => $issuedAt,
             'nbf' => $issuedAt,
@@ -59,7 +61,7 @@ class JWT
             return true;
         } else {
             return false;
-        }        
+        }
     }
 
     /**
@@ -78,7 +80,7 @@ class JWT
                 return $jwt;
             }
         }
-        
+
         return array();
     }
 }

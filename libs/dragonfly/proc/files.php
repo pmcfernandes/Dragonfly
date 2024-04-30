@@ -1,10 +1,11 @@
 <?php
+defined('DRAGONFLY_LIB_PATH') or die('No direct script access allowed');
 
 /**
  * Read file contents
  *
  * @param string $filename
- * @return void
+ * @return string
  */
 function read_file($filename)
 {
@@ -32,13 +33,13 @@ function write_file($filename, $contents)
  * Get number of files in a directory~
  *
  * @param [type] $dirpath
- * @return void
+ * @return int
  */
 function get_dir_file_count($dirpath)
 {
     $filecount = 0;
     $files = glob($dirpath . "*");
-    
+
     if ($files) $filecount = count($files);
     return $filecount;
 }

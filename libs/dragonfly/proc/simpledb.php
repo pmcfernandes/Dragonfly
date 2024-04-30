@@ -1,4 +1,5 @@
 <?php
+defined('DRAGONFLY_LIB_PATH') or die('No direct script access allowed');
 
 /**
  * Connects to mysql server
@@ -7,7 +8,7 @@
  * @param string $server
  * @param string $username
  * @param string $password
- * @return void
+ * @return object
  */
 function mysql_connect($db, $server, $username, $password)
 {
@@ -59,7 +60,7 @@ function mysql_close()
  * Escape sql string agains sql injection
  *
  * @param string $string
- * @return void
+ * @return string
  */
 function mysql_prep($string)
 {
@@ -86,7 +87,7 @@ function confirm_query($result_set)
  * Query database using sql
  *
  * @param string $sql
- * @return void
+ * @return array
  */
 function mysql_query($sql)
 {
@@ -110,7 +111,7 @@ function mysql_query($sql)
  * Create a record in database table
  *
  * @param string $sql
- * @return void
+ * @return int
  */
 function mysql_insert($sql)
 {
@@ -127,7 +128,7 @@ function mysql_insert($sql)
  * Update record in database table
  *
  * @param string $sql
- * @return void
+ * @return int
  */
 function mysql_update($sql)
 {
@@ -138,7 +139,7 @@ function mysql_update($sql)
  * Delete record from database table
  *
  * @param string $sql
- * @return void
+ * @return int
  */
 function mysql_delete($sql)
 {
@@ -148,7 +149,7 @@ function mysql_delete($sql)
 /**
  * Get last id inserted in connection
  *
- * @return void
+ * @return int
  */
 function mysql_lastid()
 {
@@ -161,7 +162,7 @@ function mysql_lastid()
  * Count number of records returned by sql
  *
  * @param string $sql
- * @return void
+ * @return int
  */
 function mysql_count($sql)
 {

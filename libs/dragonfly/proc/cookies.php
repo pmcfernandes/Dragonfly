@@ -1,8 +1,9 @@
 <?php
+defined('DRAGONFLY_LIB_PATH') or die('No direct script access allowed');
 
 /**
  * Set Cookie Value With Number of Days Before Expiring
- * @return  string
+ * @return  void
  */
 function set_cookie($name, $value, $days = 30)
 {
@@ -12,7 +13,7 @@ function set_cookie($name, $value, $days = 30)
 
 /**
  * Get Cookie Value
- * @return  object
+ * @return  null | string
  */
 function get_cookie($name)
 {

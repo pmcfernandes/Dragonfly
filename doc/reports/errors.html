@@ -1,1240 +1,402 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
-    <meta charset="utf-8"/>
-    <title>     &raquo; Compilation errors
+    <meta charset="utf-8">
+            <title>    Documentation &raquo; Compilation errors
 </title>
-    <meta name="author" content=""/>
-    <meta name="description" content=""/>
-
-    <link href="../css/bootstrap-combined.no-icons.min.css" rel="stylesheet">
-    <link href="../css/font-awesome.min.css" rel="stylesheet">
-    <link href="../css/prism.css" rel="stylesheet" media="all"/>
-    <link href="../css/template.css" rel="stylesheet" media="all"/>
     
-    <!--[if lt IE 9]>
-    <script src="../js/html5.js"></script>
-    <![endif]-->
-    <script src="../js/jquery-1.11.0.min.js"></script>
-    <script src="../js/ui/1.10.4/jquery-ui.min.js"></script>
-    <script src="../js/bootstrap.min.js"></script>
-    <script src="../js/jquery.smooth-scroll.js"></script>
-    <script src="../js/prism.min.js"></script>
-    <!-- TODO: Add http://jscrollpane.kelvinluck.com/ to style the scrollbars for browsers not using webkit-->
-    
-    <link rel="shortcut icon" href="../images/favicon.ico"/>
-    <link rel="apple-touch-icon" href="../images/apple-touch-icon.png"/>
-    <link rel="apple-touch-icon" sizes="72x72" href="../images/apple-touch-icon-72x72.png"/>
-    <link rel="apple-touch-icon" sizes="114x114" href="../images/apple-touch-icon-114x114.png"/>
-</head>
-<body>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <base href="../">
+    <link rel="icon" href="images/favicon.ico"/>
+    <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" href="css/base.css">
+            <link rel="preconnect" href="https://fonts.gstatic.com">
+        <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@100;200;300;400;600;700&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@400;600;700&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="css/template.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.0/css/all.min.css" integrity="sha256-ybRkN9dBjhcS2qrW1z+hfCxq+1aBdwyQM5wlQoQVt/0=" crossorigin="anonymous" />
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.23.0/themes/prism-okaidia.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.23.0/plugins/line-numbers/prism-line-numbers.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.23.0/plugins/line-highlight/prism-line-highlight.css">
+                <script src="https://cdn.jsdelivr.net/npm/fuse.js@3.4.6"></script>
+        <script src="https://cdn.jsdelivr.net/npm/css-vars-ponyfill@2"></script>
+        <script src="js/template.js"></script>
+        <script src="js/search.js"></script>
+        <script defer src="js/searchIndex.js"></script>
+    </head>
+<body id="top">
+    <header class="phpdocumentor-header phpdocumentor-section">
+    <h1 class="phpdocumentor-title"><a href="" class="phpdocumentor-title__link">Documentation</a></h1>
+    <input class="phpdocumentor-header__menu-button" type="checkbox" id="menu-button" name="menu-button" />
+    <label class="phpdocumentor-header__menu-icon" for="menu-button">
+        <i class="fas fa-bars"></i>
+    </label>
+    <section data-search-form class="phpdocumentor-search">
+    <label>
+        <span class="visually-hidden">Search for</span>
+        <svg class="phpdocumentor-search__icon" width="21" height="20" viewBox="0 0 21 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="7.5" cy="7.5" r="6.5" stroke="currentColor" stroke-width="2"/>
+            <line x1="12.4892" y1="12.2727" x2="19.1559" y2="18.9393" stroke="currentColor" stroke-width="3"/>
+        </svg>
+        <input type="search" class="phpdocumentor-field phpdocumentor-search__field" placeholder="Loading .." disabled />
+    </label>
+</section>
 
-<div class="navbar navbar-fixed-top">
-    <div class="navbar-inner">
-        <div class="container">
-            <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-                <i class="icon-ellipsis-vertical"></i>
-            </a>
-            <a class="brand" href="../index.html">API Documentation</a>
+    <nav class="phpdocumentor-topnav">
+    <ul class="phpdocumentor-topnav__menu">
+        </ul>
+</nav>
+</header>
 
-            <div class="nav-collapse">
-                <ul class="nav pull-right">
-                                        <li class="dropdown" id="charts-menu">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                            Charts <b class="caret"></b>
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li>
-                                <a href="../graphs/class.html">
-                                    <i class="icon-list-alt"></i>&#160;Class hierarchy diagram
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li class="dropdown" id="reports-menu">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                            Reports <b class="caret"></b>
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li>
-                                <a href="../reports/errors.html">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            <i class="icon-list-alt"></i>&#160;Errors <span class="label label-info pull-right">95</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="../reports/markers.html">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            <i class="icon-list-alt"></i>&#160;Markers <span class="label label-info pull-right">0</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="../reports/deprecated.html">
-                                                                                                            <i class="icon-list-alt"></i>&#160;Deprecated <span class="label label-info pull-right">0</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </div>
-    <!--<div class="go_to_top">-->
-    <!--<a href="#___" style="color: inherit">Back to top&#160;&#160;<i class="icon-upload icon-white"></i></a>-->
-    <!--</div>-->
-</div>
-
-<div id="___" class="container-fluid">
-        <section class="row-fluid">
-        <div class="span2 sidebar">
-
-            <ul class="side-nav nav nav-list">
-                <li class="nav-header">Navigation</li>
-                                                                            <li><a href="#class.app.php"><i class="icon-file"></i> class.app.php</a></li>
-                                                                                                    <li><a href="#class.cache.php"><i class="icon-file"></i> class.cache.php</a></li>
-                                                                                                    <li><a href="#class.config.php"><i class="icon-file"></i> class.config.php</a></li>
-                                                                                                    <li><a href="#class.controller.php"><i class="icon-file"></i> class.controller.php</a></li>
-                                                                                                    <li><a href="#class.cookie.php"><i class="icon-file"></i> class.cookie.php</a></li>
-                                                                                                    <li><a href="#class.core.php"><i class="icon-file"></i> class.core.php</a></li>
-                                                                                                    <li><a href="#class.crypto.php"><i class="icon-file"></i> class.crypto.php</a></li>
-                                                                                                    <li><a href="#class.database.php"><i class="icon-file"></i> class.database.php</a></li>
-                                                                                                    <li><a href="#class.date.php"><i class="icon-file"></i> class.date.php</a></li>
-                                                                                                    <li><a href="#class.dbloop.php"><i class="icon-file"></i> class.dbloop.php</a></li>
-                                                                                                    <li><a href="#class.event.php"><i class="icon-file"></i> class.event.php</a></li>
-                                                                                                    <li><a href="#class.file.php"><i class="icon-file"></i> class.file.php</a></li>
-                                                                                                    <li><a href="#class.gd.php"><i class="icon-file"></i> class.gd.php</a></li>
-                                                                                                    <li><a href="#class.html.php"><i class="icon-file"></i> class.html.php</a></li>
-                                                                                                    <li><a href="#class.interop.php"><i class="icon-file"></i> class.interop.php</a></li>
-                                                                                                    <li><a href="#class.model.php"><i class="icon-file"></i> class.model.php</a></li>
-                                                                                                    <li><a href="#class.orm.php"><i class="icon-file"></i> class.orm.php</a></li>
-                                                                                                    <li><a href="#class.page.php"><i class="icon-file"></i> class.page.php</a></li>
-                                                                                                    <li><a href="#class.pagination.php"><i class="icon-file"></i> class.pagination.php</a></li>
-                                                                                                    <li><a href="#class.regex.php"><i class="icon-file"></i> class.regex.php</a></li>
-                                                                                                    <li><a href="#class.restserver.php"><i class="icon-file"></i> class.restserver.php</a></li>
-                                                                                                    <li><a href="#class.sql.php"><i class="icon-file"></i> class.sql.php</a></li>
-                                                                                                    <li><a href="#class.template.php"><i class="icon-file"></i> class.template.php</a></li>
-                                                                                                    <li><a href="#class.upload.php"><i class="icon-file"></i> class.upload.php</a></li>
-                                                                                                    <li><a href="#class.view.php"><i class="icon-file"></i> class.view.php</a></li>
-                                                                                                    <li><a href="#html_mail.php"><i class="icon-file"></i> html_mail.php</a></li>
-                                                                                                    <li><a href="#index.php"><i class="icon-file"></i> index.php</a></li>
-                                                                                                    <li><a href="#string.php"><i class="icon-file"></i> string.php</a></li>
-                                                                    </ul>
-        </div>
-
-        <div class="span10 offset2">
-            <ul class="breadcrumb">
-                <li><a href="../"><i class="icon-remove-sign"></i></a><span class="divider">\</span></li>
-                <li>Compilation Errors</li>
+    <main class="phpdocumentor">
+        <div class="phpdocumentor-section">
+            <input class="phpdocumentor-sidebar__menu-button" type="checkbox" id="sidebar-button" name="sidebar-button" />
+<label class="phpdocumentor-sidebar__menu-icon" for="sidebar-button">
+    Menu
+</label>
+<aside class="phpdocumentor-column -three phpdocumentor-sidebar">
+                    <section class="phpdocumentor-sidebar__category">
+            <h2 class="phpdocumentor-sidebar__category-header">Namespaces</h2>
+                                    <h4 class="phpdocumentor-sidebar__root-namespace">
+    <a href="namespaces/impedro.html" class="">Impedro</a>
+</h4>
+    <ul class="phpdocumentor-list">
+                    <li>
+                <a href="namespaces/impedro-dragonfly.html" class="">Dragonfly</a>
+                
+            </li>
             </ul>
 
+                        </section>
+                <section class="phpdocumentor-sidebar__category">
+            <h2 class="phpdocumentor-sidebar__category-header">Packages</h2>
+                                    <h4 class="phpdocumentor-sidebar__root-namespace">
+    <a href="packages/Application.html" class="">Application</a>
+</h4>
+
+                                    <h4 class="phpdocumentor-sidebar__root-namespace">
+    <a href="packages/PDODb.html" class="">PDODb</a>
+</h4>
+
+                        </section>
             
-                            <div class="package-contents">
-                                            <a name="class.app.php" id="class.app.php"></a>
-                        <h3>
-                            <i class="icon-file"></i>
-                            class.app.php
-                            <small style="float: right;padding-right: 10px;">2</small>
-                        </h3>
-                        <div>
-                            <table class="table markers table-bordered">
-                                <thead>
-                                <tr>
-                                    <th>Type</th>
-                                    <th>Line</th>
-                                    <th>Description</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                                                    <tr>
-                                        <td>error</td>
-                                        <td>0</td>
-                                        <td>No summary was found for this file</td>
-                                    </tr>
-                                                                    <tr>
-                                        <td>error</td>
-                                        <td>5</td>
-                                        <td>No summary for class \Application</td>
-                                    </tr>
-                                                            </tbody>
-                            </table>
-                        </div>
-                                    </div>
-                            <div class="package-contents">
-                                            <a name="class.cache.php" id="class.cache.php"></a>
-                        <h3>
-                            <i class="icon-file"></i>
-                            class.cache.php
-                            <small style="float: right;padding-right: 10px;">3</small>
-                        </h3>
-                        <div>
-                            <table class="table markers table-bordered">
-                                <thead>
-                                <tr>
-                                    <th>Type</th>
-                                    <th>Line</th>
-                                    <th>Description</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                                                    <tr>
-                                        <td>error</td>
-                                        <td>0</td>
-                                        <td>No summary was found for this file</td>
-                                    </tr>
-                                                                    <tr>
-                                        <td>error</td>
-                                        <td>28</td>
-                                        <td>No summary for property $cache_path</td>
-                                    </tr>
-                                                                    <tr>
-                                        <td>error</td>
-                                        <td>29</td>
-                                        <td>No summary for property $cache_time</td>
-                                    </tr>
-                                                            </tbody>
-                            </table>
-                        </div>
-                                    </div>
-                            <div class="package-contents">
-                                            <a name="class.config.php" id="class.config.php"></a>
-                        <h3>
-                            <i class="icon-file"></i>
-                            class.config.php
-                            <small style="float: right;padding-right: 10px;">12</small>
-                        </h3>
-                        <div>
-                            <table class="table markers table-bordered">
-                                <thead>
-                                <tr>
-                                    <th>Type</th>
-                                    <th>Line</th>
-                                    <th>Description</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                                                    <tr>
-                                        <td>error</td>
-                                        <td>0</td>
-                                        <td>No summary was found for this file</td>
-                                    </tr>
-                                                                    <tr>
-                                        <td>error</td>
-                                        <td>3</td>
-                                        <td>No summary for class \Config</td>
-                                    </tr>
-                                                                    <tr>
-                                        <td>error</td>
-                                        <td>92</td>
-                                        <td>No summary for method staging()</td>
-                                    </tr>
-                                                                    <tr>
-                                        <td>error</td>
-                                        <td>6</td>
-                                        <td>No summary for property $productionServers</td>
-                                    </tr>
-                                                                    <tr>
-                                        <td>error</td>
-                                        <td>7</td>
-                                        <td>No summary for property $stagingServers</td>
-                                    </tr>
-                                                                    <tr>
-                                        <td>error</td>
-                                        <td>8</td>
-                                        <td>No summary for property $localServers</td>
-                                    </tr>
-                                                                    <tr>
-                                        <td>error</td>
-                                        <td>11</td>
-                                        <td>No summary for property $me</td>
-                                    </tr>
-                                                                    <tr>
-                                        <td>error</td>
-                                        <td>13</td>
-                                        <td>No summary for property $dbOnError</td>
-                                    </tr>
-                                                                    <tr>
-                                        <td>error</td>
-                                        <td>14</td>
-                                        <td>No summary for property $dbEmailOnError</td>
-                                    </tr>
-                                                                    <tr>
-                                        <td>error</td>
-                                        <td>17</td>
-                                        <td>No summary for property $authDomain</td>
-                                    </tr>
-                                                                    <tr>
-                                        <td>error</td>
-                                        <td>18</td>
-                                        <td>No summary for property $authSalt</td>
-                                    </tr>
-                                                                    <tr>
-                                        <td>error</td>
-                                        <td>21</td>
-                                        <td>No summary for property $emailTo</td>
-                                    </tr>
-                                                            </tbody>
-                            </table>
-                        </div>
-                                    </div>
-                            <div class="package-contents">
-                                            <a name="class.controller.php" id="class.controller.php"></a>
-                        <h3>
-                            <i class="icon-file"></i>
-                            class.controller.php
-                            <small style="float: right;padding-right: 10px;">2</small>
-                        </h3>
-                        <div>
-                            <table class="table markers table-bordered">
-                                <thead>
-                                <tr>
-                                    <th>Type</th>
-                                    <th>Line</th>
-                                    <th>Description</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                                                    <tr>
-                                        <td>error</td>
-                                        <td>0</td>
-                                        <td>No summary was found for this file</td>
-                                    </tr>
-                                                                    <tr>
-                                        <td>error</td>
-                                        <td>3</td>
-                                        <td>No summary for class \Controller</td>
-                                    </tr>
-                                                            </tbody>
-                            </table>
-                        </div>
-                                    </div>
-                            <div class="package-contents">
-                                            <a name="class.cookie.php" id="class.cookie.php"></a>
-                        <h3>
-                            <i class="icon-file"></i>
-                            class.cookie.php
-                            <small style="float: right;padding-right: 10px;">1</small>
-                        </h3>
-                        <div>
-                            <table class="table markers table-bordered">
-                                <thead>
-                                <tr>
-                                    <th>Type</th>
-                                    <th>Line</th>
-                                    <th>Description</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                                                    <tr>
-                                        <td>error</td>
-                                        <td>0</td>
-                                        <td>No summary was found for this file</td>
-                                    </tr>
-                                                            </tbody>
-                            </table>
-                        </div>
-                                    </div>
-                            <div class="package-contents">
-                                            <a name="class.core.php" id="class.core.php"></a>
-                        <h3>
-                            <i class="icon-file"></i>
-                            class.core.php
-                            <small style="float: right;padding-right: 10px;">2</small>
-                        </h3>
-                        <div>
-                            <table class="table markers table-bordered">
-                                <thead>
-                                <tr>
-                                    <th>Type</th>
-                                    <th>Line</th>
-                                    <th>Description</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                                                    <tr>
-                                        <td>error</td>
-                                        <td>0</td>
-                                        <td>No summary was found for this file</td>
-                                    </tr>
-                                                                    <tr>
-                                        <td>error</td>
-                                        <td>357</td>
-                                        <td>Argument $version is missing from the Docblock of compare</td>
-                                    </tr>
-                                                            </tbody>
-                            </table>
-                        </div>
-                                    </div>
-                            <div class="package-contents">
-                                            <a name="class.crypto.php" id="class.crypto.php"></a>
-                        <h3>
-                            <i class="icon-file"></i>
-                            class.crypto.php
-                            <small style="float: right;padding-right: 10px;">2</small>
-                        </h3>
-                        <div>
-                            <table class="table markers table-bordered">
-                                <thead>
-                                <tr>
-                                    <th>Type</th>
-                                    <th>Line</th>
-                                    <th>Description</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                                                    <tr>
-                                        <td>error</td>
-                                        <td>0</td>
-                                        <td>No summary was found for this file</td>
-                                    </tr>
-                                                                    <tr>
-                                        <td>error</td>
-                                        <td>3</td>
-                                        <td>No summary for class \Crypto128</td>
-                                    </tr>
-                                                            </tbody>
-                            </table>
-                        </div>
-                                    </div>
-                            <div class="package-contents">
-                                            <a name="class.database.php" id="class.database.php"></a>
-                        <h3>
-                            <i class="icon-file"></i>
-                            class.database.php
-                            <small style="float: right;padding-right: 10px;">5</small>
-                        </h3>
-                        <div>
-                            <table class="table markers table-bordered">
-                                <thead>
-                                <tr>
-                                    <th>Type</th>
-                                    <th>Line</th>
-                                    <th>Description</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                                                    <tr>
-                                        <td>error</td>
-                                        <td>0</td>
-                                        <td>No summary was found for this file</td>
-                                    </tr>
-                                                                    <tr>
-                                        <td>error</td>
-                                        <td>3</td>
-                                        <td>No summary for class \Database</td>
-                                    </tr>
-                                                                    <tr>
-                                        <td>error</td>
-                                        <td>6</td>
-                                        <td>No summary for property $me</td>
-                                    </tr>
-                                                                    <tr>
-                                        <td>error</td>
-                                        <td>7</td>
-                                        <td>No summary for property $db</td>
-                                    </tr>
-                                                                    <tr>
-                                        <td>error</td>
-                                        <td>8</td>
-                                        <td>No summary for property $dbType</td>
-                                    </tr>
-                                                            </tbody>
-                            </table>
-                        </div>
-                                    </div>
-                            <div class="package-contents">
-                                            <a name="class.date.php" id="class.date.php"></a>
-                        <h3>
-                            <i class="icon-file"></i>
-                            class.date.php
-                            <small style="float: right;padding-right: 10px;">3</small>
-                        </h3>
-                        <div>
-                            <table class="table markers table-bordered">
-                                <thead>
-                                <tr>
-                                    <th>Type</th>
-                                    <th>Line</th>
-                                    <th>Description</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                                                    <tr>
-                                        <td>error</td>
-                                        <td>0</td>
-                                        <td>No summary was found for this file</td>
-                                    </tr>
-                                                                    <tr>
-                                        <td>error</td>
-                                        <td>3</td>
-                                        <td>No summary for class \Date</td>
-                                    </tr>
-                                                                    <tr>
-                                        <td>error</td>
-                                        <td>5</td>
-                                        <td>No summary for property $timestamp</td>
-                                    </tr>
-                                                            </tbody>
-                            </table>
-                        </div>
-                                    </div>
-                            <div class="package-contents">
-                                            <a name="class.dbloop.php" id="class.dbloop.php"></a>
-                        <h3>
-                            <i class="icon-file"></i>
-                            class.dbloop.php
-                            <small style="float: right;padding-right: 10px;">3</small>
-                        </h3>
-                        <div>
-                            <table class="table markers table-bordered">
-                                <thead>
-                                <tr>
-                                    <th>Type</th>
-                                    <th>Line</th>
-                                    <th>Description</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                                                    <tr>
-                                        <td>error</td>
-                                        <td>0</td>
-                                        <td>No summary was found for this file</td>
-                                    </tr>
-                                                                    <tr>
-                                        <td>error</td>
-                                        <td>13</td>
-                                        <td>No summary for property $result</td>
-                                    </tr>
-                                                                    <tr>
-                                        <td>error</td>
-                                        <td>14</td>
-                                        <td>No summary for property $position</td>
-                                    </tr>
-                                                            </tbody>
-                            </table>
-                        </div>
-                                    </div>
-                            <div class="package-contents">
-                                            <a name="class.event.php" id="class.event.php"></a>
-                        <h3>
-                            <i class="icon-file"></i>
-                            class.event.php
-                            <small style="float: right;padding-right: 10px;">3</small>
-                        </h3>
-                        <div>
-                            <table class="table markers table-bordered">
-                                <thead>
-                                <tr>
-                                    <th>Type</th>
-                                    <th>Line</th>
-                                    <th>Description</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                                                    <tr>
-                                        <td>error</td>
-                                        <td>0</td>
-                                        <td>No summary was found for this file</td>
-                                    </tr>
-                                                                    <tr>
-                                        <td>error</td>
-                                        <td>19</td>
-                                        <td>No summary for class \Event</td>
-                                    </tr>
-                                                                    <tr>
-                                        <td>error</td>
-                                        <td>21</td>
-                                        <td>No summary for property $events</td>
-                                    </tr>
-                                                            </tbody>
-                            </table>
-                        </div>
-                                    </div>
-                            <div class="package-contents">
-                                            <a name="class.file.php" id="class.file.php"></a>
-                        <h3>
-                            <i class="icon-file"></i>
-                            class.file.php
-                            <small style="float: right;padding-right: 10px;">1</small>
-                        </h3>
-                        <div>
-                            <table class="table markers table-bordered">
-                                <thead>
-                                <tr>
-                                    <th>Type</th>
-                                    <th>Line</th>
-                                    <th>Description</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                                                    <tr>
-                                        <td>error</td>
-                                        <td>0</td>
-                                        <td>No summary was found for this file</td>
-                                    </tr>
-                                                            </tbody>
-                            </table>
-                        </div>
-                                    </div>
-                            <div class="package-contents">
-                                            <a name="class.gd.php" id="class.gd.php"></a>
-                        <h3>
-                            <i class="icon-file"></i>
-                            class.gd.php
-                            <small style="float: right;padding-right: 10px;">3</small>
-                        </h3>
-                        <div>
-                            <table class="table markers table-bordered">
-                                <thead>
-                                <tr>
-                                    <th>Type</th>
-                                    <th>Line</th>
-                                    <th>Description</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                                                    <tr>
-                                        <td>error</td>
-                                        <td>0</td>
-                                        <td>No summary was found for this file</td>
-                                    </tr>
-                                                                    <tr>
-                                        <td>error</td>
-                                        <td>13</td>
-                                        <td>No summary for property $im</td>
-                                    </tr>
-                                                                    <tr>
-                                        <td>error</td>
-                                        <td>14</td>
-                                        <td>No summary for property $filename</td>
-                                    </tr>
-                                                            </tbody>
-                            </table>
-                        </div>
-                                    </div>
-                            <div class="package-contents">
-                                            <a name="class.html.php" id="class.html.php"></a>
-                        <h3>
-                            <i class="icon-file"></i>
-                            class.html.php
-                            <small style="float: right;padding-right: 10px;">1</small>
-                        </h3>
-                        <div>
-                            <table class="table markers table-bordered">
-                                <thead>
-                                <tr>
-                                    <th>Type</th>
-                                    <th>Line</th>
-                                    <th>Description</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                                                    <tr>
-                                        <td>error</td>
-                                        <td>0</td>
-                                        <td>No summary was found for this file</td>
-                                    </tr>
-                                                            </tbody>
-                            </table>
-                        </div>
-                                    </div>
-                            <div class="package-contents">
-                                            <a name="class.interop.php" id="class.interop.php"></a>
-                        <h3>
-                            <i class="icon-file"></i>
-                            class.interop.php
-                            <small style="float: right;padding-right: 10px;">1</small>
-                        </h3>
-                        <div>
-                            <table class="table markers table-bordered">
-                                <thead>
-                                <tr>
-                                    <th>Type</th>
-                                    <th>Line</th>
-                                    <th>Description</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                                                    <tr>
-                                        <td>error</td>
-                                        <td>0</td>
-                                        <td>No summary was found for this file</td>
-                                    </tr>
-                                                            </tbody>
-                            </table>
-                        </div>
-                                    </div>
-                            <div class="package-contents">
-                                            <a name="class.model.php" id="class.model.php"></a>
-                        <h3>
-                            <i class="icon-file"></i>
-                            class.model.php
-                            <small style="float: right;padding-right: 10px;">2</small>
-                        </h3>
-                        <div>
-                            <table class="table markers table-bordered">
-                                <thead>
-                                <tr>
-                                    <th>Type</th>
-                                    <th>Line</th>
-                                    <th>Description</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                                                    <tr>
-                                        <td>error</td>
-                                        <td>0</td>
-                                        <td>No summary was found for this file</td>
-                                    </tr>
-                                                                    <tr>
-                                        <td>error</td>
-                                        <td>12</td>
-                                        <td>No summary for property $connection</td>
-                                    </tr>
-                                                            </tbody>
-                            </table>
-                        </div>
-                                    </div>
-                            <div class="package-contents">
-                                            <a name="class.orm.php" id="class.orm.php"></a>
-                        <h3>
-                            <i class="icon-file"></i>
-                            class.orm.php
-                            <small style="float: right;padding-right: 10px;">2</small>
-                        </h3>
-                        <div>
-                            <table class="table markers table-bordered">
-                                <thead>
-                                <tr>
-                                    <th>Type</th>
-                                    <th>Line</th>
-                                    <th>Description</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                                                    <tr>
-                                        <td>error</td>
-                                        <td>0</td>
-                                        <td>No summary was found for this file</td>
-                                    </tr>
-                                                                    <tr>
-                                        <td>error</td>
-                                        <td>14</td>
-                                        <td>No summary for property $Tablename</td>
-                                    </tr>
-                                                            </tbody>
-                            </table>
-                        </div>
-                                    </div>
-                            <div class="package-contents">
-                                            <a name="class.page.php" id="class.page.php"></a>
-                        <h3>
-                            <i class="icon-file"></i>
-                            class.page.php
-                            <small style="float: right;padding-right: 10px;">1</small>
-                        </h3>
-                        <div>
-                            <table class="table markers table-bordered">
-                                <thead>
-                                <tr>
-                                    <th>Type</th>
-                                    <th>Line</th>
-                                    <th>Description</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                                                    <tr>
-                                        <td>error</td>
-                                        <td>0</td>
-                                        <td>No summary was found for this file</td>
-                                    </tr>
-                                                            </tbody>
-                            </table>
-                        </div>
-                                    </div>
-                            <div class="package-contents">
-                                            <a name="class.pagination.php" id="class.pagination.php"></a>
-                        <h3>
-                            <i class="icon-file"></i>
-                            class.pagination.php
-                            <small style="float: right;padding-right: 10px;">2</small>
-                        </h3>
-                        <div>
-                            <table class="table markers table-bordered">
-                                <thead>
-                                <tr>
-                                    <th>Type</th>
-                                    <th>Line</th>
-                                    <th>Description</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                                                    <tr>
-                                        <td>error</td>
-                                        <td>0</td>
-                                        <td>No summary was found for this file</td>
-                                    </tr>
-                                                                    <tr>
-                                        <td>error</td>
-                                        <td>13</td>
-                                        <td>No summary for property $params</td>
-                                    </tr>
-                                                            </tbody>
-                            </table>
-                        </div>
-                                    </div>
-                            <div class="package-contents">
-                                            <a name="class.regex.php" id="class.regex.php"></a>
-                        <h3>
-                            <i class="icon-file"></i>
-                            class.regex.php
-                            <small style="float: right;padding-right: 10px;">2</small>
-                        </h3>
-                        <div>
-                            <table class="table markers table-bordered">
-                                <thead>
-                                <tr>
-                                    <th>Type</th>
-                                    <th>Line</th>
-                                    <th>Description</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                                                    <tr>
-                                        <td>error</td>
-                                        <td>0</td>
-                                        <td>No summary was found for this file</td>
-                                    </tr>
-                                                                    <tr>
-                                        <td>error</td>
-                                        <td>3</td>
-                                        <td>No summary for class \Regex</td>
-                                    </tr>
-                                                            </tbody>
-                            </table>
-                        </div>
-                                    </div>
-                            <div class="package-contents">
-                                            <a name="class.restserver.php" id="class.restserver.php"></a>
-                        <h3>
-                            <i class="icon-file"></i>
-                            class.restserver.php
-                            <small style="float: right;padding-right: 10px;">2</small>
-                        </h3>
-                        <div>
-                            <table class="table markers table-bordered">
-                                <thead>
-                                <tr>
-                                    <th>Type</th>
-                                    <th>Line</th>
-                                    <th>Description</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                                                    <tr>
-                                        <td>error</td>
-                                        <td>0</td>
-                                        <td>No summary was found for this file</td>
-                                    </tr>
-                                                                    <tr>
-                                        <td>error</td>
-                                        <td>10</td>
-                                        <td>No summary for property $serviceClass</td>
-                                    </tr>
-                                                            </tbody>
-                            </table>
-                        </div>
-                                    </div>
-                            <div class="package-contents">
-                                            <a name="class.sql.php" id="class.sql.php"></a>
-                        <h3>
-                            <i class="icon-file"></i>
-                            class.sql.php
-                            <small style="float: right;padding-right: 10px;">19</small>
-                        </h3>
-                        <div>
-                            <table class="table markers table-bordered">
-                                <thead>
-                                <tr>
-                                    <th>Type</th>
-                                    <th>Line</th>
-                                    <th>Description</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                                                    <tr>
-                                        <td>error</td>
-                                        <td>0</td>
-                                        <td>No summary was found for this file</td>
-                                    </tr>
-                                                                    <tr>
-                                        <td>error</td>
-                                        <td>3</td>
-                                        <td>No summary for class \FieldType</td>
-                                    </tr>
-                                                                    <tr>
-                                        <td>error</td>
-                                        <td>18</td>
-                                        <td>No summary for class \WhereOperator</td>
-                                    </tr>
-                                                                    <tr>
-                                        <td>error</td>
-                                        <td>40</td>
-                                        <td>No summary for class \LogicalOperator</td>
-                                    </tr>
-                                                                    <tr>
-                                        <td>error</td>
-                                        <td>47</td>
-                                        <td>No summary for class \JoinType</td>
-                                    </tr>
-                                                                    <tr>
-                                        <td>error</td>
-                                        <td>56</td>
-                                        <td>No summary for class \OrderByDirection</td>
-                                    </tr>
-                                                                    <tr>
-                                        <td>error</td>
-                                        <td>63</td>
-                                        <td>No summary for class \SQLBase</td>
-                                    </tr>
-                                                                    <tr>
-                                        <td>error</td>
-                                        <td>358</td>
-                                        <td>No summary for class \SQLDelete</td>
-                                    </tr>
-                                                                    <tr>
-                                        <td>error</td>
-                                        <td>393</td>
-                                        <td>No summary for class \SQLInsert</td>
-                                    </tr>
-                                                                    <tr>
-                                        <td>error</td>
-                                        <td>426</td>
-                                        <td>No summary for class \SQLSelect</td>
-                                    </tr>
-                                                                    <tr>
-                                        <td>error</td>
-                                        <td>550</td>
-                                        <td>No summary for class \SQLUpdate</td>
-                                    </tr>
-                                                                    <tr>
-                                        <td>error</td>
-                                        <td>148</td>
-                                        <td>Argument $fields is missing from the Docblock of GetFields</td>
-                                    </tr>
-                                                                    <tr>
-                                        <td>error</td>
-                                        <td>65</td>
-                                        <td>No summary for property $fields</td>
-                                    </tr>
-                                                                    <tr>
-                                        <td>error</td>
-                                        <td>66</td>
-                                        <td>No summary for property $wheres</td>
-                                    </tr>
-                                                                    <tr>
-                                        <td>error</td>
-                                        <td>67</td>
-                                        <td>No summary for property $groupby</td>
-                                    </tr>
-                                                                    <tr>
-                                        <td>error</td>
-                                        <td>68</td>
-                                        <td>No summary for property $orderby</td>
-                                    </tr>
-                                                                    <tr>
-                                        <td>error</td>
-                                        <td>69</td>
-                                        <td>No summary for property $joins</td>
-                                    </tr>
-                                                                    <tr>
-                                        <td>error</td>
-                                        <td>72</td>
-                                        <td>No summary for property $Tablename</td>
-                                    </tr>
-                                                                    <tr>
-                                        <td>error</td>
-                                        <td>429</td>
-                                        <td>No summary for property $on</td>
-                                    </tr>
-                                                            </tbody>
-                            </table>
-                        </div>
-                                    </div>
-                            <div class="package-contents">
-                                            <a name="class.template.php" id="class.template.php"></a>
-                        <h3>
-                            <i class="icon-file"></i>
-                            class.template.php
-                            <small style="float: right;padding-right: 10px;">6</small>
-                        </h3>
-                        <div>
-                            <table class="table markers table-bordered">
-                                <thead>
-                                <tr>
-                                    <th>Type</th>
-                                    <th>Line</th>
-                                    <th>Description</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                                                    <tr>
-                                        <td>error</td>
-                                        <td>0</td>
-                                        <td>No summary was found for this file</td>
-                                    </tr>
-                                                                    <tr>
-                                        <td>error</td>
-                                        <td>26</td>
-                                        <td>No summary for property $vars</td>
-                                    </tr>
-                                                                    <tr>
-                                        <td>error</td>
-                                        <td>27</td>
-                                        <td>No summary for property $path</td>
-                                    </tr>
-                                                                    <tr>
-                                        <td>error</td>
-                                        <td>123</td>
-                                        <td>No summary for property $cache_id</td>
-                                    </tr>
-                                                                    <tr>
-                                        <td>error</td>
-                                        <td>124</td>
-                                        <td>No summary for property $expire</td>
-                                    </tr>
-                                                                    <tr>
-                                        <td>error</td>
-                                        <td>125</td>
-                                        <td>No summary for property $cached</td>
-                                    </tr>
-                                                            </tbody>
-                            </table>
-                        </div>
-                                    </div>
-                            <div class="package-contents">
-                                            <a name="class.upload.php" id="class.upload.php"></a>
-                        <h3>
-                            <i class="icon-file"></i>
-                            class.upload.php
-                            <small style="float: right;padding-right: 10px;">6</small>
-                        </h3>
-                        <div>
-                            <table class="table markers table-bordered">
-                                <thead>
-                                <tr>
-                                    <th>Type</th>
-                                    <th>Line</th>
-                                    <th>Description</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                                                    <tr>
-                                        <td>error</td>
-                                        <td>0</td>
-                                        <td>No summary was found for this file</td>
-                                    </tr>
-                                                                    <tr>
-                                        <td>error</td>
-                                        <td>3</td>
-                                        <td>No summary for class \Upload</td>
-                                    </tr>
-                                                                    <tr>
-                                        <td>error</td>
-                                        <td>25</td>
-                                        <td>No summary for property $filename</td>
-                                    </tr>
-                                                                    <tr>
-                                        <td>error</td>
-                                        <td>26</td>
-                                        <td>No summary for property $type</td>
-                                    </tr>
-                                                                    <tr>
-                                        <td>error</td>
-                                        <td>27</td>
-                                        <td>No summary for property $size</td>
-                                    </tr>
-                                                                    <tr>
-                                        <td>error</td>
-                                        <td>28</td>
-                                        <td>No summary for property $tmp_name</td>
-                                    </tr>
-                                                            </tbody>
-                            </table>
-                        </div>
-                                    </div>
-                            <div class="package-contents">
-                                            <a name="class.view.php" id="class.view.php"></a>
-                        <h3>
-                            <i class="icon-file"></i>
-                            class.view.php
-                            <small style="float: right;padding-right: 10px;">6</small>
-                        </h3>
-                        <div>
-                            <table class="table markers table-bordered">
-                                <thead>
-                                <tr>
-                                    <th>Type</th>
-                                    <th>Line</th>
-                                    <th>Description</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                                                    <tr>
-                                        <td>error</td>
-                                        <td>0</td>
-                                        <td>No summary was found for this file</td>
-                                    </tr>
-                                                                    <tr>
-                                        <td>error</td>
-                                        <td>3</td>
-                                        <td>No summary for class \View</td>
-                                    </tr>
-                                                                    <tr>
-                                        <td>error</td>
-                                        <td>12</td>
-                                        <td>Argument $template is missing from the Docblock of __construct</td>
-                                    </tr>
-                                                                    <tr>
-                                        <td>error</td>
-                                        <td>5</td>
-                                        <td>No summary for property $pageVars</td>
-                                    </tr>
-                                                                    <tr>
-                                        <td>error</td>
-                                        <td>6</td>
-                                        <td>No summary for property $filename</td>
-                                    </tr>
-                                                                    <tr>
-                                        <td>error</td>
-                                        <td>7</td>
-                                        <td>No summary for property $tmpl</td>
-                                    </tr>
-                                                            </tbody>
-                            </table>
-                        </div>
-                                    </div>
-                            <div class="package-contents">
-                                            <a name="html_mail.php" id="html_mail.php"></a>
-                        <h3>
-                            <i class="icon-file"></i>
-                            html_mail.php
-                            <small style="float: right;padding-right: 10px;">1</small>
-                        </h3>
-                        <div>
-                            <table class="table markers table-bordered">
-                                <thead>
-                                <tr>
-                                    <th>Type</th>
-                                    <th>Line</th>
-                                    <th>Description</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                                                    <tr>
-                                        <td>error</td>
-                                        <td>0</td>
-                                        <td>No summary was found for this file</td>
-                                    </tr>
-                                                            </tbody>
-                            </table>
-                        </div>
-                                    </div>
-                            <div class="package-contents">
-                                            <a name="index.php" id="index.php"></a>
-                        <h3>
-                            <i class="icon-file"></i>
-                            index.php
-                            <small style="float: right;padding-right: 10px;">1</small>
-                        </h3>
-                        <div>
-                            <table class="table markers table-bordered">
-                                <thead>
-                                <tr>
-                                    <th>Type</th>
-                                    <th>Line</th>
-                                    <th>Description</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                                                    <tr>
-                                        <td>error</td>
-                                        <td>0</td>
-                                        <td>No summary was found for this file</td>
-                                    </tr>
-                                                            </tbody>
-                            </table>
-                        </div>
-                                    </div>
-                            <div class="package-contents">
-                                            <a name="string.php" id="string.php"></a>
-                        <h3>
-                            <i class="icon-file"></i>
-                            string.php
-                            <small style="float: right;padding-right: 10px;">1</small>
-                        </h3>
-                        <div>
-                            <table class="table markers table-bordered">
-                                <thead>
-                                <tr>
-                                    <th>Type</th>
-                                    <th>Line</th>
-                                    <th>Description</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                                                    <tr>
-                                        <td>error</td>
-                                        <td>0</td>
-                                        <td>No summary was found for this file</td>
-                                    </tr>
-                                                            </tbody>
-                            </table>
-                        </div>
-                                    </div>
-                    </div>
+    <section class="phpdocumentor-sidebar__category">
+        <h2 class="phpdocumentor-sidebar__category-header">Reports</h2>
+                <h3 class="phpdocumentor-sidebar__root-package"><a href="reports/deprecated.html">Deprecated</a></h3>
+        <h3 class="phpdocumentor-sidebar__root-package"><a href="reports/errors.html">Errors</a></h3>
+        <h3 class="phpdocumentor-sidebar__root-package"><a href="reports/markers.html">Markers</a></h3>
     </section>
 
-    <footer class="row-fluid">
-        <section class="span10 offset2">
-            <section class="row-fluid">
-                <section class="span10 offset1">
-                    <section class="row-fluid footer-sections">
-                        <section class="span4">
-                                                        <h1><i class="icon-code"></i></h1>
-                            <div>
-                                <ul>
-                                                                    </ul>
-                            </div>
-                        </section>
-                        <section class="span4">
-                                                        <h1><i class="icon-bar-chart"></i></h1>
-                            <div>
-                                <ul>
-                                    <li><a href="../graphs/class.html">Class Hierarchy Diagram</a></li>
-                                </ul>
-                            </div>
-                        </section>
-                        <section class="span4">
-                                                        <h1><i class="icon-pushpin"></i></h1>
-                            <div>
-                                <ul>
-                                    <li><a href="../reports/errors.html">Errors</a></li>
-                                    <li><a href="../reports/markers.html">Markers</a></li>
-                                </ul>
-                            </div>
-                        </section>
-                    </section>
-                </section>
-            </section>
-            <section class="row-fluid">
-                <section class="span10 offset1">
-                    <hr />
-                    Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor </a> and authored
-                    on July 25th, 2016 at 00:15.
-                </section>
-            </section>
-        </section>
-    </footer>
-</div>
+    <section class="phpdocumentor-sidebar__category">
+        <h2 class="phpdocumentor-sidebar__category-header">Indices</h2>
+        <h3 class="phpdocumentor-sidebar__root-package"><a href="indices/files.html">Files</a></h3>
+    </section>
+</aside>
 
+            <div class="phpdocumentor-column -nine phpdocumentor-content">
+                                        <section>
+        <ul class="phpdocumentor-breadcrumbs">
+            <li><a href="">Home</a></li>
+        </ul>
+
+        <div class="phpdocumentor-row">
+            <h2 class="phpdocumentor-content__title">Errors</h2>
+
+                        <h3>Table of Contents</h3>
+            <table class="phpdocumentor-table_of_contents">
+                                                                            <tr>
+                            <td class="phpdocumentor-cell"><a href="reports/errors.html#class.page.php">class.page.php</a></td>
+                            <td class="phpdocumentor-cell">1</td>
+                        </tr>
+                                                                                                    <tr>
+                            <td class="phpdocumentor-cell"><a href="reports/errors.html#DB/class.model.php">DB/class.model.php</a></td>
+                            <td class="phpdocumentor-cell">1</td>
+                        </tr>
+                                                                                                    <tr>
+                            <td class="phpdocumentor-cell"><a href="reports/errors.html#DB/class.orm.php">DB/class.orm.php</a></td>
+                            <td class="phpdocumentor-cell">1</td>
+                        </tr>
+                                                                                                    <tr>
+                            <td class="phpdocumentor-cell"><a href="reports/errors.html#DB/class.pdodb.php">DB/class.pdodb.php</a></td>
+                            <td class="phpdocumentor-cell">13</td>
+                        </tr>
+                                                                                                    <tr>
+                            <td class="phpdocumentor-cell"><a href="reports/errors.html#DB/class.table.php">DB/class.table.php</a></td>
+                            <td class="phpdocumentor-cell">1</td>
+                        </tr>
+                                                                                                    <tr>
+                            <td class="phpdocumentor-cell"><a href="reports/errors.html#IO/class.file.php">IO/class.file.php</a></td>
+                            <td class="phpdocumentor-cell">1</td>
+                        </tr>
+                                                                                                    <tr>
+                            <td class="phpdocumentor-cell"><a href="reports/errors.html#Mvc/class.template.php">Mvc/class.template.php</a></td>
+                            <td class="phpdocumentor-cell">1</td>
+                        </tr>
+                                                                                                    <tr>
+                            <td class="phpdocumentor-cell"><a href="reports/errors.html#Utils/class.date.php">Utils/class.date.php</a></td>
+                            <td class="phpdocumentor-cell">1</td>
+                        </tr>
+                                                                                                    <tr>
+                            <td class="phpdocumentor-cell"><a href="reports/errors.html#Utils/class.number.php">Utils/class.number.php</a></td>
+                            <td class="phpdocumentor-cell">1</td>
+                        </tr>
+                                                                    </table>
+            
+            
+                            <a id="class.page.php"></a>
+                <h3><abbr title="class.page.php">class.page.php</abbr></h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th class="phpdocumentor-heading">Type</th>
+                            <th class="phpdocumentor-heading">Line</th>
+                            <th class="phpdocumentor-heading">Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                                            <tr>
+                            <td class="phpdocumentor-cell">ERROR</td>
+                            <td class="phpdocumentor-cell">14</td>
+                            <td class="phpdocumentor-cell">Tag &quot;version&quot; with body &quot;@version $Revision$&quot; has error </td>
+                        </tr>
+                                        </tbody>
+                </table>
+                            <a id="DB/class.model.php"></a>
+                <h3><abbr title="DB/class.model.php">class.model.php</abbr></h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th class="phpdocumentor-heading">Type</th>
+                            <th class="phpdocumentor-heading">Line</th>
+                            <th class="phpdocumentor-heading">Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                                            <tr>
+                            <td class="phpdocumentor-cell">ERROR</td>
+                            <td class="phpdocumentor-cell">16</td>
+                            <td class="phpdocumentor-cell">Tag &quot;version&quot; with body &quot;@version $Revision$&quot; has error </td>
+                        </tr>
+                                        </tbody>
+                </table>
+                            <a id="DB/class.orm.php"></a>
+                <h3><abbr title="DB/class.orm.php">class.orm.php</abbr></h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th class="phpdocumentor-heading">Type</th>
+                            <th class="phpdocumentor-heading">Line</th>
+                            <th class="phpdocumentor-heading">Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                                            <tr>
+                            <td class="phpdocumentor-cell">ERROR</td>
+                            <td class="phpdocumentor-cell">20</td>
+                            <td class="phpdocumentor-cell">Tag &quot;version&quot; with body &quot;@version $Revision$&quot; has error </td>
+                        </tr>
+                                        </tbody>
+                </table>
+                            <a id="DB/class.pdodb.php"></a>
+                <h3><abbr title="DB/class.pdodb.php">class.pdodb.php</abbr></h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th class="phpdocumentor-heading">Type</th>
+                            <th class="phpdocumentor-heading">Line</th>
+                            <th class="phpdocumentor-heading">Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                                            <tr>
+                            <td class="phpdocumentor-cell">ERROR</td>
+                            <td class="phpdocumentor-cell">744</td>
+                            <td class="phpdocumentor-cell">Tag &quot;uses&quot; with body &quot;@uses pdo-&gt;rollback();&quot; has error &quot;\Impedro\Dragonfly\DB\pdo-&gt;rollback();&quot; is not a valid Fqsen.</td>
+                        </tr>
+                                            <tr>
+                            <td class="phpdocumentor-cell">ERROR</td>
+                            <td class="phpdocumentor-cell">758</td>
+                            <td class="phpdocumentor-cell">Tag &quot;uses&quot; with body &quot;@uses pdo-&gt;commit();&quot; has error &quot;\Impedro\Dragonfly\DB\pdo-&gt;commit();&quot; is not a valid Fqsen.</td>
+                        </tr>
+                                            <tr>
+                            <td class="phpdocumentor-cell">ERROR</td>
+                            <td class="phpdocumentor-cell">955</td>
+                            <td class="phpdocumentor-cell">Tag &quot;uses&quot; with body &quot;@uses $PDODb-&gt;groupBy(&#039;name&#039;);&quot; has error &quot;\Impedro\Dragonfly\DB\$PDODb-&gt;groupBy(&#039;name&#039;);&quot; is not a valid Fqsen.</td>
+                        </tr>
+                                            <tr>
+                            <td class="phpdocumentor-cell">ERROR</td>
+                            <td class="phpdocumentor-cell">985</td>
+                            <td class="phpdocumentor-cell">Tag &quot;uses&quot; with body &quot;@uses $PDODb-&gt;having(&#039;SUM(tags) &gt; 10&#039;)&quot; has error &quot;\Impedro\Dragonfly\DB\$PDODb-&gt;having(&#039;SUM(tags)&quot; is not a valid Fqsen.</td>
+                        </tr>
+                                            <tr>
+                            <td class="phpdocumentor-cell">ERROR</td>
+                            <td class="phpdocumentor-cell">1380</td>
+                            <td class="phpdocumentor-cell">Tag &quot;uses&quot; with body &quot;@uses $PDODb-&gt;join(&#039;table1&#039;, &#039;field1 &lt;&gt; field2&#039;, &#039;LEFT&#039;)&quot; has error &quot;\Impedro\Dragonfly\DB\$PDODb-&gt;join(&#039;table1&#039;,&quot; is not a valid Fqsen.</td>
+                        </tr>
+                                            <tr>
+                            <td class="phpdocumentor-cell">ERROR</td>
+                            <td class="phpdocumentor-cell">1449</td>
+                            <td class="phpdocumentor-cell">Tag &quot;uses&quot; with body &quot;@uses $PDODb-&gt;orderBy(&#039;id&#039;, &#039;desc&#039;)-&gt;orderBy(&#039;name&#039;, &#039;desc&#039;);&quot; has error &quot;\Impedro\Dragonfly\DB\$PDODb-&gt;orderBy(&#039;id&#039;,&quot; is not a valid Fqsen.</td>
+                        </tr>
+                                            <tr>
+                            <td class="phpdocumentor-cell">ERROR</td>
+                            <td class="phpdocumentor-cell">1486</td>
+                            <td class="phpdocumentor-cell">Tag &quot;uses&quot; with body &quot;@uses $PDODb-&gt;orHaving(&#039;SUM(tags) &gt; 10&#039;)&quot; has error &quot;\Impedro\Dragonfly\DB\$PDODb-&gt;orHaving(&#039;SUM(tags)&quot; is not a valid Fqsen.</td>
+                        </tr>
+                                            <tr>
+                            <td class="phpdocumentor-cell">ERROR</td>
+                            <td class="phpdocumentor-cell">1500</td>
+                            <td class="phpdocumentor-cell">Tag &quot;uses&quot; with body &quot;@uses $PDODb-&gt;orWhere(&#039;id&#039;, 7)-&gt;orWhere(&#039;title&#039;, &#039;MyTitle&#039;);&quot; has error &quot;\Impedro\Dragonfly\DB\$PDODb-&gt;orWhere(&#039;id&#039;,&quot; is not a valid Fqsen.</td>
+                        </tr>
+                                            <tr>
+                            <td class="phpdocumentor-cell">ERROR</td>
+                            <td class="phpdocumentor-cell">1739</td>
+                            <td class="phpdocumentor-cell">Tag &quot;uses&quot; with body &quot;@uses pdo-&gt;rollback();&quot; has error &quot;\Impedro\Dragonfly\DB\pdo-&gt;rollback();&quot; is not a valid Fqsen.</td>
+                        </tr>
+                                            <tr>
+                            <td class="phpdocumentor-cell">ERROR</td>
+                            <td class="phpdocumentor-cell">1777</td>
+                            <td class="phpdocumentor-cell">Tag &quot;uses&quot; with body &quot;@uses $PDODb-&gt;setQueryOption(&#039;name&#039;);&quot; has error &quot;\Impedro\Dragonfly\DB\$PDODb-&gt;setQueryOption(&#039;name&#039;);&quot; is not a valid Fqsen.</td>
+                        </tr>
+                                            <tr>
+                            <td class="phpdocumentor-cell">ERROR</td>
+                            <td class="phpdocumentor-cell">1841</td>
+                            <td class="phpdocumentor-cell">Tag &quot;uses&quot; with body &quot;@uses pdo-&gt;beginTransaction()&quot; has error &quot;\Impedro\Dragonfly\DB\pdo-&gt;beginTransaction()&quot; is not a valid Fqsen.</td>
+                        </tr>
+                                            <tr>
+                            <td class="phpdocumentor-cell">ERROR</td>
+                            <td class="phpdocumentor-cell">1841</td>
+                            <td class="phpdocumentor-cell">Tag &quot;uses&quot; with body &quot;@uses register_shutdown_function(array($this, &quot;_transaction_shutdown_check&quot;))&quot; has error &quot;\Impedro\Dragonfly\DB\register_shutdown_function(array($this,&quot; is not a valid Fqsen.</td>
+                        </tr>
+                                            <tr>
+                            <td class="phpdocumentor-cell">ERROR</td>
+                            <td class="phpdocumentor-cell">1930</td>
+                            <td class="phpdocumentor-cell">Tag &quot;uses&quot; with body &quot;@uses $PDODb-&gt;where(&#039;id&#039;, 7)-&gt;where(&#039;title&#039;, &#039;MyTitle&#039;);&quot; has error &quot;\Impedro\Dragonfly\DB\$PDODb-&gt;where(&#039;id&#039;,&quot; is not a valid Fqsen.</td>
+                        </tr>
+                                        </tbody>
+                </table>
+                            <a id="DB/class.table.php"></a>
+                <h3><abbr title="DB/class.table.php">class.table.php</abbr></h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th class="phpdocumentor-heading">Type</th>
+                            <th class="phpdocumentor-heading">Line</th>
+                            <th class="phpdocumentor-heading">Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                                            <tr>
+                            <td class="phpdocumentor-cell">ERROR</td>
+                            <td class="phpdocumentor-cell">16</td>
+                            <td class="phpdocumentor-cell">Tag &quot;version&quot; with body &quot;@version $Revision$&quot; has error </td>
+                        </tr>
+                                        </tbody>
+                </table>
+                            <a id="IO/class.file.php"></a>
+                <h3><abbr title="IO/class.file.php">class.file.php</abbr></h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th class="phpdocumentor-heading">Type</th>
+                            <th class="phpdocumentor-heading">Line</th>
+                            <th class="phpdocumentor-heading">Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                                            <tr>
+                            <td class="phpdocumentor-cell">ERROR</td>
+                            <td class="phpdocumentor-cell">14</td>
+                            <td class="phpdocumentor-cell">Tag &quot;version&quot; with body &quot;@version $Revision$&quot; has error </td>
+                        </tr>
+                                        </tbody>
+                </table>
+                            <a id="Mvc/class.template.php"></a>
+                <h3><abbr title="Mvc/class.template.php">class.template.php</abbr></h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th class="phpdocumentor-heading">Type</th>
+                            <th class="phpdocumentor-heading">Line</th>
+                            <th class="phpdocumentor-heading">Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                                            <tr>
+                            <td class="phpdocumentor-cell">ERROR</td>
+                            <td class="phpdocumentor-cell">27</td>
+                            <td class="phpdocumentor-cell">Tag &quot;author&quot; with body &quot;@author Pedro Fernandes
+
+Usage
+&lt;code&gt;
+  $tpl = new Template(&#039;/path/to/templates&#039;);
+  $tpl-&gt;set(&#039;variable&#039;, &#039;some value&#039;);
+  $tpl-&gt;display(&#039;template-tpl.php&#039;);
+&lt;/code&gt;&quot; has error </td>
+                        </tr>
+                                        </tbody>
+                </table>
+                            <a id="Utils/class.date.php"></a>
+                <h3><abbr title="Utils/class.date.php">class.date.php</abbr></h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th class="phpdocumentor-heading">Type</th>
+                            <th class="phpdocumentor-heading">Line</th>
+                            <th class="phpdocumentor-heading">Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                                            <tr>
+                            <td class="phpdocumentor-cell">ERROR</td>
+                            <td class="phpdocumentor-cell">13</td>
+                            <td class="phpdocumentor-cell">Tag &quot;version&quot; with body &quot;@version $Revision$&quot; has error </td>
+                        </tr>
+                                        </tbody>
+                </table>
+                            <a id="Utils/class.number.php"></a>
+                <h3><abbr title="Utils/class.number.php">class.number.php</abbr></h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th class="phpdocumentor-heading">Type</th>
+                            <th class="phpdocumentor-heading">Line</th>
+                            <th class="phpdocumentor-heading">Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                                            <tr>
+                            <td class="phpdocumentor-cell">ERROR</td>
+                            <td class="phpdocumentor-cell">13</td>
+                            <td class="phpdocumentor-cell">Tag &quot;version&quot; with body &quot;@version $Revision$&quot; has error </td>
+                        </tr>
+                                        </tbody>
+                </table>
+                    </div>
+    </section>
+                            </div>
+            <section data-search-results class="phpdocumentor-search-results phpdocumentor-search-results--hidden">
+    <section class="phpdocumentor-search-results__dialog">
+        <header class="phpdocumentor-search-results__header">
+            <h2 class="phpdocumentor-search-results__title">Search results</h2>
+            <button class="phpdocumentor-search-results__close"><i class="fas fa-times"></i></button>
+        </header>
+        <section class="phpdocumentor-search-results__body">
+            <ul class="phpdocumentor-search-results__entries"></ul>
+        </section>
+    </section>
+</section>
+        </div>
+        <a href="reports/errors.html#top" class="phpdocumentor-back-to-top"><i class="fas fa-chevron-circle-up"></i></a>
+
+    </main>
+
+    <script>
+        cssVars({});
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.23.0/prism.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.23.0/plugins/autoloader/prism-autoloader.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.23.0/plugins/line-numbers/prism-line-numbers.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.23.0/plugins/line-highlight/prism-line-highlight.min.js"></script>
 </body>
 </html>

@@ -1,5 +1,9 @@
 <?php
+namespace Impedro\Dragonfly;
+
 defined('DRAGONFLY_LIB_PATH') or die('No direct script access allowed');
+
+use \Exception;
 
 class Form
 {
@@ -13,7 +17,7 @@ class Form
      */
     protected $form;
     /**
-     *@brief 
+     *@brief
      */
     protected $output;
     /**
@@ -53,7 +57,7 @@ class Form
      */
     public function __construct()
     {
-        //config options 
+        //config options
         $this->config["title"]["type"] = "str";
         $this->config["name"]["type"] = "str";
         $this->config["action"]["type"] = "str";
@@ -791,7 +795,7 @@ class Form
      * @brief sanitize input text
      *
      * @param $str text to clean
-     * @return cleaned text
+     * @return string
      */
     protected function sanitize($str)
     {
@@ -831,7 +835,7 @@ class Form
     }
     /**
      * @brief join selected fields
-     * @param ids of fields to join
+     * @param array ids of fields to join
      */
     public function join()
     {

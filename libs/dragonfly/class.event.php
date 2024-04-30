@@ -1,4 +1,6 @@
 <?php
+namespace Impedro\Dragonfly;
+
 defined('DRAGONFLY_LIB_PATH') or die('No direct script access allowed');
 
 /*
@@ -45,7 +47,7 @@ class Event
      * @param $event
      * @param callable $func
      */
-    public static function bind($event, Closure $func)
+    public static function bind($event, \Closure $func)
     {
         array_push(self::$events[$event], $func);
     }

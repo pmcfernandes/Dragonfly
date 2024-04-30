@@ -1,4 +1,6 @@
 <?php
+namespace Impedro\Dragonfly;
+
 defined('DRAGONFLY_LIB_PATH') or die('No direct script access allowed');
 
 /**
@@ -15,7 +17,7 @@ class HTML
      * Converts a string to a html-safe string
      *
      * @param string $str
-     * @return void
+     * @return string
      */
     public static function htmlentities($str)
     {
@@ -48,7 +50,7 @@ class HTML
      *
      * @param $name
      * @param array $attrs
-     * @param null $content
+     * @param string $content
      * @return string
      */
     public static function tag($name, $attrs = array(), $content = null)
@@ -68,7 +70,7 @@ class HTML
      *
      * @param string $src
      * @param array $attrs
-     * @return void
+     * @return string
      */
     public static function img($src, $attrs = array())
     {
@@ -81,7 +83,7 @@ class HTML
      * @param [type] $url
      * @param [type] $text
      * @param array $attrs
-     * @return void
+     * @return string
      */
     public static function a($url, $text = NULL, $attrs = array())
     {
@@ -94,7 +96,7 @@ class HTML
      * @param string $email
      * @param string $text
      * @param array $attrs
-     * @return void
+     * @return string
      */
     public static function email($email, $text = NULL, $attrs = array())
     {

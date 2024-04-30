@@ -1,10 +1,11 @@
 <?php
+defined('DRAGONFLY_LIB_PATH') or die('No direct script access allowed');
 
 /**
  * Get contents from remote location
  *
- * @param [type] $url
- * @return void
+ * @param string $url
+ * @return string
  */
 function rest_get_data($url)
 {
@@ -19,9 +20,9 @@ function rest_get_data($url)
 /**
  * Insert data to remote location
  *
- * @param [type] $url
- * @param [type] $data
- * @return void
+ * @param string $url
+ * @param array $data
+ * @return string
  */
 function rest_post_data($url, $data)
 {
@@ -44,9 +45,9 @@ function rest_post_data($url, $data)
 /**
  * Update data in remote location
  *
- * @param [type] $url
- * @param [type] $data
- * @return void
+ * @param string $url
+ * @param array $data
+ * @return string
  */
 function rest_put_data($url, $data)
 {
@@ -68,9 +69,9 @@ function rest_put_data($url, $data)
 /**
  * Delete data in remote location
  *
- * @param [type] $url
- * @param [type] $data
- * @return void
+ * @param string $url
+ * @param array $data
+ * @return string
  */
 function rest_delete_data($url, $data)
 {

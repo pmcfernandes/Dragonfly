@@ -1,5 +1,10 @@
 <?php
+namespace Impedro\Dragonfly;
+
 defined('DRAGONFLY_LIB_PATH') or die('No direct script access allowed');
+
+
+use Impedro\Dragonfly\Utils\Str;
 
 /**
  * Class to implement pagination
@@ -66,7 +71,7 @@ class Pagination
             if ($isActive) {
                 $a = '<a href="#">' . ($i + 1) . '</a>';
             } else {
-                $a = '<a href="' . ensureNotEndsWith(full_url($_SERVER), '/') . '/?' . $this->rebuildURL("page", $i + 1) . '">' . ($i + 1) . '</a>';
+                $a = '<a href="' . Str::ensureNotEndsWith(full_url($_SERVER), '/') . '/?' . $this->rebuildURL("page", $i + 1) . '">' . ($i + 1) . '</a>';
             }
 
             $text .= '<li' . ($isActive ? ' class="active"' : '') . '>' . $a . '</li>';

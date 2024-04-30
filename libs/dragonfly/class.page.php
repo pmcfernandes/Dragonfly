@@ -1,4 +1,6 @@
 <?php
+namespace Impedro\Dragonfly;
+
 defined('DRAGONFLY_LIB_PATH') or die('No direct script access allowed');
 
 /**
@@ -37,7 +39,7 @@ class Page
         echo '<meta charset="utf-8">';
     }
 
-    public static function blockRobots() 
+    public static function blockRobots()
     {
         echo '<meta name="robots" content="nofollow,noindex">';
     }
@@ -46,8 +48,8 @@ class Page
      * Get a variable from Query String
      *
      * @param $key
-     * @param null $default
-     * @return null
+     * @param string $default
+     * @return string
      */
     public static function get($key, $default = null)
     {
@@ -62,8 +64,8 @@ class Page
      * Get a variable from Post
      *
      * @param $key
-     * @param null $default
-     * @return null
+     * @param string $default
+     * @return string
      */
     public static function post($key, $default = null)
     {

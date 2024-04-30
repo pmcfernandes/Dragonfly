@@ -1,4 +1,5 @@
 <?php
+defined('DRAGONFLY_LIB_PATH') or die('No direct script access allowed');
 
 /**
  * Smart version of echo with an if condition as first argument
@@ -6,7 +7,7 @@
  * @param string $condition
  * @param string] $value
  * @param string $alternative
- * @return string
+ * @return void
  */
 function e($condition, $value, $alternative = null)
 {
@@ -32,7 +33,7 @@ function attr(array $attr, $prepend = "", $append = "")
     $str = $prepend;
 
     foreach ($attr as $key => $value) {
-        $str .= $key . '="' . $value .  '"';
+        $str .= $key . '="' . $value . '"';
     }
 
     $str .= $append;
@@ -48,7 +49,7 @@ function attr(array $attr, $prepend = "", $append = "")
  */
 function js($url, $options = array())
 {
-    $str = '<script type="text/javascript" src="' . $url . '"' . attr($options, " ", "")  . '></script>';
+    $str = '<script type="text/javascript" src="' . $url . '"' . attr($options, " ", "") . '></script>';
     return $str;
 }
 
@@ -61,14 +62,14 @@ function js($url, $options = array())
  */
 function css($url, $options = array())
 {
-    $str = '<link type="text/css" rel="stylesheet" href="' . $url . '"' . attr($options, " ", "")  . '></link>';
+    $str = '<link type="text/css" rel="stylesheet" href="' . $url . '"' . attr($options, " ", "") . '></link>';
     return $str;
 }
 
 /**
  * Shortcut for get_url()
  *
- * @return void
+ * @return string
  */
 function url()
 {
@@ -79,7 +80,7 @@ function url()
  * Returns all params from the current Url
  *
  * @param [type] $url
- * @return void
+ * @return array
  */
 function params($url = NULL)
 {
@@ -96,7 +97,7 @@ function params($url = NULL)
  * Fix input data
  *
  * @param string $data
- * @return void
+ * @return string
  */
 function test_input($data)
 {
@@ -107,10 +108,10 @@ function test_input($data)
 }
 
 /**
- * Parses markdown in the given string. 
+ * Parses markdown in the given string.
  *
- * @param [type] $text
- * @return void
+ * @param string $text
+ * @return string
  */
 function markdown($text)
 {
@@ -153,8 +154,8 @@ function is_url($str)
 /**
  * Slugify text
  *
- * @param [type] $text
- * @return void
+ * @param string $text
+ * @return string
  */
 function slugify($text)
 {
@@ -168,9 +169,9 @@ function slugify($text)
 }
 
 /**
- * Dispatch Content in JSON Formart
+ * Dispatch Content in JSON Format
  *
- * @param [type] $data
+ * @param object $data
  * @param string $status
  * @return void
  */
@@ -191,8 +192,8 @@ function render_error($data = null, $code = 501)
 /**
  * Return A clean Html entities free from xss attacks
  *
- * @param [type] $text
- * @return void
+ * @param string $text
+ * @return string
  */
 function html_xss_clean($text)
 {
@@ -202,8 +203,8 @@ function html_xss_clean($text)
 /**
  * Concat Array  Values With Comma if REQUEST Value is Array
  *
- * @param [type] $arr
- * @return void
+ * @param array $arr
+ * @return array
  */
 function transform_request_data($arr)
 {
@@ -219,7 +220,7 @@ function transform_request_data($arr)
  * Concat Array  Values With Comma
  * Specific for this Framework Only
  * @arr $_POST || $_GET data
- * @return  Array
+ * @return  array
  */
 function transform_multi_request_data($arr)
 {
@@ -238,7 +239,7 @@ function transform_multi_request_data($arr)
  *
  * @param [type] $fieldname
  * @param [type] $default
- * @return void
+ * @return string
  */
 function get_value($fieldname, $default = null)
 {
@@ -252,11 +253,11 @@ function get_value($fieldname, $default = null)
     }
     return $default;
 }
-    
-    /**
+
+/**
  * Return current DateTime in Mysql Default Date Time Format
  *
- * @return void
+ * @return string
  */
 function datetime_now()
 {
@@ -266,7 +267,7 @@ function datetime_now()
 /**
  * Return current Time in Mysql Default Date Time Format
  *
- * @return void
+ * @return string
  */
 function time_now()
 {
@@ -276,7 +277,7 @@ function time_now()
 /**
  * Return current Date in Mysql Default Date Time Format
  *
- * @return void
+ * @return string
  */
 function date_now()
 {
@@ -284,10 +285,10 @@ function date_now()
 }
 
 /**
- * arse Date Or Timestamp Object into Relative Time (e.g. 2 days Ago, 2 days from now)
+ * Parse Date Or Timestamp Object into Relative Time (e.g. 2 days Ago, 2 days from now)
  *
- * @param [type] $date
- * @return void
+ * @param  string $date
+ * @return string
  */
 function relative_date($date)
 {
@@ -295,16 +296,16 @@ function relative_date($date)
         return "No date provided";
     }
 
-    $periods         = array("sec", "min", "hour", "day", "week", "month", "year", "decade");
-    $lengths         = array("60", "60", "24", "7", "4.35", "12", "10");
+    $periods = array("sec", "min", "hour", "day", "week", "month", "year", "decade");
+    $lengths = array("60", "60", "24", "7", "4.35", "12", "10");
 
-    $now             = time();
+    $now = time();
 
     //check if supplied Date is in unix date form
     if (is_numeric($date)) {
-        $unix_date        = $date;
+        $unix_date = $date;
     } else {
-        $unix_date         = strtotime($date);
+        $unix_date = strtotime($date);
     }
 
 
@@ -315,11 +316,11 @@ function relative_date($date)
 
     // is it future date or past date
     if ($now > $unix_date) {
-        $difference     = $now - $unix_date;
-        $tense         = "ago";
+        $difference = $now - $unix_date;
+        $tense = "ago";
     } else {
-        $difference     = $unix_date - $now;
-        $tense         = "from now";
+        $difference = $unix_date - $now;
+        $tense = "from now";
     }
 
     for ($j = 0; $difference >= $lengths[$j] && $j < count($lengths) - 1; $j++) {
@@ -371,11 +372,11 @@ function get_lang($name)
 /**
  * Get The Current Url Address of The Application Server
  *
- * @return void
+ * @return string
  */
 function get_url()
 {
-    $url  = isset($_SERVER['HTTPS']) && 'on' === $_SERVER['HTTPS'] ? 'https' : 'http';
+    $url = isset($_SERVER['HTTPS']) && 'on' === $_SERVER['HTTPS'] ? 'https' : 'http';
     $url .= '://' . $_SERVER['SERVER_NAME'];
     $url .= in_array($_SERVER['SERVER_PORT'], array('80', '443')) ? '' : ':' . $_SERVER['SERVER_PORT'];
     $url .= $_SERVER['REQUEST_URI'];
@@ -386,7 +387,7 @@ function get_url()
  * Will Return a $_GET value or null if key Does not exit or is Empty
  *
  * @param [type] $name
- * @return void
+ * @return string
  */
 function get_query_str_value($name)
 {
@@ -397,7 +398,7 @@ function get_query_str_value($name)
  * Get a value from query string
  *
  * @param [type] $name
- * @return void
+ * @return string
  */
 function get_val($name)
 {
@@ -408,7 +409,7 @@ function get_val($name)
  *  Will Return a $_GET Key Value or null if key Does not exit or is Empty
  *
  * @param [type] $key
- * @return void
+ * @return string
  */
 function get_query_string($key)
 {
@@ -421,7 +422,7 @@ function get_query_string($key)
 }
 
 /**
- * Set Msg that Will be Display to User in a Session. 
+ * Set Msg that Will be Display to User in a Session.
  *
  * @param [type] $msg
  * @param string $type

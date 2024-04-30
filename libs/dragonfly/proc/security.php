@@ -1,4 +1,7 @@
 <?php
+defined('DRAGONFLY_LIB_PATH') or die('No direct script access allowed');
+
+use Impedro\Dragonfly\JWT;
 
 function secure_api_method() {
     if (!logged_in()) {
@@ -22,7 +25,7 @@ function secure_api_method() {
 /**
  * Check if user is logged
  *
- * @return void
+ * @return bool
  */
 function logged_in()
 {
@@ -58,7 +61,7 @@ function redirect_to($new_location)
  *
  * @param string $username
  * @param string $password
- * @return void
+ * @return bool
  */
 function attempt_login($username, $password)
 {
@@ -80,7 +83,7 @@ function attempt_login($username, $password)
  * Find user by username in user tables
  *
  * @param string $username
- * @return void
+ * @return string | bool
  */
 function find_user_by_username($username)
 {
@@ -98,7 +101,7 @@ function find_user_by_username($username)
         mysqli_free_result($user_set);
         return $user;
     } else {
-        return null;
+        return false;
     }
 }
 
@@ -106,7 +109,7 @@ function find_user_by_username($username)
  * Find user by id in user tables
  *
  * @param int $user_id
- * @return void
+ * @return string | bool
  */
 function find_user_by_id($user_id)
 {
@@ -124,7 +127,7 @@ function find_user_by_id($user_id)
         mysqli_free_result($user_set);
         return $user;
     } else {
-        return null;
+        return false;
     }
 }
 
@@ -133,11 +136,11 @@ function user_is_member_of($user_id, $group) {
     global $connection;
 
     $sql = "SELECT COUNT(mgu.IDGroup) AS total " .
-           "FROM MetaGroupUsers mgu " . 
-           "INNER JOIN MetaUser mg ON mgu.IDGroup = mg.IDUser " . 
+           "FROM MetaGroupUsers mgu " .
+           "INNER JOIN MetaUser mg ON mgu.IDGroup = mg.IDUser " .
            "WHERE mgu.IDUser = {$user_id} AND mg.Username LIKE '{$group}'";
 
-    $result = mysqli_query($connection, $sql);  
+    $result = mysqli_query($connection, $sql);
     confirm_query($result);
 
     if (mysqli_num_rows($result) == 0) {

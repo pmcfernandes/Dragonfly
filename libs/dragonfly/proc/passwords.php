@@ -1,10 +1,11 @@
 <?php
+defined('DRAGONFLY_LIB_PATH') or die('No direct script access allowed');
 
 /**
  * Encrypt password
  *
  * @param string $password
- * @return void
+ * @return string
  */
 function password_encrypt($password)
 {
@@ -20,7 +21,7 @@ function password_encrypt($password)
  * Generate a salt for password
  *
  * @param int $length
- * @return void
+ * @return string
  */
 function generate_salt($length)
 {
@@ -36,7 +37,7 @@ function generate_salt($length)
  *
  * @param string $password
  * @param string $existing_hash
- * @return void
+ * @return bool
  */
 function password_check($password, $existing_hash)
 {

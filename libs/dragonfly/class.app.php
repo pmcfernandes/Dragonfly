@@ -1,9 +1,11 @@
 <?php
+namespace Impedro\Dragonfly;
+
 defined('DRAGONFLY_LIB_PATH') or die('No direct script access allowed');
 
 if (isset($_SERVER['QUERY_STRING'])) {
     parse_str($_SERVER['QUERY_STRING'], $qs);
-} 
+}
 
 class Application
 {

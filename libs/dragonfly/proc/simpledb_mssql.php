@@ -1,4 +1,5 @@
 <?php
+defined('DRAGONFLY_LIB_PATH') or die('No direct script access allowed');
 
 /**
  * Connects to microsoft sql server
@@ -7,7 +8,7 @@
  * @param string $server
  * @param string $username
  * @param string $password
- * @return void
+ * @return resource
  */
 function mssql_connect($db = null, $server = null, $username = null, $password = null)
 {
@@ -29,14 +30,14 @@ function mssql_connect($db = null, $server = null, $username = null, $password =
     if (!isset($password)) {
         $password = $config['db_password'];
     }
-    
-    $connection = sqlsrv_connect($server, array( 
-        "UID"       => $username,  
-        "PWD"       => $password,  
+
+    $connection = sqlsrv_connect($server, array(
+        "UID"       => $username,
+        "PWD"       => $password,
         "Database"  => $db
     ));
 
-    if ($connection == false) {  
+    if ($connection == false) {
         die("Database connection failed: " . print_r(sqlsrv_errors(), true));
     } else {
         return $connection;
@@ -88,7 +89,7 @@ function confirm_query($stmt)
  * Query database using sql
  *
  * @param string $sql
- * @return void
+ * @return array
  */
 function mssql_query($sql)
 {
@@ -112,7 +113,7 @@ function mssql_query($sql)
  * Create a record in database table
  *
  * @param string $sql
- * @return void
+ * @return int
  */
 function mssql_insert($sql)
 {
@@ -150,7 +151,7 @@ function mssql_delete($sql)
 /**
  * Get last id inserted in connection
  *
- * @return void
+ * @return int
  */
 function mssql_lastid()
 {
@@ -190,10 +191,10 @@ function mssql_count($sql)
 function mssql_begin_transaction()
 {
     global $connection;
-    
+
     if (sqlsrv_begin_transaction($connection) == false) {
-        die(print_r(sqlsrv_errors(), true));  
-    } 
+        die(print_r(sqlsrv_errors(), true));
+    }
 }
 
 /**

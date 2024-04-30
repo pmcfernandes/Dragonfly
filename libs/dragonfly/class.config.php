@@ -1,5 +1,9 @@
 <?php
+namespace Impedro\Dragonfly;
+
 defined('DRAGONFLY_LIB_PATH') or die('No direct script access allowed');
+
+use Impedro\Dragonfly\Mvc\Controller;
 
 final class Config
 {
@@ -29,7 +33,7 @@ final class Config
     {
         $this->everywhere();
         $i_am_here = $this->whereAmI();
-        
+
         if ($i_am_here == 'production') {
             $this->production();
             return;

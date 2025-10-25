@@ -48,7 +48,7 @@ final class Config
         }
 
         die('<h1>Where am I?</h1> <p>You need to setup your server names in <code>class.config.php</code></p>
-            <p><code>$_SERVER[\'HTTP_HOST\']</code> reported <code>' . $_SERVER['HTTP_HOST'] . '</code></p>');
+            <p><code>$_SERVER[\'HTTP_HOST\']</code> reported <code>' . ($_SERVER['HTTP_HOST'] ?? ''). '</code></p>');
     }
 
     /**
@@ -82,7 +82,7 @@ final class Config
     private function everywhere()
     {
         // Settings for the Authentication class
-        $this->authDomain = $_SERVER['HTTP_HOST'];
+        $this->authDomain = $_SERVER['HTTP_HOST'] ?? '';
         $this->authSalt = '';
     }
 
@@ -128,19 +128,19 @@ final class Config
     public function whereAmI()
     {
         for ($i = 0; $i < count($this->productionServers); $i++) {
-            if (preg_match($this->productionServers[$i], $_SERVER['HTTP_HOST']) === 1) {
+            if (preg_match($this->productionServers[$i], $_SERVER['HTTP_HOST'] ?? '') === 1) {
                 return 'production';
             }
         }
 
         for ($i = 0; $i < count($this->stagingServers); $i++) {
-            if (preg_match($this->stagingServers[$i], $_SERVER['HTTP_HOST']) === 1) {
+            if (preg_match($this->stagingServers[$i], $_SERVER['HTTP_HOST'] ?? '') === 1) {
                 return 'staging';
             }
         }
 
         for ($i = 0; $i < count($this->localServers); $i++) {
-            if (preg_match($this->localServers[$i], $_SERVER['HTTP_HOST']) === 1) {
+            if (preg_match($this->localServers[$i], $_SERVER['HTTP_HOST'] ?? '') === 1) {
                 return 'local';
             }
         }

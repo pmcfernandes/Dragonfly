@@ -1,5 +1,7 @@
 <?php
 
+use Impedro\Dragonfly\Mvc\Controller;
+
 class ErrorController extends Controller {
 
     /**
@@ -17,5 +19,5 @@ class ErrorController extends Controller {
 		echo '<h1>404 Error</h1>';
 		echo '<p>Looks like this page don\'t exist</p>';
 	}
-    
+
 }

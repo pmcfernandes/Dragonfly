@@ -87,13 +87,19 @@ class Application
      */
     public static function render($action, $controller)
     {
-        $instance = new $controller;
+        // Provide an empty route params array by default so controllers
+        // extending AbstractController receive the expected constructor arg.
+        $route_params = [];
+        $instance = new $controller($route_params);
 
         if ($instance) {
+            // Call the action method. Controllers use magic __call to
+            // dispatch to methods named e.g. indexAction. We call the
+            // method name so the controller's __call will append 'Action'.
             return $instance->$action();
-        } else {
-            die('Can\'t initialize controller, check if controller and action exists.');
         }
+
+        die("Can't initialize controller, check if controller and action exists.");
     }
 
     /**
@@ -125,42 +131,59 @@ class Application
         if ($request_url != $script_url) {
             $str = str_replace('index.php', '', $script_url);
             $str = str_replace('/', '\//', $str);
-            $str = preg_replace('/' . $str, '', $request_url, 1);
-            $url = trim($str, '/');
+              $script_path = str_replace('index.php', '', $script_url);
+              // Escape for use in regex
+              $pattern = '/^' . preg_quote($script_path, '/') . '/';
+              $url = preg_replace($pattern, '', $request_url, 1);
+              $url = is_string($url) ? trim($url, '/') : '';
         }
 
         // Split the url into segments
         $segments = explode('/', $url);
 
-        // Do our default checks
+        // Do our default checks and convert controller name to StudlyCaps
         if (isset($segments[0]) && $segments[0] != '') {
-            $controller = $segments[0];
+            // Convert hyphenated names to StudlyCaps (example: post-authors -> PostAuthors)
+            $controller = str_replace(' ', '', ucwords(str_replace('-', ' ', $segments[0])));
         }
         if (isset($segments[1]) && $segments[1] != '') {
             $action = $segments[1];
         }
 
-        // Get our controller file
-        $base_path = 'app/controllers/';
-        $path = $base_path . $controller . '.php';
+    // Get our controller file
+    $base_path = 'app/controllers/';
+    $path = $base_path . strtolower($controller) . '.php';
 
         if (file_exists($path)) {
             require_once($path);
         } else {
             $controller = $config['error_controller'];
-            $path = $base_path . $controller . '.php';
+            $path = $base_path . strtolower($controller) . '.php';
             require_once($path);
         }
 
-        // Check the action exists
-        if (!method_exists($controller . 'Controller', $action)) {
+        // Build controller class name and prefer the global namespace if present
+        $controllerClass = $controller . 'Controller';
+        $fqcn = '\\' . $controllerClass; // fully-qualified global class name
+
+        if (!class_exists($controllerClass) && class_exists($fqcn)) {
+            $controllerClassUsed = $fqcn;
+        } else {
+            $controllerClassUsed = $controllerClass;
+        }
+
+        // Check the action exists on the chosen class
+        if (!method_exists($controllerClassUsed, $action)) {
             $controller = $config['error_controller'];
-            $path = $base_path . $controller . '.php';
+            $path = $base_path . strtolower($controller) . '.php';
             require_once($path);
+            $controllerClass = $controller . 'Controller';
+            $fqcn = '\\' . $controllerClass;
+            $controllerClassUsed = class_exists($fqcn) ? $fqcn : $controllerClass;
             $action = 'index';
         }
 
         // Create object and call method
-        die(Application::render($action, $controller . 'Controller'));
+        die(Application::render($action, $controllerClassUsed));
     }
 }

@@ -53,7 +53,7 @@ final class DBLoop implements Iterator, Countable
      *
      * @link http://stackoverflow.com/questions/8510917/how-would-i-read-this-array-stdclass-object
      */
-    public function current(): void
+    public function current()
     {
         return $this->result[$this->position];
     }

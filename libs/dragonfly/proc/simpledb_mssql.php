@@ -12,6 +12,10 @@ defined('DRAGONFLY_LIB_PATH') or die('No direct script access allowed');
  */
 function mssql_connect($db = null, $server = null, $username = null, $password = null)
 {
+    // Ensure the SQLSRV extension is available before calling its functions
+    if (!function_exists('sqlsrv_connect')) {
+        die("SQL Server driver for PHP ('sqlsrv') is not available.\nPlease install/enable the Microsoft Drivers for PHP for SQL Server or configure the project to use a supported database driver.");
+    }
     global $config;
     global $connection;
 
@@ -53,6 +57,11 @@ function mssql_close()
 {
     global $connection;
 
+    if (!function_exists('sqlsrv_close')) {
+        // nothing to do if driver is not available
+        return;
+    }
+
     if (isset($connection)) {
         sqlsrv_close($connection);
     }
@@ -68,6 +77,10 @@ function mssql_prep($sql)
 {
     global $connection;
 
+    if (!function_exists('sqlsrv_prepare')) {
+        die("SQLSRV functions not available. Can't prepare SQL queries.");
+    }
+
     $escaped_string = sqlsrv_prepare($connection, $sql);
     return $escaped_string;
 }
@@ -78,8 +91,12 @@ function mssql_prep($sql)
  * @param mixed $result_set
  * @return void
  */
-function confirm_query($stmt)
+function mssql_confirm_query($stmt)
 {
+    if (!function_exists('sqlsrv_errors')) {
+        die('SQLSRV functions not available.');
+    }
+
     if (!$stmt) {
         die(print_r(sqlsrv_errors(), true));
     }
@@ -95,8 +112,12 @@ function mssql_query($sql)
 {
     global $connection;
 
+    if (!function_exists('sqlsrv_query')) {
+        die("SQLSRV functions not available. Can't execute queries.");
+    }
+
     $stmt = sqlsrv_query($connection, $sql, array(), array("Scrollable" => 'static'));
-    confirm_query($stmt);
+    mssql_confirm_query($stmt);
     $data = array();
 
     if (sqlsrv_num_rows($stmt) > 0) {
@@ -118,6 +139,10 @@ function mssql_query($sql)
 function mssql_insert($sql)
 {
     global $connection;
+
+    if (!function_exists('sqlsrv_query')) {
+        die("SQLSRV functions not available. Can't execute insert.");
+    }
 
     if (sqlsrv_query($connection, $sql)) {
         return sqlsrv_rows_affected($connection);
@@ -157,6 +182,10 @@ function mssql_lastid()
 {
     global $connection;
 
+    if (!function_exists('sqlsrv_query')) {
+        die("SQLSRV functions not available. Can't get last insert id.");
+    }
+
     $stmt = sqlsrv_query($connection, "SELECT SCOPE_IDENTITY() as id");
 
     if ($stmt) {
@@ -177,8 +206,12 @@ function mssql_count($sql)
 {
     global $connection;
 
+    if (!function_exists('sqlsrv_query')) {
+        die("SQLSRV functions not available. Can't count results.");
+    }
+
     $result = sqlsrv_query($connection, $sql, array(), array("Scrollable" => 'static'));
-    confirm_query($result);
+    mssql_confirm_query($result);
     $count = sqlsrv_num_rows($result);
     return $count;
 }
@@ -191,6 +224,10 @@ function mssql_count($sql)
 function mssql_begin_transaction()
 {
     global $connection;
+
+    if (!function_exists('sqlsrv_begin_transaction')) {
+        die("SQLSRV functions not available. Can't begin transaction.");
+    }
 
     if (sqlsrv_begin_transaction($connection) == false) {
         die(print_r(sqlsrv_errors(), true));
@@ -205,6 +242,10 @@ function mssql_begin_transaction()
 function mssql_commit()
 {
     global $connection;
+    if (!function_exists('sqlsrv_commit')) {
+        die("SQLSRV functions not available. Can't commit transaction.");
+    }
+
     sqlsrv_commit($connection);
 }
 
@@ -216,5 +257,9 @@ function mssql_commit()
 function mssql_rollback()
 {
     global $connection;
+    if (!function_exists('sqlsrv_rollback')) {
+        die("SQLSRV functions not available. Can't rollback transaction.");
+    }
+
     sqlsrv_rollback($connection);
 }

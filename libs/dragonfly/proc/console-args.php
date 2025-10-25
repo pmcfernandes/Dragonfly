@@ -35,12 +35,18 @@ $opts = array();
 if (!isset($known_opts)) $known_opts = array();
 if (!isset($known_longopts)) $known_longopts = array();
 
+
+// Ensure $argv is defined (it's only available in CLI). If not, treat as empty.
+if (!isset($argv) || !is_array($argv)) {
+	$argv = array();
+}
+
 $process = true;
+$argc = count($argv);
 for ($i = 0; $i < $argc; $i++)
+
 {
 	$arg = $argv[$i];
-
-	// This signals the end of any parameters
 	if ($arg == '--')
 	{
 		$process = false;

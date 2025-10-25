@@ -13,7 +13,7 @@ use Twig\Loader\FilesystemLoader;
  *
  * PHP version 7.0
  */
-class View
+class ViewTwig
 {
 
     /**
@@ -31,7 +31,7 @@ class View
         $file = dirname(__DIR__) . "/app/views/$view";  // relative to Core directory
 
         if (is_readable($file)) {
-            require $file;
+            require_once $file;
         } else {
             throw new Exception("$file not found");
         }

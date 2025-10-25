@@ -1,5 +1,7 @@
 <?php
 
+use Impedro\Dragonfly\Mvc\Controller;
+
 class HomeController extends Controller
 {
 

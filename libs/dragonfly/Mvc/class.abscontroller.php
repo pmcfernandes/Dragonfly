@@ -1,6 +1,8 @@
 <?php
 namespace Impedro\Dragonfly\Mvc;
 
+defined('DRAGONFLY_LIB_PATH') or die('No direct script access allowed');
+
 /**
  * Base controller
  *
